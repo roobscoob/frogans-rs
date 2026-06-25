@@ -137,3 +137,61 @@ fn dialog_payload_sizes() {
     assert_eq!(size_of::<inputfa::update_error_raise::UpdateErrorRaise>(), 0x18);
     assert_eq!(size_of::<inputfa::field_text::FieldText>(), 0x18);
 }
+
+#[test]
+fn batch1_payload_sizes() {
+    use fprt_sys::ui::{blocked, devtools, pad, recovery, update, zoom};
+    assert_eq!(size_of::<blocked::labels::Labels>(), 0x58);
+    assert_eq!(size_of::<devtools::labels::Labels>(), 0x48);
+    assert_eq!(size_of::<recovery::labels::Labels>(), 0x48);
+    assert_eq!(size_of::<zoom::labels::Labels>(), 0x58);
+    assert_eq!(size_of::<zoom::event_ok::EventOk>(), 0x0c);
+    assert_eq!(size_of::<update::labels::Labels>(), 0x48);
+    assert_eq!(size_of::<update::update_data::UpdateData>(), 0x28);
+    assert_eq!(size_of::<pad::update_layout::UpdateLayout>(), 0x18);
+    assert_eq!(offset_of!(pad::update_layout::UpdateLayout, layout), 0x04);
+}
+
+#[test]
+fn language_leaptofrogans_legal_sizes() {
+    use fprt_sys::ui::{language, leaptofrogans, legalinformation as legal};
+    assert_eq!(size_of::<language::labels::Labels>(), 0x58);
+    assert_eq!(size_of::<language::update_list::UpdateList>(), 0x28);
+    assert_eq!(size_of::<language::update_list::LangEntry>(), 0x20);
+    assert_eq!(offset_of!(language::update_list::UpdateList, entries), 0x10);
+    assert_eq!(offset_of!(language::update_list::UpdateList, current_lang_id), 0x18);
+    assert_eq!(size_of::<language::event_ok::LanguageOk>(), 0x18);
+
+    assert_eq!(size_of::<leaptofrogans::labels::Labels>(), 0x78);
+    assert_eq!(size_of::<leaptofrogans::update_address::UpdateAddress>(), 0x20);
+    assert_eq!(offset_of!(leaptofrogans::update_address::UpdateAddress, compliant_address), 0x18);
+
+    assert_eq!(size_of::<legal::labels::Labels>(), 0x58);
+    assert_eq!(size_of::<legal::legal_content::UpdateLegalContent>(), 0x38);
+    assert_eq!(size_of::<legal::legal_content::LegalDoc>(), 0x20);
+    assert_eq!(size_of::<legal::legal_content::HtmlDoc>(), 0x20);
+    assert_eq!(offset_of!(legal::legal_content::UpdateLegalContent, image), 0x08);
+    assert_eq!(offset_of!(legal::legal_content::UpdateLegalContent, doc_count), 0x28);
+    assert_eq!(offset_of!(legal::legal_content::UpdateLegalContent, docs), 0x30);
+    assert_eq!(offset_of!(legal::legal_content::LegalDoc, topics), 0x18);
+}
+
+#[test]
+fn inspector_payload_sizes() {
+    use fprt_sys::ui::inspector as insp;
+    assert_eq!(size_of::<insp::head::Head>(), 0x08);
+    assert_eq!(size_of::<insp::update_address::UpdateAddress>(), 0x18);
+    assert_eq!(size_of::<insp::update_content_labels::UpdateContentLabels>(), 0x20);
+    assert_eq!(size_of::<insp::update_content_viewer::UpdateContentViewer>(), 0x28);
+    assert_eq!(size_of::<insp::labels::Labels>(), 0xa8);
+    assert_eq!(size_of::<insp::update_status::UpdateStatus>(), 0x10);
+    assert_eq!(size_of::<insp::update_steps_labels::UpdateStepsLabels>(), 0x20);
+    assert_eq!(size_of::<insp::update_sync::UpdateSync>(), 0x10);
+    assert_eq!(size_of::<insp::ref_event::RefEvent>(), 0x08);
+    assert_eq!(size_of::<insp::step_selected::StepSelected>(), 0x0c);
+    assert_eq!(size_of::<insp::content_selected::ContentSelected>(), 0x0c);
+    assert_eq!(size_of::<insp::change_autosync::ChangeAutosync>(), 0x0c);
+    assert_eq!(offset_of!(insp::update_content_labels::UpdateContentLabels, labels), 0x10);
+    assert_eq!(offset_of!(insp::update_content_labels::UpdateContentLabels, content_active), 0x18);
+    assert_eq!(offset_of!(insp::update_content_viewer::UpdateContentViewer, content_select), 0x20);
+}
