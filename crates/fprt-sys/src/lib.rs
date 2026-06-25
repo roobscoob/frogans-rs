@@ -83,4 +83,68 @@ pub struct Fprt {
     pub application_leaptofrogans: crate::ui::application::LeaptofrogansReport,
     pub application_quit: crate::ui::application::QuitReport,
     pub application_change_layout: crate::ui::application::ChangeLayoutReport,
+
+    // ui::sitehandler (11)
+    pub sitehandler_open: crate::ui::sitehandler::OpenPop,
+    pub sitehandler_close: crate::ui::sitehandler::ClosePop,
+    pub sitehandler_show: crate::ui::sitehandler::ShowPop,
+    pub sitehandler_hide: crate::ui::sitehandler::HidePop,
+    pub sitehandler_begin_animation_inprogress:
+        crate::ui::sitehandler::BeginAnimationInprogressPop,
+    pub sitehandler_end_animation_inprogress: crate::ui::sitehandler::EndAnimationInprogressPop,
+    pub sitehandler_push: crate::ui::sitehandler::PushPop,
+    pub sitehandler_update_layout: crate::ui::sitehandler::UpdateLayoutPop,
+    pub sitehandler_update_visual: crate::ui::sitehandler::UpdateVisualPop,
+    pub sitehandler_button_triggered: crate::ui::sitehandler::ButtonTriggeredReport,
+    pub sitehandler_force_close: crate::ui::sitehandler::ForceCloseReport,
+
+    // ui::menu (8)
+    pub menu_open: crate::ui::menu::OpenPop,
+    pub menu_show: crate::ui::menu::ShowPop,
+    pub menu_push: crate::ui::menu::PushPop,
+    pub menu_hide: crate::ui::menu::HidePop,
+    pub menu_close: crate::ui::menu::ClosePop,
+    pub menu_update_visual: crate::ui::menu::UpdateVisualPop,
+    pub menu_update_layout: crate::ui::menu::UpdateLayoutPop,
+    pub menu_button_triggered: crate::ui::menu::ButtonTriggeredReport,
+
+    // ui::favorites (11)
+    pub favorites_open: crate::ui::favorites::OpenPop,
+    pub favorites_show: crate::ui::favorites::ShowPop,
+    pub favorites_push: crate::ui::favorites::PushPop,
+    pub favorites_hide: crate::ui::favorites::HidePop,
+    pub favorites_close: crate::ui::favorites::ClosePop,
+    pub favorites_update_labels: crate::ui::favorites::UpdateLabelsPop,
+    pub favorites_update_addresses: crate::ui::favorites::UpdateAddressesPop,
+    pub favorites_open_event: crate::ui::favorites::OpenReport,
+    pub favorites_remove: crate::ui::favorites::RemoveReport,
+    pub favorites_remove_all: crate::ui::favorites::RemoveAllReport,
+    pub favorites_cancel: crate::ui::favorites::CancelReport,
+
+    // ui::recentlyvisited (11)
+    pub recentlyvisited_open: crate::ui::recentlyvisited::OpenPop,
+    pub recentlyvisited_show: crate::ui::recentlyvisited::ShowPop,
+    pub recentlyvisited_push: crate::ui::recentlyvisited::PushPop,
+    pub recentlyvisited_hide: crate::ui::recentlyvisited::HidePop,
+    pub recentlyvisited_close: crate::ui::recentlyvisited::ClosePop,
+    pub recentlyvisited_update_labels: crate::ui::recentlyvisited::UpdateLabelsPop,
+    pub recentlyvisited_update_addresses: crate::ui::recentlyvisited::UpdateAddressesPop,
+    pub recentlyvisited_open_event: crate::ui::recentlyvisited::OpenReport,
+    pub recentlyvisited_delete: crate::ui::recentlyvisited::DeleteReport,
+    pub recentlyvisited_delete_all: crate::ui::recentlyvisited::DeleteAllReport,
+    pub recentlyvisited_cancel: crate::ui::recentlyvisited::CancelReport,
+
+    // ui::inputfa (12)
+    pub inputfa_open: crate::ui::inputfa::OpenPop,
+    pub inputfa_show: crate::ui::inputfa::ShowPop,
+    pub inputfa_push: crate::ui::inputfa::PushPop,
+    pub inputfa_hide: crate::ui::inputfa::HidePop,
+    pub inputfa_close: crate::ui::inputfa::ClosePop,
+    pub inputfa_update_error_clear: crate::ui::inputfa::UpdateErrorClearPop,
+    pub inputfa_update_address: crate::ui::inputfa::UpdateAddressPop,
+    pub inputfa_update_error_raise: crate::ui::inputfa::UpdateErrorRaisePop,
+    pub inputfa_update_labels: crate::ui::inputfa::UpdateLabelsPop,
+    pub inputfa_change: crate::ui::inputfa::ChangeReport,
+    pub inputfa_ok: crate::ui::inputfa::OkReport,
+    pub inputfa_cancel: crate::ui::inputfa::CancelReport,
 }

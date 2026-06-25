@@ -5,16 +5,35 @@
 //! export becomes `Pop<P>` (command, engine → host) or `Report<P>` (event,
 //! host → engine) with a payload `P` plugged in.
 
+pub mod address_list;
+pub mod address_selection;
 pub mod application;
+pub mod element_type;
 pub mod event_tag;
+pub mod favorites;
 pub mod image_record;
+pub mod inputfa;
 pub mod layout_tuple;
+pub mod menu;
+pub mod recentlyvisited;
+pub mod sitehandler;
 pub mod sld_rect;
 pub mod status_name;
+pub mod x_button;
+pub mod x_piece;
+pub mod x_representation;
+pub mod x_rollover;
 
+pub use address_list::AddressList;
+pub use address_selection::AddressSelection;
+pub use element_type::ElementType;
 pub use event_tag::EventTag;
 pub use image_record::ImageRecord;
 pub use status_name::StatusName;
+pub use x_button::XButton;
+pub use x_piece::XPiece;
+pub use x_representation::XRepresentation;
+pub use x_rollover::XRollover;
 
 use crate::ctx::Ctx;
 use crate::mem::MempoolHandle;

@@ -6,7 +6,6 @@
 //! alignment padding, so they must be declared to land each field correctly.
 
 use crate::ui::ImageRecord;
-use core::ffi::c_void;
 
 #[repr(C)]
 #[derive(Clone, Copy)]
@@ -23,8 +22,9 @@ pub struct UpdateImages {
     /// +0x030  pad animation frame count.
     pub pad_anim_count: i32,
     pub _rsv034: u32,
-    /// +0x038  pad animation frames (host array).
-    pub pad_anim_images: *mut c_void,
+    /// +0x038  base of the Pad's animation frames — `pad_anim_count` `ImageRecord`s,
+    /// played at `pad_anim_delay` (the Pad's working/loading animation; role inferred).
+    pub pad_anim_images: *mut ImageRecord,
     /// +0x040  discreet-mode pad icon.
     pub pad_main_discreet: ImageRecord,
     pub _rsv058: u64,
@@ -34,8 +34,9 @@ pub struct UpdateImages {
     /// +0x068  site animation frame count.
     pub site_anim_count: i32,
     pub _rsv06c: u32,
-    /// +0x070  site animation frames (host array).
-    pub site_anim_images: *mut c_void,
+    /// +0x070  base of the site-loading animation frames — `site_anim_count`
+    /// `ImageRecord`s, played at `site_anim_delay`.
+    pub site_anim_images: *mut ImageRecord,
     /// +0x078  tooltip images, ids 0..15 (8 element types × hover / selected).
     pub tooltip: [ImageRecord; 16],
     /// +0x1f8  ring at rest.
