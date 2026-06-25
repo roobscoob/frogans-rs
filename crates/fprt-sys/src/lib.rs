@@ -1,4 +1,4 @@
-#![no_std]
+#![cfg_attr(not(test), no_std)]
 
 //! `fprt-sys` — exact, raw declarations of the Frogans Player C ABI.
 //!
@@ -63,4 +63,24 @@ pub struct Fprt {
     pub conductor_sync_leave: FprtConductorSyncLeave,
     pub conductor_sleep_enter: FprtConductorSleepEnter,
     pub conductor_sleep_leave: FprtConductorSleepLeave,
+
+    // ui::application (17)
+    pub application_update_images: crate::ui::application::UpdateImagesPop,
+    pub application_update_zoom: crate::ui::application::UpdateZoomPop,
+    pub application_update_layout: crate::ui::application::UpdateLayoutPop,
+    pub application_update_directionality: crate::ui::application::UpdateDirectionalityPop,
+    pub application_add_clipboard_text: crate::ui::application::AddClipboardTextPop,
+    pub application_add_clipboard_image: crate::ui::application::AddClipboardImagePop,
+    pub application_open_directory: crate::ui::application::OpenDirectoryPop,
+    pub application_reinitialize_developers_directory:
+        crate::ui::application::ReinitializeDevelopersDirectoryPop,
+    pub application_launch_way_out: crate::ui::application::LaunchWayOutPop,
+    pub application_stop: crate::ui::application::StopPop,
+    pub application_start: crate::ui::application::StartReport,
+    pub application_timeout: crate::ui::application::TimeoutReport,
+    pub application_menu_access_wanted: crate::ui::application::MenuAccessWantedReport,
+    pub application_menu_access_unwanted: crate::ui::application::MenuAccessUnwantedReport,
+    pub application_leaptofrogans: crate::ui::application::LeaptofrogansReport,
+    pub application_quit: crate::ui::application::QuitReport,
+    pub application_change_layout: crate::ui::application::ChangeLayoutReport,
 }

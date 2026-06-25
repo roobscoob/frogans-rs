@@ -5,6 +5,17 @@
 //! export becomes `Pop<P>` (command, engine → host) or `Report<P>` (event,
 //! host → engine) with a payload `P` plugged in.
 
+pub mod application;
+pub mod event_tag;
+pub mod image_record;
+pub mod layout_tuple;
+pub mod sld_rect;
+pub mod status_name;
+
+pub use event_tag::EventTag;
+pub use image_record::ImageRecord;
+pub use status_name::StatusName;
+
 use crate::ctx::Ctx;
 use crate::mem::MempoolHandle;
 use crate::ustring::Ustring;
