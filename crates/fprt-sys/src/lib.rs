@@ -27,6 +27,7 @@ pub mod mem;
 pub mod nature;
 pub mod reserved_flag;
 pub mod start_information;
+pub mod ui;
 pub mod ustring;
 
 use crate::conductor::get_next_command::FprtConductorGetNextCommand;
