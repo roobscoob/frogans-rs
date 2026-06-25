@@ -1,0 +1,13 @@
+[workspace]
+resolver = "3"
+members = [
+    "crates/fprt-sys",
+]
+
+[workspace.package]
+version = "0.0.0"
+edition = "2024"
+rust-version = "1.95"
+
+[workspace.dependencies]
+fprt-sys = { path = "crates/fprt-sys" }

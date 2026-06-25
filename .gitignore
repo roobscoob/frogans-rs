@@ -1,0 +1,6 @@
+/target
+**/*.rs.bk
+Cargo.lock.orig
+
+# Do NOT commit the original binaries — they live in ../re/bin and are the
+# oracle, not part of this reimplementation.
