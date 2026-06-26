@@ -1,0 +1,10 @@
+[package]
+name = "frogans-svg"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+# A pure renderer: an fprt `Representation` -> a standalone, interactive SVG
+# string. No engine, no I/O — `&Representation` in, `String` out.
+
+[dependencies]
+fprt = { workspace = true }

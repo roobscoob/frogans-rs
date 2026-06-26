@@ -1,0 +1,17 @@
+[package]
+name = "frogans-cli"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+# A standalone front-end over `fprt`: drives a headless session against a
+# caller-supplied engine module (`--fprt`) instead of a DLL baked in next to a
+# manifest. The binary is `frogans`; `fprt` stays the runtime it sits on.
+
+[[bin]]
+name = "frogans"
+path = "src/main.rs"
+
+[dependencies]
+fprt = { workspace = true }
+frogans-svg = { workspace = true }
+clap = { version = "4", features = ["derive"] }

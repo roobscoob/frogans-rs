@@ -1,8 +1,30 @@
+[package]
+name = "frogans-rs"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+# This root package exists only to host the workspace `examples/`; it ships no
+# library or binary of its own.
+autolib = false
+autobins = false
+
+[dependencies]
+fprt = { workspace = true }
+fprt-sys = { workspace = true }
+
+[dev-dependencies]
+# Examples only. `current_thread` runtime + timers — the engine is single-thread,
+# so we never need the multi-thread scheduler.
+tokio = { version = "1", features = ["rt", "macros", "time"] }
+
 [workspace]
 resolver = "3"
 members = [
     "crates/fprt-sys",
     "crates/fprt-exports",
+    "crates/fprt",
+    "crates/frogans-svg",
+    "crates/frogans-cli",
 ]
 
 [workspace.package]
@@ -13,3 +35,5 @@ rust-version = "1.95"
 [workspace.dependencies]
 fprt-sys = { path = "crates/fprt-sys" }
 fprt-exports = { path = "crates/fprt-exports" }
+fprt = { path = "crates/fprt" }
+frogans-svg = { path = "crates/frogans-svg" }

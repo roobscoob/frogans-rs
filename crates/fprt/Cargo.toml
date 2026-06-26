@@ -1,0 +1,16 @@
+[package]
+name = "fprt"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+fprt-sys = { workspace = true }
+libloading = { version = "0.8", optional = true }
+
+[features]
+# `libloading` is on by default so `Library::open(path)` works out of the box.
+# Disable it (`default-features = false`) to get a loader-agnostic build that
+# only accepts a caller-supplied `impl FprtHost` (e.g. a static-link host).
+default = ["libloading"]
+libloading = ["dep:libloading"]
