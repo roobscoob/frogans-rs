@@ -2,6 +2,7 @@
 resolver = "3"
 members = [
     "crates/fprt-sys",
+    "crates/fprt-exports",
 ]
 
 [workspace.package]
@@ -11,3 +12,4 @@ rust-version = "1.95"
 
 [workspace.dependencies]
 fprt-sys = { path = "crates/fprt-sys" }
+fprt-exports = { path = "crates/fprt-exports" }
