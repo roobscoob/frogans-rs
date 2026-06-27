@@ -21,14 +21,17 @@
 //! are the DLL mapping (encoded by [`FprtHost::methods`] returning `&Fprt`) and
 //! engine-owned string buffers (handled later, by the call layer).
 
-mod arena;
 mod call;
 mod conductor;
 mod engine;
-mod error;
+mod foreign_pool;
 mod host;
 mod library;
-mod pool;
+
+// The memory primitives + error type moved to `fprt-core`; these aliases keep
+// `crate::pool::*` / `crate::error::*` resolving for the modules that use them.
+pub(crate) use fprt_core::error;
+pub(crate) use fprt_core::pool;
 
 pub use conductor::component::{
     application, blocked, devtools, favorites, inputfa, inspector, language, leaptofrogans,
@@ -41,7 +44,7 @@ pub use conductor::{
 pub use error::EngineError;
 pub use host::FprtHost;
 pub use library::{AllocReport, Library};
-pub use pool::{Pooled, PooledImage, PooledString};
+pub use fprt_core::pool::{Pooled, PooledImage, PooledString};
 
 #[cfg(feature = "libloading")]
 pub use library::OpenError;

@@ -1,0 +1,13 @@
+[package]
+name = "fprt-impl"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+# The harness (Server/Emit + the re-exported Ctx/Event/NextWake vocabulary).
+fprt-server.workspace = true
+# The emit vocabulary: command payloads + no-data markers.
+fprt-core.workspace = true
+# The sans-io executor the conductor runs its tasks on.
+beat.workspace = true

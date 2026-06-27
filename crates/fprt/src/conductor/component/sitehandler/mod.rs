@@ -20,10 +20,7 @@ pub use cmd_update_visual::UpdateVisual;
 pub use evt_button_triggered::ReportButtonTriggered;
 pub use evt_force_close::ReportForceClose;
 
-/// Which Frogans Site a command targets / an event came from (the engine
-/// `data_subset` id). `Copy + Eq + Hash` so consumers can key a window map by it.
-#[derive(Clone, Copy, PartialEq, Eq, Hash, Debug)]
-pub struct SiteId(pub i32);
+pub use fprt_core::component::sitehandler::SiteId;
 
 /// A lifecycle/animation command (open/show/push/hide/close/begin/end) — the
 /// whole payload is the [`SiteLifecycle`], so we surface just the id.
@@ -40,12 +37,8 @@ macro_rules! site_marker {
                 methods.$export
             }
 
-            fn from_raw(raw: SiteLifecycle, _pool: &Pool) -> Self {
-                $name(SiteId(raw.site_id))
-            }
-
-            fn into_command(self) -> Command {
-                Command::$variant(self.0)
+            fn decode(raw: SiteLifecycle, _pool: &Pool) -> Command {
+                Command::$variant(SiteId(raw.site_id))
             }
         }
     };

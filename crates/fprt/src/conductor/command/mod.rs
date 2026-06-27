@@ -21,275 +21,10 @@ use super::component::{
     legalinformation, menu, pad, recentlyvisited, recovery, sitehandler, update, zoom,
 };
 
-/// A command the engine emitted during a turn (engine → host).
-///
-/// Flat by design: `Command::ApplicationUpdateZoom(_)`, not
-/// `Command::Application(application::Command::UpdateZoom(_))` — one `match` level.
-/// The payload type lives in its component module ([`application::UpdateZoom`]).
-/// Grows toward all 16 components / 167 commands.
-#[derive(Debug)]
-#[non_exhaustive]
-pub enum Command {
-    /// `application` — the built-in UI image set (sent once at start).
-    ApplicationUpdateImages(application::UpdateImages),
-    /// `application` — current zoom level.
-    ApplicationUpdateZoom(application::UpdateZoom),
-    /// `application` — an application-level layout scalar (host-discarded).
-    ApplicationUpdateLayout(application::UpdateLayout),
-    /// `application` — the text-directionality enum.
-    ApplicationUpdateDirectionality(application::UpdateDirectionality),
-    /// `application` — text to place on the system clipboard.
-    ApplicationAddClipboardText(application::AddClipboardText),
-    /// `application` — image to place on the system clipboard.
-    ApplicationAddClipboardImage(application::AddClipboardImage),
-    /// `application` — reveal a known directory in the file manager.
-    ApplicationOpenDirectory(application::OpenDirectory),
-    /// `application` — re-initialize the developers directory.
-    ApplicationReinitializeDevelopersDirectory,
-    /// `application` — a URL to open externally.
-    ApplicationLaunchWayOut(application::LaunchWayOut),
-    /// `application` — the engine asks the host to stop.
-    ApplicationStop,
-
-    /// `favorites` — open the dialog.
-    FavoritesOpen,
-    /// `favorites` — show the dialog.
-    FavoritesShow,
-    /// `favorites` — push the dialog.
-    FavoritesPush,
-    /// `favorites` — hide the dialog.
-    FavoritesHide,
-    /// `favorites` — close the dialog.
-    FavoritesClose,
-    /// `favorites` — the dialog's localized strings.
-    FavoritesUpdateLabels(favorites::UpdateLabels),
-    /// `favorites` — the address list.
-    FavoritesUpdateAddresses(favorites::UpdateAddresses),
-
-    /// `recentlyvisited` — open the dialog.
-    RecentlyvisitedOpen,
-    /// `recentlyvisited` — show the dialog.
-    RecentlyvisitedShow,
-    /// `recentlyvisited` — push the dialog.
-    RecentlyvisitedPush,
-    /// `recentlyvisited` — hide the dialog.
-    RecentlyvisitedHide,
-    /// `recentlyvisited` — close the dialog.
-    RecentlyvisitedClose,
-    /// `recentlyvisited` — the dialog's localized strings.
-    RecentlyvisitedUpdateLabels(recentlyvisited::UpdateLabels),
-    /// `recentlyvisited` — the address list.
-    RecentlyvisitedUpdateAddresses(recentlyvisited::UpdateAddresses),
-
-    /// `blocked` — open the dialog.
-    BlockedOpen,
-    /// `blocked` — show the dialog.
-    BlockedShow,
-    /// `blocked` — push the dialog.
-    BlockedPush,
-    /// `blocked` — hide the dialog.
-    BlockedHide,
-    /// `blocked` — close the dialog.
-    BlockedClose,
-    /// `blocked` — the dialog's localized strings.
-    BlockedUpdateLabels(blocked::UpdateLabels),
-    /// `blocked` — the address list.
-    BlockedUpdateAddresses(blocked::UpdateAddresses),
-
-    /// `zoom` — open the dialog.
-    ZoomOpen,
-    /// `zoom` — show the dialog.
-    ZoomShow,
-    /// `zoom` — push the dialog.
-    ZoomPush,
-    /// `zoom` — hide the dialog.
-    ZoomHide,
-    /// `zoom` — close the dialog.
-    ZoomClose,
-    /// `zoom` — the dialog's localized strings.
-    ZoomUpdateLabels(zoom::UpdateLabels),
-
-    /// `update` — open the dialog.
-    UpdateOpen,
-    /// `update` — show the dialog.
-    UpdateShow,
-    /// `update` — push the dialog.
-    UpdatePush,
-    /// `update` — hide the dialog.
-    UpdateHide,
-    /// `update` — close the dialog.
-    UpdateClose,
-    /// `update` — the dialog's localized strings.
-    UpdateUpdateLabels(update::UpdateLabels),
-    /// `update` — the dialog's two URIs.
-    UpdateUpdateData(update::UpdateData),
-
-    /// `devtools` — open the dialog.
-    DevtoolsOpen,
-    /// `devtools` — show the dialog.
-    DevtoolsShow,
-    /// `devtools` — push the dialog.
-    DevtoolsPush,
-    /// `devtools` — hide the dialog.
-    DevtoolsHide,
-    /// `devtools` — close the dialog.
-    DevtoolsClose,
-    /// `devtools` — the dialog's localized strings.
-    DevtoolsUpdateLabels(devtools::UpdateLabels),
-    /// `devtools` — the developer-directory list.
-    DevtoolsUpdateAddresses(devtools::UpdateAddresses),
-
-    /// `recovery` — open the dialog.
-    RecoveryOpen,
-    /// `recovery` — show the dialog.
-    RecoveryShow,
-    /// `recovery` — hide the dialog.
-    RecoveryHide,
-    /// `recovery` — close the dialog.
-    RecoveryClose,
-    /// `recovery` — the dialog's localized strings.
-    RecoveryUpdateLabels(recovery::UpdateLabels),
-    /// `recovery` — the recoverable-address list.
-    RecoveryUpdateAddresses(recovery::UpdateAddresses),
-
-    /// `leaptofrogans` — open the dialog.
-    LeaptofrogansOpen,
-    /// `leaptofrogans` — show the dialog.
-    LeaptofrogansShow,
-    /// `leaptofrogans` — push the dialog.
-    LeaptofrogansPush,
-    /// `leaptofrogans` — hide the dialog.
-    LeaptofrogansHide,
-    /// `leaptofrogans` — close the dialog.
-    LeaptofrogansClose,
-    /// `leaptofrogans` — the dialog's localized strings.
-    LeaptofrogansUpdateLabels(leaptofrogans::UpdateLabels),
-    /// `leaptofrogans` — the candidate address + compliance.
-    LeaptofrogansUpdateAddress(leaptofrogans::UpdateAddress),
-
-    /// `legalinformation` — open the panel.
-    LegalinformationOpen,
-    /// `legalinformation` — show the panel.
-    LegalinformationShow,
-    /// `legalinformation` — push the panel.
-    LegalinformationPush,
-    /// `legalinformation` — hide the panel.
-    LegalinformationHide,
-    /// `legalinformation` — close the panel.
-    LegalinformationClose,
-    /// `legalinformation` — the panel's localized strings.
-    LegalinformationUpdateLabels(legalinformation::UpdateLabels),
-    /// `legalinformation` — the nested legal-document content tree.
-    LegalinformationUpdateLegalContent(legalinformation::UpdateLegalContent),
-
-    /// `language` — open the dialog.
-    LanguageOpen,
-    /// `language` — show the dialog.
-    LanguageShow,
-    /// `language` — push the dialog.
-    LanguagePush,
-    /// `language` — hide the dialog.
-    LanguageHide,
-    /// `language` — close the dialog.
-    LanguageClose,
-    /// `language` — the dialog's localized strings.
-    LanguageUpdateLabels(language::UpdateLabels),
-    /// `language` — the selectable-language list.
-    LanguageUpdateList(language::UpdateList),
-
-    /// `inputfa` — open the dialog.
-    InputfaOpen,
-    /// `inputfa` — show the dialog.
-    InputfaShow,
-    /// `inputfa` — push the dialog.
-    InputfaPush,
-    /// `inputfa` — hide the dialog.
-    InputfaHide,
-    /// `inputfa` — close the dialog.
-    InputfaClose,
-    /// `inputfa` — clear the inline error.
-    InputfaUpdateErrorClear,
-    /// `inputfa` — the dialog's localized strings.
-    InputfaUpdateLabels(inputfa::UpdateLabels),
-    /// `inputfa` — the canonical address for the field.
-    InputfaUpdateAddress(inputfa::UpdateAddress),
-    /// `inputfa` — inline error text to display.
-    InputfaUpdateErrorRaise(inputfa::UpdateErrorRaise),
-
-    /// `inspector` — open a window. Carries the target window id.
-    InspectorOpen(inspector::InspectorId),
-    /// `inspector` — show a window.
-    InspectorShow(inspector::InspectorId),
-    /// `inspector` — hide a window.
-    InspectorHide(inspector::InspectorId),
-    /// `inspector` — push a window.
-    InspectorPush(inspector::InspectorId),
-    /// `inspector` — close a window.
-    InspectorClose(inspector::InspectorId),
-    /// `inspector` — the address shown in a window.
-    InspectorUpdateAddress(inspector::UpdateAddress),
-    /// `inspector` — a window's run status.
-    InspectorUpdateStatus(inspector::UpdateStatus),
-    /// `inspector` — a window's localized strings.
-    InspectorUpdateLabels(inspector::UpdateLabels),
-    /// `inspector` — a window's run-step combobox.
-    InspectorUpdateStepsLabels(inspector::UpdateStepsLabels),
-    /// `inspector` — a window's content selector.
-    InspectorUpdateContentLabels(inspector::UpdateContentLabels),
-    /// `inspector` — a document loaded into a window's viewer.
-    InspectorUpdateContentViewer(inspector::UpdateContentViewer),
-    /// `inspector` — a window's auto-sync state.
-    InspectorUpdateSync(inspector::UpdateSync),
-
-    /// `pad` — open the pad window.
-    PadOpen,
-    /// `pad` — show the pad window.
-    PadShow,
-    /// `pad` — hide the pad window.
-    PadHide,
-    /// `pad` — close the pad window.
-    PadClose,
-    /// `pad` — begin the open/close animation.
-    PadBeginAnimation,
-    /// `pad` — end the open/close animation.
-    PadEndAnimation,
-    /// `pad` — the pad window's geometry.
-    PadUpdateLayout(pad::UpdateLayout),
-
-    /// `menu` — open the menu.
-    MenuOpen,
-    /// `menu` — show the menu.
-    MenuShow,
-    /// `menu` — push the menu.
-    MenuPush,
-    /// `menu` — hide the menu.
-    MenuHide,
-    /// `menu` — close the menu.
-    MenuClose,
-    /// `menu` — the rendered menu + interactive entries.
-    MenuUpdateVisual(menu::UpdateVisual),
-    /// `menu` — the menu's geometry (host-discarded).
-    MenuUpdateLayout(menu::UpdateLayout),
-
-    /// `sitehandler` — open a site window. Carries the target site id.
-    SitehandlerOpen(sitehandler::SiteId),
-    /// `sitehandler` — show a site window.
-    SitehandlerShow(sitehandler::SiteId),
-    /// `sitehandler` — push a site window.
-    SitehandlerPush(sitehandler::SiteId),
-    /// `sitehandler` — hide a site window.
-    SitehandlerHide(sitehandler::SiteId),
-    /// `sitehandler` — close a site window.
-    SitehandlerClose(sitehandler::SiteId),
-    /// `sitehandler` — begin the in-progress animation at a site window.
-    SitehandlerBeginAnimationInprogress(sitehandler::SiteId),
-    /// `sitehandler` — end the in-progress animation at a site window.
-    SitehandlerEndAnimationInprogress(sitehandler::SiteId),
-    /// `sitehandler` — re-position / zoom a site window.
-    SitehandlerUpdateLayout(sitehandler::UpdateLayout),
-    /// `sitehandler` — the rendered site slides + interactive zones.
-    SitehandlerUpdateVisual(sitehandler::UpdateVisual),
-}
+// The `Command` enum lives in `fprt-core` (shared with the server, which produces
+// these). Re-exported so `crate::conductor::command::Command` and the public API
+// keep resolving; this module owns only the client-side *dispatch* of them.
+pub use fprt_core::Command;
 
 /// Why reading the command stream stopped.
 #[derive(Debug)]
@@ -387,17 +122,17 @@ fn next_command(ctx: Ctx, engine: &Arc<EngineInner>) -> Result<Option<StatusName
 /// Everything one command needs to be decoded — implemented in the command's own
 /// file (e.g. `component/application/cmd_update_zoom.rs`), so dispatch logic is
 /// fully distributed. The central [`COMMANDS`] table just lists the types.
-pub(crate) trait CommandPayload: Sized {
+pub(crate) trait CommandPayload {
     /// The engine's `0x2195xx` command-class id.
     const ID: StatusName;
     /// The raw `#[repr(C)]` payload the engine fills.
     type Raw;
     /// The matching `*_pop` export.
     fn pop_fn(methods: &Fprt) -> Pop<Self::Raw>;
-    /// Convert the filled raw payload (+ its pool) into the safe struct.
-    fn from_raw(raw: Self::Raw, pool: &Pool) -> Self;
-    /// Wrap the safe struct in its [`Command`] variant.
-    fn into_command(self) -> Command;
+    /// Decode the filled raw payload (+ its pool) and wrap it in its [`Command`]
+    /// variant. Delegates to the `fprt-core` codec (`<Type>::from_raw`); this
+    /// trait is the client transport seam, not the codec itself.
+    fn decode(raw: Self::Raw, pool: &Pool) -> Command;
 }
 
 /// Define a no-payload command marker (a `Pop<StatusName>` lifecycle signal):
@@ -417,11 +152,7 @@ macro_rules! marker_command {
                 methods.$export
             }
 
-            fn from_raw(_raw: ::fprt_sys::ui::StatusName, _pool: &$crate::pool::Pool) -> Self {
-                $name
-            }
-
-            fn into_command(self) -> $crate::Command {
+            fn decode(_raw: ::fprt_sys::ui::StatusName, _pool: &$crate::pool::Pool) -> $crate::Command {
                 $crate::Command::$variant
             }
         }
@@ -438,7 +169,7 @@ fn pop_typed<C: CommandPayload>(
     let pop_fn = C::pop_fn(engine.methods());
     // SAFETY: `pop_fn` is the export for this command; `ctx` + out pointers valid.
     let (raw, pool) = pop(engine, |out, s, e, p| unsafe { pop_fn(ctx, out, s, e, p) })?;
-    Ok(C::from_raw(raw, &pool).into_command())
+    Ok(C::decode(raw, &pool))
 }
 
 type Dispatch = fn(Ctx, &Arc<EngineInner>) -> Result<Command, CommandError>;

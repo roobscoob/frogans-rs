@@ -6,19 +6,9 @@ use fprt_sys::ui::{Pop, StatusName};
 use fprt_sys::Fprt;
 
 use crate::conductor::command::{Command, CommandPayload};
-use crate::conductor::component::inspector::InspectorId;
-use crate::pool::{Pool, PooledString};
+use crate::pool::Pool;
 
-/// The inspector step-combobox entries plus the index to pre-select.
-#[derive(Debug)]
-pub struct UpdateStepsLabels {
-    /// The target window.
-    pub id: InspectorId,
-    /// The step labels, in engine order.
-    pub labels: Vec<PooledString>,
-    /// Index into `labels` to pre-select.
-    pub active_step: i32,
-}
+pub use fprt_core::component::inspector::UpdateStepsLabels;
 
 impl CommandPayload for UpdateStepsLabels {
     const ID: StatusName = CMD_UPDATE_STEPS_LABELS;
@@ -28,17 +18,7 @@ impl CommandPayload for UpdateStepsLabels {
         methods.inspector_update_steps_labels
     }
 
-    fn from_raw(raw: Raw, pool: &Pool) -> Self {
-        // SAFETY: `labels` points at `count` entries written into `pool` by the pop.
-        let labels = unsafe { pool.strings(raw.labels, raw.count) };
-        UpdateStepsLabels {
-            id: InspectorId(raw.reference),
-            labels,
-            active_step: raw.active_step,
-        }
-    }
-
-    fn into_command(self) -> Command {
-        Command::InspectorUpdateStepsLabels(self)
+    fn decode(raw: Raw, pool: &Pool) -> Command {
+        Command::InspectorUpdateStepsLabels(UpdateStepsLabels::from_raw(raw, pool))
     }
 }

@@ -1,0 +1,22 @@
+[package]
+name = "frogans-surfaces"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+# Turns the `fprt` conductor's per-component UI command stream into a clean
+# per-window "surface" API bound to a `winit` event loop. The embedder owns
+# window creation (via the `Embedder` factory); this crate owns the engine turn
+# pump, command routing, and — in later phases — the egui/wgpu paint path.
+
+[dependencies]
+fprt = { workspace = true }
+winit = "0.30"
+# The unified paint path: every surface renders through egui on wgpu. Visual
+# surfaces (site/menu/pad) upload the engine's RGBA slides as egui textures;
+# chrome surfaces draw widgets.
+egui = "0.35"
+egui-winit = "0.35"
+egui-wgpu = "0.35"
+wgpu = "29"
+# Block on wgpu's async adapter/device requests (we run on one thread).
+pollster = "0.4"

@@ -30,7 +30,9 @@ pub struct EngineError {
 }
 
 impl EngineError {
-    pub(crate) fn new(code: i32, message: Option<PooledString>) -> Self {
+    /// Construct from a status code and an optional engine message. Used by the
+    /// client's call layer (consume side) and available to the server.
+    pub fn new(code: i32, message: Option<PooledString>) -> Self {
         EngineError { code, message }
     }
 
@@ -56,7 +58,7 @@ fn grouped(code: i32) -> String {
     let digits = code.unsigned_abs().to_string();
     let len = digits.len();
     for (i, ch) in digits.char_indices() {
-        if i > 0 && (len - i) % 3 == 0 {
+        if i > 0 && (len - i).is_multiple_of(3) {
             out.push(',');
         }
         out.push(ch);

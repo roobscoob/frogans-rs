@@ -3,12 +3,28 @@ name = "frogans-rs"
 version.workspace = true
 edition.workspace = true
 rust-version.workspace = true
-# This root package exists only to host the workspace `examples/`; it ships no
-# library or binary of its own.
-autolib = false
 autobins = false
 
+# The shippable engine DLL: the `fprt-impl` engine, wrapped by `fprt-server` and
+# surfaced through `fprt-exports` as the 179 C symbols `FrogansPlayer.exe` imports.
+# The lib name sets the output filename, so it must be `fprt` → `fprt.dll`.
+# `cdylib`-only: an rlib named `fprt` would collide with the client crate's. The
+# whole DLL is one source file, `dll.rs`.
+[lib]
+name = "fprt"
+path = "dll.rs"
+crate-type = ["cdylib"]
+
 [dependencies]
+# The fprt.dll stack (the `[lib]` above):
+fprt-impl = { workspace = true }
+fprt-server = { workspace = true }
+fprt-exports = { workspace = true }
+# Load-time constructor: places the right per-platform init hook (Windows CRT
+# init / ELF `.init_array` / Mach-O `__mod_init_func`) so the engine installs
+# before the host calls any export.
+ctor = "0.2"
+# `examples/` only:
 fprt = { workspace = true }
 fprt-sys = { workspace = true }
 
@@ -20,11 +36,19 @@ tokio = { version = "1", features = ["rt", "macros", "time"] }
 [workspace]
 resolver = "3"
 members = [
+    "crates/beat",
     "crates/fprt-sys",
+    "crates/fprt-core",
     "crates/fprt-exports",
+    "crates/fprt-server",
+    "crates/fprt-impl",
+    "crates/fprt-proxy",
     "crates/fprt",
     "crates/frogans-svg",
     "crates/frogans-cli",
+    "crates/frogans-surfaces",
+    "crates/frogans-player-desktop",
+    "crates/manifap",
 ]
 
 [workspace.package]
@@ -33,7 +57,13 @@ edition = "2024"
 rust-version = "1.95"
 
 [workspace.dependencies]
+beat = { path = "crates/beat" }
 fprt-sys = { path = "crates/fprt-sys" }
+fprt-core = { path = "crates/fprt-core" }
 fprt-exports = { path = "crates/fprt-exports" }
+fprt-server = { path = "crates/fprt-server" }
+fprt-impl = { path = "crates/fprt-impl" }
 fprt = { path = "crates/fprt" }
 frogans-svg = { path = "crates/frogans-svg" }
+frogans-surfaces = { path = "crates/frogans-surfaces" }
+manifap = { path = "crates/manifap" }

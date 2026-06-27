@@ -1,0 +1,1617 @@
+#  ---------------------------------------------------------------------
+#  Frogans Address Composition Rules - FACR 1.0
+#  FACR Lookup Table
+#  ---------------------------------------------------------------------
+#
+#  Reference: FLT02_LC_Chinese_Employable
+#
+#  Description: This FACR lookup table contains the list of code points
+#  that are employable characters of LC-Chinese with, for each code
+#  point, the value of its Script property.  This lookup table is used
+#  in the |c1_verify_employable_characters| function defined in Appendix
+#  C.1 of the FACR specification document.
+#
+#  File name:     facr10-adopted.spec.flt02-lc-chinese-employable.txt
+#  File created:  2014-12-04T15:55:37Z
+#
+#  For additional information on the format of FACR lookup tables, see
+#  Appendix A in the FACR specification document.
+#
+#  For additional information on the use of FACR lookup tables, see
+#  Appendix C in the FACR specification document.
+#
+#  Properties mentioned in this document are those defined in the
+#  Unicode Standard.
+#
+#  This document is accessible at the following permanent URL:
+#  https://www.frogans.org/en/resources/facr/access.html.
+#
+#  This document must be used in compliance with the Frogans Technology
+#  User Policy, accessible at the following permanent URL:
+#  https://www.frogans.org/en/resources/ftup/access.html.
+#
+#  Copyright (C) 2014 OP3FT.  All rights reserved.
+#
+#
+#  ---------------------------------------------------------------------
+#  Third-party source materials used to create this lookup table
+#  ---------------------------------------------------------------------
+#
+#  File: cn_zh-cn_4.0.html
+#
+#  - Location:
+#    http://www.iana.org/domains/idn-tables/tables/cn_zh-cn_4.0.html
+#
+#  - Description:
+#    cn_zh-cn_4.0.html is version 4.0 of the IDN table file that lists
+#    the permitted code points that can be used for registration of
+#    Chinese Domain Names.  The file is in HTML format.
+#
+#    The permitted code points are contained in a table which is
+#    embedded in a preformatted text (PRE) element in the file.  The
+#    format of the table is given in the comments at the start of the
+#    file.
+#
+#    The permitted code points defined in this table are the same as
+#    those defined in the file tw_zh-tw_4.0.1.html located at
+#    http://www.iana.org/domains/idn-tables/tables/tw_zh-tw_4.0.1.html.
+#
+#  - Acknowledgements:
+#    The file, dated March 31, 2005, is available in the Repository of
+#    Internationalized Domain Name (IDN) Practices maintained by the
+#    Internet Assigned Numbers Authority (IANA).  The file was
+#    contributed by CNNIC.  The OP3FT would like to express its
+#    gratitude towards CNNIC for publishing its table for the benefit of
+#    the community.
+#
+#
+#  File: Scripts.txt
+#
+#  - Location:
+#    http://www.unicode.org/Public/7.0.0/ucd/Scripts.txt
+#
+#  - Description:
+#    Scripts.txt is a file in the Unicode Character Database of version
+#    7.0.0 of the Unicode Standard.  It lists code points and their
+#    associated scripts.  For details on the format and contents of this
+#    file, see revision 14 of the Unicode Standard Annex #44 at
+#    http://www.unicode.org/reports/tr44/tr44-14.html.
+#
+#  - Copyright and Permission Notice:
+#    Copyright (C) 1991-2014 Unicode, Inc.  All rights reserved.
+#    Distributed under the Terms of Use in
+#    http://www.unicode.org/copyright.html.
+#
+#    Permission is hereby granted, free of charge, to any person
+#    obtaining a copy of the Unicode data files and any associated
+#    documentation (the "Data Files") or Unicode software and any
+#    associated documentation (the "Software") to deal in the Data Files
+#    or Software without restriction, including without limitation the
+#    rights to use, copy, modify, merge, publish, distribute, and/or
+#    sell copies of the Data Files or Software, and to permit persons to
+#    whom the Data Files or Software are furnished to do so, provided
+#    that (a) the above copyright notice(s) and this permission notice
+#    appear with all copies of the Data Files or Software, (b) both the
+#    above copyright notice(s) and this permission notice appear in
+#    associated documentation, and (c) there is clear notice in each
+#    modified Data File or in the Software as well as in the
+#    documentation associated with the Data File(s) or Software that the
+#    data or software has been modified.
+#
+#
+#  File: UnicodeData.txt
+#
+#  - Location:
+#    http://www.unicode.org/Public/7.0.0/ucd/UnicodeData.txt
+#
+#  - Description:
+#    UnicodeData.txt is a file in the Unicode Character Database of
+#    version 7.0.0 of the Unicode Standard.  It lists all Unicode
+#    characters and their properties.  For details on the format and
+#    contents of this file, see revision 14 of the Unicode Standard
+#    Annex #44 at
+#    http://www.unicode.org/reports/tr44/tr44-14.html.
+#
+#  - Copyright and Permission Notice:
+#    Copyright (C) 1991-2014 Unicode, Inc.  All rights reserved.
+#    Distributed under the Terms of Use in
+#    http://www.unicode.org/copyright.html.
+#
+#    See the Copyright and Permission Notice for the Scripts.txt file
+#    above.
+#
+#
+#  ---------------------------------------------------------------------
+#  IFAP lookup tables used to create this lookup table
+#  ---------------------------------------------------------------------
+#
+#  ILT08_Eligible_Characters
+#
+#  This IFAP lookup table is part of version 1.1 of the International
+#  Frogans Address Pattern (IFAP) specification published by the OP3FT.
+#
+#  The IFAP specification, including its lookup tables, is accessible at
+#  the following permanent URL:
+#  https://www.frogans.org/en/resources/ifap/access.html
+#
+#
+#  ---------------------------------------------------------------------
+#  Other FACR lookup tables used to create this lookup table
+#  ---------------------------------------------------------------------
+#
+#  None
+#
+#
+#  ---------------------------------------------------------------------
+#  Description of the fields in this lookup table
+#  ---------------------------------------------------------------------
+#
+#  Field count: 2
+#
+#
+#  Field 1: CODE_POINT
+#
+#  - Description:
+#    A code point or a range of code points
+#
+#  Field 2: SCRIPT
+#
+#  - Description:
+#    A text value representing the Script property of the code point or
+#    the range of code points
+#
+#
+#  ---------------------------------------------------------------------
+#  Method used to compute the field values in this lookup table
+#  ---------------------------------------------------------------------
+#
+#  The data lines following these comments are created by the four-step
+#  process described below.
+#
+#  During the execution of this process, three temporary tables TT1,
+#  TT2, and TT3 are created and used for storage of values.  These
+#  temporary tables are discarded at the end of the process.
+#
+#
+#  Step 1
+#
+#  The purpose of this step is to produce a list of code points for
+#  LC-Chinese.
+#
+#  Each line of the table in cn_zh-cn_4.0.html is analyzed and the value
+#  in the first column of the table is read.  This value corresponds to
+#  a code point.
+#
+#  A line is added to TT1 containing the code point.
+#
+#
+#  Step 2
+#
+#  The purpose of this step is to include the 26 code points
+#  corresponding to the uppercase characters 'A' to 'Z'.  The code
+#  points resulting from this step are stored in TT2.
+#
+#  Each line of TT1, corresponding to a code point, is read.
+#
+#  First, a line is added to TT2 containing the code point.
+#
+#  Second, the code point is looked up in UnicodeData.txt and the
+#  thirteenth and the fifteenth fields in the semi-colon separated list
+#  in matching lines of UnicodeData.txt are analyzed.  These fields
+#  correspond to the Simple_Uppercase_Mapping and the
+#  Simple_Titlecase_Mapping properties respectively.  If these fields
+#  are not empty, then the value of each field is a code point.
+#
+#  If the thirteenth field is not empty, and its value has not already
+#  been added to TT2, a line is added to TT2 containing its value.
+#
+#  If the fifteenth field is not empty, and its value has not already
+#  been added to TT2, a line is added to TT2 containing its value.
+#
+#
+#  Step 3
+#
+#  The purpose of this step is to exclude code points that are not
+#  eligible characters according to version 1.1 of the IFAP
+#  specification.
+#
+#  Each line of TT2, corresponding to a code point, is read.  If a code
+#  point is skipped in the process below, then the process continues
+#  with the next line.
+#
+#  The code point is looked up in ILT08_Eligible_Characters.
+#
+#  If the code point is not found, then the code point is skipped.
+#
+#  Otherwise, in the data line of ILT08_Eligible_Characters that
+#  contains the code point, if the second field (IS_ELIGIBLE) equals 0,
+#  then the code point is skipped.
+#
+#  Otherwise, the code point is looked up in Scripts.txt to retrieve the
+#  value of the Script property, which is the second field in the
+#  semi-colon separated list in each line of Scripts.txt.
+#
+#  A line consisting of two fields is added to TT3:
+#
+#  - The value of the first field contains the code point.
+#
+#  - The value of the second field contains the value of the Script
+#    property for the code point.
+#
+#
+#  Step 4
+#
+#  The purpose of this step is to generate the data lines in
+#  FLT02_LC_Chinese_Employable.
+#
+#  The lines in TT3 are sorted by the value of the first field.  Then
+#  any lines in TT3 with consecutive values in the first field and
+#  identical values in the second field are merged into a single line in
+#  TT3 having the following values:
+#
+#  - The first field contains the code point range.
+#
+#  - The second field contains the value of the Script property for the
+#    code point range.
+#
+#  When the above process is complete, for each line of TT3, a data line
+#  is added to FLT02_LC_Chinese_Employable with the value of the two
+#  fields CODE_POINT and SCRIPT:
+#
+#  - The first value contains the code point or code point range.
+#
+#  - The second value contains the value of the Script property for the
+#    code point or code point range.  The value of this field can be
+#    'Common', 'Latin', and 'Han'.
+#
+#
+#  ---------------------------------------------------------------------
+#  Generated data lines
+#  ---------------------------------------------------------------------
+#
+CODE_POINT,SCRIPT
+002D,Common
+0030..0039,Common
+0041..005A,Latin
+0061..007A,Latin
+3447,Han
+3473,Han
+359E,Han
+360E,Han
+361A,Han
+3918,Han
+396E,Han
+39CF..39D0,Han
+39DF,Han
+3A73,Han
+3B4E,Han
+3C6E,Han
+3CE0,Han
+4056,Han
+415F,Han
+4337,Han
+43AC,Han
+43B1,Han
+43DD,Han
+44D6,Han
+464C,Han
+4661,Han
+4723,Han
+4729,Han
+477C,Han
+478D,Han
+4947,Han
+497A,Han
+497D,Han
+4982..4983,Han
+4985..4986,Han
+499B,Han
+499F,Han
+49B6..49B7,Han
+4C77,Han
+4C9F..4CA3,Han
+4D13..4D19,Han
+4DAE,Han
+4E00..4E11,Han
+4E13..4E28,Han
+4E2A..4E54,Han
+4E56..4E67,Han
+4E69..4E78,Han
+4E7A..4E89,Han
+4E8B..4E95,Han
+4E97..4EA2,Han
+4EA4..4EBB,Han
+4EBD..4ECB,Han
+4ECD..4EE6,Han
+4EE8..4EEC,Han
+4EEF..4EF7,Han
+4EFB,Han
+4EFD,Han
+4EFF..4F06,Han
+4F08..4F15,Han
+4F17..4F27,Han
+4F29..4F30,Han
+4F32..4F34,Han
+4F36,Han
+4F38..4F3F,Han
+4F41..4F43,Han
+4F45..4F70,Han
+4F72..4F8B,Han
+4F8D,Han
+4F8F..4FA1,Han
+4FA3..4FAC,Han
+4FAE..4FBC,Han
+4FBE..4FC5,Han
+4FC7,Han
+4FC9..4FCB,Han
+4FCD..4FE1,Han
+4FE3..4FFB,Han
+4FFE..500F,Han
+5011..5033,Han
+5035..5037,Han
+5039..503C,Han
+503E..5041,Han
+5043..504F,Han
+5051,Han
+5053..5057,Han
+5059..507B,Han
+507D..5080,Han
+5082..5092,Han
+5094..5096,Han
+5098..509E,Han
+50A2..50B8,Han
+50BA..50C2,Han
+50C4..50D7,Han
+50D9..50DE,Han
+50E0,Han
+50E3..50EA,Han
+50EC..50F3,Han
+50F5..50F6,Han
+50F8..511A,Han
+511C..5127,Han
+5129..512A,Han
+512C..5141,Han
+5143..5149,Han
+514B..514E,Han
+5150..5152,Han
+5154..5157,Han
+5159..515F,Han
+5161..5163,Han
+5165..5171,Han
+5173..517D,Han
+517F..5182,Han
+5185..518D,Han
+518F..51A0,Han
+51A2,Han
+51A4..51A8,Han
+51AA..51AC,Han
+51AE..51B3,Han
+51B5..51B7,Han
+51B9,Han
+51BB..51C1,Han
+51C3..51D1,Han
+51D4..51DE,Han
+51E0..51E5,Han
+51E7..51EB,Han
+51ED,Han
+51EF..51F1,Han
+51F3..5226,Han
+5228..524E,Han
+5250..5252,Han
+5254..5265,Han
+5267..5270,Han
+5272..5278,Han
+527A..5284,Han
+5286..528D,Han
+528F..52A3,Han
+52A5..52C3,Han
+52C6..52C7,Han
+52C9..52CB,Han
+52CD,Han
+52CF..52D0,Han
+52D2..52D3,Han
+52D5..52E0,Han
+52E2..52E4,Han
+52E6..52ED,Han
+52EF..5302,Han
+5305..5317,Han
+5319..531A,Han
+531C..531D,Han
+531F..5326,Han
+5328,Han
+532A..5331,Han
+5333..5334,Han
+5337,Han
+5339..5341,Han
+5343..535A,Han
+535C,Han
+535E..5367,Han
+5369,Han
+536B..536C,Han
+536E..537F,Han
+5381..53A0,Han
+53A2..53A9,Han
+53AC..53AE,Han
+53B0..53B9,Han
+53BB..53C4,Han
+53C6..53CE,Han
+53D0..53D9,Han
+53DB..53DC,Han
+53DF..53E6,Han
+53E8..53FE,Han
+5401..5419,Han
+541B..5421,Han
+5423..544B,Han
+544D..545C,Han
+545E..5468,Han
+546A..5489,Han
+548B..54B4,Han
+54B6..54F5,Han
+54F7..5514,Han
+5516..5517,Han
+551A..5546,Han
+5548..555F,Han
+5561..5579,Han
+557B..55DF,Han
+55E1..55F7,Han
+55F9..5604,Han
+5606..5609,Han
+560C..561F,Han
+5621..562A,Han
+562C..5636,Han
+5638..563B,Han
+563D..5643,Han
+5645..564A,Han
+564C..5650,Han
+5652..5655,Han
+5657..565E,Han
+5660,Han
+5662..5674,Han
+5676..567C,Han
+567E..5687,Han
+568A,Han
+568C..5695,Han
+5697..569D,Han
+569F..56A1,Han
+56A3..56B9,Han
+56BB..56CE,Han
+56D0..56D8,Han
+56DA..56E5,Han
+56E7..56F5,Han
+56F7,Han
+56F9..56FA,Han
+56FD..5704,Han
+5706..5710,Han
+5712..5716,Han
+5718..5720,Han
+5722..5723,Han
+5725..573C,Han
+573E..5742,Han
+5744..5747,Han
+5749..5754,Han
+5757,Han
+5759..5762,Han
+5764..576D,Han
+576F..5777,Han
+5779..5780,Han
+5782..5786,Han
+5788..5795,Han
+5797..57A7,Han
+57A9..57C9,Han
+57CB..57D0,Han
+57D2..57D6,Han
+57D8..57DA,Han
+57DC..57DD,Han
+57DF..5816,Han
+5819..5840,Han
+5842..584F,Han
+5851..5855,Han
+5857..585F,Han
+5861..5865,Han
+5868..5876,Han
+5878..5894,Han
+5896..58A9,Han
+58AB..58B4,Han
+58B7..58BF,Han
+58C1..58C2,Han
+58C5..58CB,Han
+58CE..58CF,Han
+58D1..58DB,Han
+58DD..58E0,Han
+58E2..58E5,Han
+58E7..58F4,Han
+58F6..5900,Han
+5902..5904,Han
+5906..5907,Han
+5909..5910,Han
+5912,Han
+5914..5922,Han
+5924..5932,Han
+5934..5935,Han
+5937..5958,Han
+595A,Han
+595C..599A,Han
+599C..59B6,Han
+59B8..59E6,Han
+59E8..5A23,Han
+5A25,Han
+5A27..5A2B,Han
+5A2D..5A2F,Han
+5A31..5A53,Han
+5A55..5A58,Han
+5A5A..5A6E,Han
+5A70,Han
+5A72..5A86,Han
+5A88..5A8C,Han
+5A8E..5AAA,Han
+5AAC..5ACF,Han
+5AD1..5AD2,Han
+5AD4..5AEE,Han
+5AF1..5B09,Han
+5B0B..5B0C,Han
+5B0E..5B38,Han
+5B3A..5B45,Han
+5B47..5B4E,Han
+5B50..5B51,Han
+5B53..5B5F,Han
+5B62..5B6E,Han
+5B70..5B78,Han
+5B7A..5B7D,Han
+5B7F..5B85,Han
+5B87..5B8F,Han
+5B91..5BA8,Han
+5BAA..5BB1,Han
+5BB3..5BB6,Han
+5BB8..5BBB,Han
+5BBD..5BC7,Han
+5BCA..5BD6,Han
+5BD8..5BD9,Han
+5BDB..5BFD,Han
+5BFF,Han
+5C01,Han
+5C03..5C1A,Han
+5C1C..5C22,Han
+5C24..5C25,Han
+5C27..5C28,Han
+5C2A..5C35,Han
+5C37..5C59,Han
+5C5B..5C84,Han
+5C86..5CB3,Han
+5CB5..5CB8,Han
+5CBA..5CBF,Han
+5CC1..5CD4,Han
+5CD6..5CDC,Han
+5CDE..5CF4,Han
+5CF6..5D2A,Han
+5D2C..5D2E,Han
+5D30..5D3A,Han
+5D3C..5D52,Han
+5D54..5D56,Han
+5D58..5D5B,Han
+5D5D..5D5F,Han
+5D61..5D82,Han
+5D84..5D95,Han
+5D97..5DA2,Han
+5DA5..5DAA,Han
+5DAC..5DB2,Han
+5DB4..5DB8,Han
+5DBA..5DC3,Han
+5DC5..5DD6,Han
+5DD8..5DD9,Han
+5DDB,Han
+5DDD..5DF5,Han
+5DF7..5E11,Han
+5E13..5E3E,Han
+5E40..5E47,Han
+5E49..5E50,Han
+5E52..5E91,Han
+5E93..5EB9,Han
+5EBB..5EBF,Han
+5EC1..5EEA,Han
+5EEC..5EF8,Han
+5EFA..5F08,Han
+5F0A..5F0D,Han
+5F0F,Han
+5F11..5F3A,Han
+5F3C,Han
+5F3E..5F8E,Han
+5F90..5F99,Han
+5F9B..5FA2,Han
+5FA5..5FAF,Han
+5FB1..5FC1,Han
+5FC3..5FCD,Han
+5FCF..5FDA,Han
+5FDC..5FDE,Han
+5FE0..5FE1,Han
+5FE3..5FEB,Han
+5FED..5FFB,Han
+5FFD..6022,Han
+6024..6055,Han
+6057..605F,Han
+6062..6070,Han
+6072..6073,Han
+6075..6090,Han
+6092,Han
+6094..60A4,Han
+60A6..60A8,Han
+60AA..60D1,Han
+60D3..60D5,Han
+60D7..60DD,Han
+60DF..60E2,Han
+60E4,Han
+60E6..60FC,Han
+60FE..6101,Han
+6103..6106,Han
+6108..6110,Han
+6112..611D,Han
+611F..6120,Han
+6122..6130,Han
+6132,Han
+6134,Han
+6136..6137,Han
+613A..615F,Han
+6161..616E,Han
+6170..617A,Han
+617C,Han
+617E,Han
+6180..6185,Han
+6187..6196,Han
+6198..619B,Han
+619D..61B8,Han
+61BA,Han
+61BC..61D2,Han
+61D4,Han
+61D6..61EB,Han
+61ED..61EE,Han
+61F0..61F3,Han
+61F5..6204,Han
+6206..6234,Han
+6236..6238,Han
+623A..6256,Han
+6258..6281,Han
+6283..628C,Han
+628E..629C,Han
+629E..62A5,Han
+62A7..62DD,Han
+62DF..62E9,Han
+62EB..6309,Han
+630B..6316,Han
+6318..6330,Han
+6332..6334,Han
+6336,Han
+6338..633E,Han
+6340..635A,Han
+635C..637E,Han
+6380..638A,Han
+638C..6392,Han
+6394..63BA,Han
+63BC..63D0,Han
+63D2..6406,Han
+6408..643A,Han
+643D..6441,Han
+6443..6448,Han
+644A..6459,Han
+645B..647D,Han
+647F..6485,Han
+6487..64A0,Han
+64A2..64AE,Han
+64B0..64B5,Han
+64B7..64C7,Han
+64C9..64D4,Han
+64D6..64E0,Han
+64E2..64E4,Han
+64E6..64ED,Han
+64EF..64F4,Han
+64F6..64F8,Han
+64FA..6501,Han
+6503..6509,Han
+650B..651E,Han
+6520..6527,Han
+6529..653F,Han
+6541,Han
+6543..6559,Han
+655B..655E,Han
+6560..656C,Han
+656E..657C,Han
+657E..6589,Han
+658B..6599,Han
+659B..65B4,Han
+65B6..65BD,Han
+65BF..65C7,Han
+65CA..65D0,Han
+65D2..65D7,Han
+65DA..65DB,Han
+65DD..65E3,Han
+65E5..65E9,Han
+65EB..65F8,Han
+65FA..65FD,Han
+6600..6616,Han
+6618..661D,Han
+661F..662B,Han
+662D..6636,Han
+6639..663A,Han
+663C..663E,Han
+6640..6647,Han
+6649..664C,Han
+664E..665F,Han
+6661..6662,Han
+6664..6666,Han
+6668..6691,Han
+6693..669B,Han
+669D,Han
+669F..66AB,Han
+66AE..66CF,Han
+66D1..66D2,Han
+66D4..66D6,Han
+66D8..66DE,Han
+66E0..66EE,Han
+66F0..66FC,Han
+66FE..6701,Han
+6703..6706,Han
+6708..6718,Han
+671A..6723,Han
+6725..6728,Han
+672A..6766,Han
+6768..6787,Han
+6789..6795,Han
+6797..67A8,Han
+67AA..67BC,Han
+67BE,Han
+67C0..67D4,Han
+67D6,Han
+67D8..67F8,Han
+67FA..6800,Han
+6802..6814,Han
+6816..681D,Han
+681F..6826,Han
+6828..682F,Han
+6831..6857,Han
+685B,Han
+685D,Han
+6860..6879,Han
+687B..6894,Han
+6896..6898,Han
+689A..68A4,Han
+68A6..68B7,Han
+68B9,Han
+68BB..68C2,Han
+68C4,Han
+68C6..68D8,Han
+68DA..68E1,Han
+68E3..68E4,Han
+68E6..68FF,Han
+6901..6908,Han
+690A..693D,Han
+693F..694C,Han
+694E..699E,Han
+69A0..69A1,Han
+69A3..69BF,Han
+69C1..69D0,Han
+69D3..69D4,Han
+69D8..69F8,Han
+69FA..6A02,Han
+6A04..6A0B,Han
+6A0D..6A1B,Han
+6A1D..6A23,Han
+6A25..6A36,Han
+6A38..6A49,Han
+6A4B..6A52,Han
+6A54..6A5B,Han
+6A5D..6A6D,Han
+6A6F,Han
+6A71..6A85,Han
+6A87..6A89,Han
+6A8B..6A8E,Han
+6A90..6A98,Han
+6A9A..6A9C,Han
+6A9E..6AA9,Han
+6AAB..6AB0,Han
+6AB2..6ABD,Han
+6ABF,Han
+6AC1..6AC3,Han
+6AC5..6AC7,Han
+6ACA..6AD7,Han
+6AD9..6AE8,Han
+6AEA..6B0D,Han
+6B0F..6B1A,Han
+6B1C..6B2D,Han
+6B2F..6B34,Han
+6B36..6B3F,Han
+6B41..6B56,Han
+6B59..6B5C,Han
+6B5E..6B67,Han
+6B69..6B6B,Han
+6B6D,Han
+6B6F..6B70,Han
+6B72..6B74,Han
+6B76..6B7C,Han
+6B7E..6BB0,Han
+6BB2..6BB7,Han
+6BB9..6BE8,Han
+6BEA..6BF0,Han
+6BF2..6BF3,Han
+6BF5..6BF9,Han
+6BFB..6C09,Han
+6C0B..6C16,Han
+6C18..6C1B,Han
+6C1D..6C2C,Han
+6C2E..6C38,Han
+6C3A..6C3B,Han
+6C3D..6C44,Han
+6C46..6C6B,Han
+6C6D,Han
+6C6F..6C9F,Han
+6CA1..6CD7,Han
+6CD9..6CF3,Han
+6CF5..6D01,Han
+6D03..6D1B,Han
+6D1D..6D23,Han
+6D25..6D70,Han
+6D72..6D80,Han
+6D82..6D95,Han
+6D97..6D9B,Han
+6D9D..6DAF,Han
+6DB2..6DB5,Han
+6DB7..6DFD,Han
+6E00,Han
+6E03..6E05,Han
+6E07..6E11,Han
+6E14..6E17,Han
+6E19..6E29,Han
+6E2B..6E4B,Han
+6E4D..6E6B,Han
+6E6D..6E75,Han
+6E77..6E79,Han
+6E7E..6E8A,Han
+6E8D..6E94,Han
+6E96..6EDA,Han
+6EDC,Han
+6EDE..6EE2,Han
+6EE4..6F03,Han
+6F05..6F0A,Han
+6F0C..6F41,Han
+6F43..6F47,Han
+6F49,Han
+6F4B..6F78,Han
+6F7A..6F97,Han
+6F99,Han
+6F9B..6F9E,Han
+6FA0..6FB6,Han
+6FB8..6FC4,Han
+6FC6..6FCF,Han
+6FD1..6FD2,Han
+6FD4..6FF4,Han
+6FF6..6FFC,Han
+6FFE..700F,Han
+7011..7012,Han
+7014..701D,Han
+701F..7046,Han
+7048..704A,Han
+704C..704D,Han
+704F..7071,Han
+7074..707A,Han
+707C..7080,Han
+7082..708C,Han
+708E..7096,Han
+7098..709A,Han
+709C..70A9,Han
+70AB..70B1,Han
+70B3..70B5,Han
+70B7..70D4,Han
+70D6..70FD,Han
+70FF..7107,Han
+7109..7113,Han
+7115..7123,Han
+7125..7132,Han
+7135..713B,Han
+713D..7154,Han
+7156,Han
+7158..716A,Han
+716C,Han
+716E..718C,Han
+718E..7195,Han
+7197..71A5,Han
+71A7..71AA,Han
+71AC..71B5,Han
+71B7..71CB,Han
+71CD..71D2,Han
+71D4..71F2,Han
+71F4..71F9,Han
+71FB..71FF,Han
+7201..720A,Han
+720C..7210,Han
+7212..7214,Han
+7216,Han
+7218..721F,Han
+7221..7223,Han
+7226..722E,Han
+7230..7233,Han
+7235..7244,Han
+7246..724D,Han
+724F,Han
+7251..7254,Han
+7256..729F,Han
+72A1..72AA,Han
+72AC..72BD,Han
+72BF..7301,Han
+7303..730F,Han
+7311..731E,Han
+7320..7327,Han
+7329..732E,Han
+7330..734E,Han
+7350..7352,Han
+7354..7362,Han
+7364..739B,Han
+739D..73C0,Han
+73C2..73E0,Han
+73E2..73E3,Han
+73E5..73F2,Han
+73F4..73FA,Han
+73FC..7417,Han
+7419..7438,Han
+743A..743D,Han
+743F..7446,Han
+7448,Han
+744A..7457,Han
+7459..745F,Han
+7461..747A,Han
+747C..7483,Han
+7485..7495,Han
+7497..749C,Han
+749E..74A1,Han
+74A3..74C6,Han
+74CA..74CB,Han
+74CD..74EA,Han
+74EC..750D,Han
+750F..751F,Han
+7521..7533,Han
+7535..7540,Han
+7542..7549,Han
+754B..7551,Han
+7553..7554,Han
+7556..755D,Han
+755F..7560,Han
+7562..7570,Han
+7572,Han
+7574..7579,Han
+757C..7584,Han
+7586..758D,Han
+758F..75A8,Han
+75AA..75B6,Han
+75B8..75DB,Han
+75DD..75E8,Han
+75EA..75ED,Han
+75EF..762B,Han
+762D..7643,Han
+7646..764D,Han
+764F..7650,Han
+7652..7654,Han
+7656..7672,Han
+7674..7679,Han
+767B..768C,Han
+768E..76A0,Han
+76A3..76A4,Han
+76A6..76A7,Han
+76A9..76B2,Han
+76B4..76B5,Han
+76B7..76B8,Han
+76BA..76C0,Han
+76C2..76CA,Han
+76CD..76D8,Han
+76DA..76EA,Han
+76EC..76FF,Han
+7701,Han
+7703..770D,Han
+770F..7720,Han
+7722..7723,Han
+7725..772A,Han
+772C..773E,Han
+7740..7741,Han
+7743..7763,Han
+7765..7795,Han
+7797..77A3,Han
+77A5..77BD,Han
+77BF..77C0,Han
+77C2..77D1,Han
+77D3..77DC,Han
+77DE..77E3,Han
+77E5,Han
+77E7..77F3,Han
+77F6..7806,Han
+7808..7823,Han
+7825..7835,Han
+7837..783E,Han
+7840..7841,Han
+7843..7845,Han
+7847..784A,Han
+784C..784E,Han
+7850..7875,Han
+7877..7887,Han
+7889..78C1,Han
+78C3..78C6,Han
+78C8..78D1,Han
+78D3..78EF,Han
+78F1..78F7,Han
+78F9..78FF,Han
+7901..7907,Han
+7909..790C,Han
+790E..7914,Han
+7916..791E,Han
+7921..7931,Han
+7933..7935,Han
+7937..7958,Han
+795A..796B,Han
+796D,Han
+796F..7974,Han
+7977..7985,Han
+7988..799C,Han
+799F..79A8,Han
+79AA..79BB,Han
+79BD..79C3,Han
+79C5..79C6,Han
+79C8..79CB,Han
+79CD..79D3,Han
+79D5..79D6,Han
+79D8..7A00,Han
+7A02..7A06,Han
+7A08,Han
+7A0A..7A2B,Han
+7A2D..7A35,Han
+7A37,Han
+7A39,Han
+7A3B..7A4E,Han
+7A50..7A62,Han
+7A65..7A69,Han
+7A6B..7A6E,Han
+7A70..7A81,Han
+7A83..7A99,Han
+7A9C..7AB8,Han
+7ABA,Han
+7ABE..7AC1,Han
+7AC4..7AC5,Han
+7AC7..7AD6,Han
+7AD8..7AD9,Han
+7ADB..7AE8,Han
+7AEA..7AF4,Han
+7AF6..7AFB,Han
+7AFD..7B06,Han
+7B08..7B1E,Han
+7B20..7B26,Han
+7B28,Han
+7B2A..7B41,Han
+7B43..7B52,Han
+7B54..7B6E,Han
+7B70..7B79,Han
+7B7B..7B85,Han
+7B87..7B91,Han
+7B93..7BA2,Han
+7BA4,Han
+7BA6..7BAF,Han
+7BB1,Han
+7BB3..7BCE,Han
+7BD0..7BF9,Han
+7BFB..7C13,Han
+7C15..7C1A,Han
+7C1C..7C2D,Han
+7C30..7C4E,Han
+7C50..7C51,Han
+7C53..7C54,Han
+7C56..7C5C,Han
+7C5E..7C75,Han
+7C77..7C82,Han
+7C84..7C86,Han
+7C88..7C92,Han
+7C94..7C99,Han
+7C9B..7CAA,Han
+7CAD..7CD2,Han
+7CD4..7CD9,Han
+7CDC..7CE0,Han
+7CE2,Han
+7CE4,Han
+7CE7..7CFB,Han
+7CFD..7CFE,Han
+7D00..7D22,Han
+7D24..7D29,Han
+7D2B..7D2C,Han
+7D2E..7D47,Han
+7D49..7D4C,Han
+7D4E..7D59,Han
+7D5B..7D63,Han
+7D65..7D77,Han
+7D79..7D81,Han
+7D83..7D94,Han
+7D96..7D97,Han
+7D99,Han
+7D9B..7DA3,Han
+7DA5..7DA7,Han
+7DA9..7DCC,Han
+7DCE..7DD2,Han
+7DD4..7DDB,Han
+7DDD..7DE3,Han
+7DE6..7DEA,Han
+7DEC..7DFC,Han
+7E00..7E17,Han
+7E19..7E49,Han
+7E4C..7E5A,Han
+7E5C..7E63,Han
+7E65..7E9C,Han
+7E9E..7F3A,Han
+7F3D..7F40,Han
+7F42..7F45,Han
+7F47..7F58,Han
+7F5A..7F83,Han
+7F85..7F8F,Han
+7F91..7F96,Han
+7F98,Han
+7F9A..7FB3,Han
+7FB5..7FD5,Han
+7FD7..7FDC,Han
+7FDE..7FE3,Han
+7FE5..8009,Han
+800B..802E,Han
+8030..803B,Han
+803D..803F,Han
+8041..8065,Han
+8067..8087,Han
+8089..808D,Han
+808F..8093,Han
+8095..80A5,Han
+80A9..80AB,Han
+80AD..80B2,Han
+80B4..80B8,Han
+80BA..80DE,Han
+80E0..8102,Han
+8105..8116,Han
+8118..8132,Han
+8136..815E,Han
+8160..8183,Han
+8185..818F,Han
+8191..8195,Han
+8197..81CA,Han
+81CC..81D2,Han
+81D4..81E3,Han
+81E5..81EE,Han
+81F1..8212,Han
+8214..8216,Han
+8218..8223,Han
+8225..822D,Han
+822F..8240,Han
+8242..8261,Han
+8263..8264,Han
+8266..828B,Han
+828D..82B1,Han
+82B3..82E1,Han
+82E3..82FB,Han
+82FD..8309,Han
+830B..830F,Han
+8311..832F,Han
+8331..8354,Han
+8356..839E,Han
+83A0..83B4,Han
+83B6..83BD,Han
+83BF..83E5,Han
+83E7..83EC,Han
+83EE..8413,Han
+8415,Han
+8418..841E,Han
+8421..8457,Han
+8459..8482,Han
+8484..8494,Han
+8496..84AC,Han
+84AE..84B6,Han
+84B8..84C2,Han
+84C4..84D9,Han
+84DB..84EC,Han
+84EE..8504,Han
+8506..850F,Han
+8511..8531,Han
+8534..854B,Han
+854D..854F,Han
+8551..857E,Han
+8580..8592,Han
+8594..8596,Han
+8598..85B1,Han
+85B3..85BA,Han
+85BC..85CB,Han
+85CD..85ED,Han
+85EF..85F2,Han
+85F4..85FB,Han
+85FD..8602,Han
+8604..860C,Han
+860F,Han
+8611..8614,Han
+8616..861C,Han
+861E..8636,Han
+8638..8656,Han
+8658..8674,Han
+8676..8688,Han
+868A..8691,Han
+8693..869F,Han
+86A1..86A5,Han
+86A7..86CC,Han
+86CE..86D4,Han
+86D6..86DF,Han
+86E1..86E6,Han
+86E8..86FC,Han
+86FE..871C,Han
+871E..872E,Han
+8730..873C,Han
+873E..8744,Han
+8746..874A,Han
+874C..8770,Han
+8772..877E,Han
+8780..878D,Han
+878F..8798,Han
+879A..87D9,Han
+87DB..87EF,Han
+87F1..8806,Han
+8808..8811,Han
+8813..882C,Han
+882E..8839,Han
+883B..8846,Han
+8848..8857,Han
+8859..885B,Han
+885D..885E,Han
+8860..8879,Han
+887B..88B4,Han
+88B6..88E5,Han
+88E7..88E8,Han
+88EA..88EC,Han
+88EE..8902,Han
+8904..890E,Han
+8910..8923,Han
+8925..894C,Han
+894E..8964,Han
+8966..8974,Han
+8976..897C,Han
+897E..898C,Han
+898E..898F,Han
+8991..8993,Han
+8995..8998,Han
+899A..89A8,Han
+89AA..89AF,Han
+89B1..89B3,Han
+89B5..89BA,Han
+89BD..89ED,Han
+89EF..89F4,Han
+89F6..89F8,Han
+89FA..89FC,Han
+89FE..8A04,Han
+8A07..8A13,Han
+8A15..8A18,Han
+8A1A..8A1F,Han
+8A22..8A2A,Han
+8A2C..8A32,Han
+8A34..8A3C,Han
+8A3E..8A4A,Han
+8A4C..8A63,Han
+8A65..8A77,Han
+8A79..8A7C,Han
+8A7E..8A87,Han
+8A89..8A9E,Han
+8AA0..8AAC,Han
+8AAE,Han
+8AB0..8AB6,Han
+8AB8..8ACF,Han
+8AD1..8AEB,Han
+8AED..8B0B,Han
+8B0D..8B28,Han
+8B2A..8B31,Han
+8B33..8B37,Han
+8B39..8B3E,Han
+8B40..8B60,Han
+8B63..8B68,Han
+8B6A..8B71,Han
+8B73..8B74,Han
+8B76..8B7B,Han
+8B7D..8B80,Han
+8B82..8B86,Han
+8B88..8B8C,Han
+8B8E,Han
+8B90..8B9A,Han
+8B9C..8C37,Han
+8C39..8C3F,Han
+8C41..8C43,Han
+8C45..8C50,Han
+8C54..8C57,Han
+8C59..8C73,Han
+8C75..8C7B,Han
+8C7D..8C7E,Han
+8C80..8C82,Han
+8C84..8C86,Han
+8C88..8C8A,Han
+8C8C..8C8D,Han
+8C8F..8C9A,Han
+8C9C..8CA5,Han
+8CA7..8CCA,Han
+8CCC,Han
+8CCE..8CD5,Han
+8CD7,Han
+8CD9..8CE8,Han
+8CEA..8CF6,Han
+8CF8..8D00,Han
+8D02..8D10,Han
+8D13..8D7B,Han
+8D7D..8DA5,Han
+8DA7..8DBF,Han
+8DC1..8DE4,Han
+8DE6..8E00,Han
+8E02..8E0A,Han
+8E0C..8E31,Han
+8E33..8E45,Han
+8E47..8E4E,Han
+8E50..8E6D,Han
+8E6F..8E74,Han
+8E76,Han
+8E78,Han
+8E7A..8E98,Han
+8E9A,Han
+8E9C..8EA1,Han
+8EA3..8EB2,Han
+8EB4..8EB5,Han
+8EB8..8EC0,Han
+8EC2..8EC3,Han
+8EC5..8ED8,Han
+8EDA..8EE1,Han
+8EE4..8EEF,Han
+8EF1..8F0B,Han
+8F0D..8F0E,Han
+8F10..8F18,Han
+8F1A..8F2C,Han
+8F2E..8F39,Han
+8F3B..8F40,Han
+8F42..8F5B,Han
+8F5D..8F9C,Han
+8F9E..8FA3,Han
+8FA5..8FB2,Han
+8FB4..8FB9,Han
+8FBB..8FC2,Han
+8FC4..8FC9,Han
+8FCB..8FE6,Han
+8FE8..900D,Han
+900F..9029,Han
+902B,Han
+902D..9036,Han
+9038,Han
+903A..903F,Han
+9041..9045,Han
+9047..90AA,Han
+90AC..90CB,Han
+90CE..90D1,Han
+90D3..90F5,Han
+90F7..9109,Han
+910B..913B,Han
+913E..9158,Han
+915A..917A,Han
+917C..9194,Han
+9196,Han
+9199..91A3,Han
+91A5..91A8,Han
+91AA..91B7,Han
+91B9..91BE,Han
+91C0..91C3,Han
+91C5..91C7,Han
+91C9..91D5,Han
+91D7..91DF,Han
+91E2..91EE,Han
+91F0..91F5,Han
+91F7..91FB,Han
+91FD..9212,Han
+9214..921E,Han
+9220..9221,Han
+9223..922B,Han
+922D..9242,Han
+9245..9268,Han
+926B..9270,Han
+9272..9280,Han
+9282..9283,Han
+9285..929D,Han
+929F..92BC,Han
+92BE..92D3,Han
+92D5..92DA,Han
+92DC..92E1,Han
+92E3..931B,Han
+931D..932B,Han
+932D..932F,Han
+9332..9361,Han
+9363..9367,Han
+9369..936A,Han
+936C..936E,Han
+9370..9372,Han
+9374..9377,Han
+9379..937E,Han
+9380,Han
+9382..938A,Han
+938C..939B,Han
+939D..939F,Han
+93A1..93AA,Han
+93AC..93BA,Han
+93BC..93DF,Han
+93E1..93E4,Han
+93E6..93F2,Han
+93F4..9401,Han
+9403..9416,Han
+9418..9419,Han
+941B,Han
+941D,Han
+9420,Han
+9422..9423,Han
+9425..9442,Han
+9444..944D,Han
+944F..9459,Han
+945B..946B,Han
+946D..947A,Han
+947C..9577,Han
+957A..957D,Han
+957F..9584,Han
+9586..9596,Han
+9598..959F,Han
+95A1..95B2,Han
+95B5..95B7,Han
+95B9..95C0,Han
+95C2..95D8,Han
+95DA..95DC,Han
+95DE..9624,Han
+9627..9628,Han
+962A..963D,Han
+963F..9655,Han
+9658..9664,Han
+9666..9678,Han
+967C..967E,Han
+9680,Han
+9683..968B,Han
+968D..9695,Han
+9697..9699,Han
+969B..969C,Han
+969E,Han
+96A0..96AA,Han
+96AC..96AE,Han
+96B0..96B1,Han
+96B3..96B4,Han
+96B6..96E3,Han
+96E5,Han
+96E8..96FB,Han
+96FD..9713,Han
+9715..9716,Han
+9718..9719,Han
+971C..9732,Han
+9735..9736,Han
+9738..973F,Han
+9742..974C,Han
+974E..9756,Han
+9758..9762,Han
+9765..9770,Han
+9772..9774,Han
+9776..9786,Han
+9788,Han
+978A..979A,Han
+979C..97A8,Han
+97AA..97AF,Han
+97B2..97B4,Han
+97B6..97BD,Han
+97BF,Han
+97C1..97D1,Han
+97D3..97FB,Han
+97FD..981E,Han
+9820..9824,Han
+9826..9829,Han
+982B,Han
+982D..9832,Han
+9834..9839,Han
+983B..983D,Han
+983F..9841,Han
+9843..9846,Han
+9848..984A,Han
+984C..9855,Han
+9857..9865,Han
+9867,Han
+9869..98B6,Han
+98B8..98C6,Han
+98C8..98C9,Han
+98CB..98E0,Han
+98E2..98E3,Han
+98E5..98EB,Han
+98ED,Han
+98EF..98F0,Han
+98F2..98F7,Han
+98F9..98FA,Han
+98FC..9918,Han
+991A..993A,Han
+993C..9943,Han
+9945..994C,Han
+994E..9959,Han
+995B..995C,Han
+995E..99BE,Han
+99C0..99C4,Han
+99C6..99DF,Han
+99E1..99E5,Han
+99E7..99EA,Han
+99EC..99F4,Han
+99F6..9A0F,Han
+9A11,Han
+9A14..9A16,Han
+9A19..9A27,Han
+9A29..9A3A,Han
+9A3C..9A50,Han
+9A52..9A57,Han
+9A59..9A5C,Han
+9A5E..9A62,Han
+9A64..9AA8,Han
+9AAA..9ABC,Han
+9ABE..9AC7,Han
+9AC9..9AD6,Han
+9AD8..9ADF,Han
+9AE1..9AE3,Han
+9AE5..9AE7,Han
+9AEA..9AEF,Han
+9AF1..9AFF,Han
+9B01,Han
+9B03..9B08,Han
+9B0A..9B13,Han
+9B15..9B1A,Han
+9B1C..9B33,Han
+9B35..9B3C,Han
+9B3E..9B3F,Han
+9B41..9B4F,Han
+9B51..9B56,Han
+9B58..9B61,Han
+9B63..9B71,Han
+9B73..9B88,Han
+9B8A..9B8B,Han
+9B8D..9B98,Han
+9B9A..9BC1,Han
+9BC3..9BF5,Han
+9BF7..9BFF,Han
+9C02,Han
+9C05..9C2D,Han
+9C2F..9C41,Han
+9C43..9C4E,Han
+9C50,Han
+9C52..9C60,Han
+9C62..9C63,Han
+9C65..9C75,Han
+9C77..9C7A,Han
+9C7C..9D0B,Han
+9D0F..9D10,Han
+9D12..9D26,Han
+9D28..9D29,Han
+9D2B,Han
+9D2D..9D34,Han
+9D36..9D3B,Han
+9D3D..9D43,Han
+9D45..9D6C,Han
+9D6E..9D8E,Han
+9D90..9D94,Han
+9D96..9DAD,Han
+9DAF..9DBC,Han
+9DBE..9DBF,Han
+9DC1..9DC5,Han
+9DC7..9DE9,Han
+9DEB..9DFB,Han
+9DFD..9E0D,Han
+9E0F..9E15,Han
+9E17..9E1B,Han
+9E1D..9E77,Han
+9E79..9E7A,Han
+9E7C..9E8E,Han
+9E91..9E94,Han
+9E96..9E97,Han
+9E99..9E9D,Han
+9E9F..9EA1,Han
+9EA3..9EAA,Han
+9EAD..9EB0,Han
+9EB2..9EB8,Han
+9EBB..9EEB,Han
+9EED..9EF0,Han
+9EF2..9F02,Han
+9F04..9F10,Han
+9F12..9F13,Han
+9F15..9F20,Han
+9F22..9F25,Han
+9F27..9F44,Han
+9F46..9F52,Han
+9F54..9F61,Han
+9F63..9F6C,Han
+9F6E..9FA0,Han
+9FA2,Han
+9FA4..9FA5,Han

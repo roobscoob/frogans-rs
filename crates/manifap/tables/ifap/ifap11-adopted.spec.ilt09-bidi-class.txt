@@ -1,0 +1,451 @@
+#  ---------------------------------------------------------------------
+#  International Frogans Address Pattern - IFAP 1.1
+#  IFAP Lookup Table
+#  ---------------------------------------------------------------------
+#
+#  Reference: ILT09_Bidi_Class
+#
+#  Description: This IFAP lookup table contains a list of eligible code
+#  points used in Frogans address strings with, for each code point, the
+#  value of its Bidi_Class property.  This lookup table is used in the
+#  |c4_verify_directionality|, |c4_verify_ltr|, and |c4_verify_rtl|
+#  functions defined in Appendix C.4 of the IFAP specification document.
+#
+#  File name:     ifap11-adopted.spec.ilt09-bidi-class.txt
+#  File created:  2014-11-07T14:35:17Z
+#
+#  For additional information on the format of IFAP lookup tables, see
+#  Appendix A in the IFAP specification document.
+#
+#  For additional information on the use of IFAP lookup tables, see
+#  Appendix C in the IFAP specification document.
+#
+#  Properties mentioned in this document are those defined in the
+#  Unicode Standard.
+#
+#  This document is accessible at the following permanent URL:
+#  https://www.frogans.org/en/resources/ifap/access.html.
+#
+#  This document must be used in compliance with the Frogans Technology
+#  User Policy, accessible at the following permanent URL:
+#  https://www.frogans.org/en/resources/ftup/access.html.
+#
+#  Copyright (C) 2014 OP3FT.  All rights reserved.
+#
+#
+#  ---------------------------------------------------------------------
+#  Third-party source materials used to create this lookup table
+#  ---------------------------------------------------------------------
+#
+#  File: UnicodeData.txt
+#
+#  - Location:
+#    http://www.unicode.org/Public/7.0.0/ucd/UnicodeData.txt
+#
+#  - Description:
+#    UnicodeData.txt is a file in the Unicode Character Database of
+#    version 7.0.0 of the Unicode Standard.  It lists all Unicode
+#    characters and their properties.  For details on the format and
+#    contents of this file, see revision 14 of the Unicode Standard
+#    Annex #44 at
+#    http://www.unicode.org/reports/tr44/tr44-14.html.
+#
+#  - Copyright and Permission Notice:
+#    Copyright (C) 1991-2014 Unicode, Inc.  All rights reserved.
+#    Distributed under the Terms of Use in
+#    http://www.unicode.org/copyright.html.
+#
+#    Permission is hereby granted, free of charge, to any person
+#    obtaining a copy of the Unicode data files and any associated
+#    documentation (the "Data Files") or Unicode software and any
+#    associated documentation (the "Software") to deal in the Data Files
+#    or Software without restriction, including without limitation the
+#    rights to use, copy, modify, merge, publish, distribute, and/or
+#    sell copies of the Data Files or Software, and to permit persons to
+#    whom the Data Files or Software are furnished to do so, provided
+#    that (a) the above copyright notice(s) and this permission notice
+#    appear with all copies of the Data Files or Software, (b) both the
+#    above copyright notice(s) and this permission notice appear in
+#    associated documentation, and (c) there is clear notice in each
+#    modified Data File or in the Software as well as in the
+#    documentation associated with the Data File(s) or Software that the
+#    data or software has been modified.
+#
+#
+#  ---------------------------------------------------------------------
+#  Other IFAP lookup tables used to create this lookup table
+#  ---------------------------------------------------------------------
+#
+#  ILT08_Eligible_Characters
+#
+#
+#  ---------------------------------------------------------------------
+#  Description of the fields in this lookup table
+#  ---------------------------------------------------------------------
+#
+#  Field count: 2
+#
+#
+#  Field 1: CODE_POINT
+#
+#  - Description:
+#    A code point or a range of code points
+#
+#
+#  Field 2: BIDI_CLASS
+#
+#  - Description:
+#    A string equal to R, AL, EN, ES, ET, AN, CS, NSM, BN, B, S, WS, ON,
+#    LRE, LRO, RLE, RLO, PDF, LRI, RLI, FSI, or PDI.  It corresponds to
+#    the Bidi_Class property.  In order to limit the size of this lookup
+#    table, code points where the value of the Bidi_Class property is
+#    equal to L are not listed by convention.
+#
+#
+#  ---------------------------------------------------------------------
+#  Method used to compute the field values in this lookup table
+#  ---------------------------------------------------------------------
+#
+#  The data lines following these comments are created by reading each
+#  data line in ILT08_Eligible_Characters where the value of the second
+#  field (IS_ELIGIBLE) equals 1.  If the data line contains a code point
+#  range, then the process below is performed for each code point in the
+#  range.
+#
+#  Each code point is looked up in UnicodeData.txt in order to analyze
+#  the value of the Bidi_Class property, which is the fifth field in
+#  the semi-colon separated list in each line of UnicodeData.txt.
+#
+#  For each code point or code point range where the value of the
+#  Bidi_Class property is not equal to L, a data line is added to
+#  ILT09_Bidi_Class with the value of the two fields CODE_POINT and
+#  BIDI_CLASS:
+#
+#  - The first value contains the code point or the code point range.
+#  - The second value contains the value of the Bidi_Class property.
+#
+#
+#  ---------------------------------------------------------------------
+#  Generated data lines
+#  ---------------------------------------------------------------------
+#
+CODE_POINT,BIDI_CLASS
+002A,ON
+002D,ES
+0030..0039,EN
+00B7,ON
+02B9..02BA,ON
+02C6..02CF,ON
+02EC,ON
+0300..033F,NSM
+0342,NSM
+0345..034E,NSM
+0350..036F,NSM
+0375,ON
+0483..0487,NSM
+0591..05BD,NSM
+05BF,NSM
+05C1..05C2,NSM
+05C4..05C5,NSM
+05C7,NSM
+05D0..05EA,R
+05F0..05F4,R
+0610..061A,NSM
+0620..063F,AL
+0641..064A,AL
+064B..065F,NSM
+0660..0669,AN
+066E..066F,AL
+0670,NSM
+0671..0672,AL
+0674,AL
+0679..06D3,AL
+06D5,AL
+06D6..06DC,NSM
+06DF..06E4,NSM
+06E5..06E6,AL
+06E7..06E8,NSM
+06EA..06ED,NSM
+06EE..06EF,AL
+06F0..06F9,EN
+06FA..06FF,AL
+0710,AL
+0711,NSM
+0712..072F,AL
+0730..074A,NSM
+074D..07A5,AL
+07A6..07B0,NSM
+07B1,AL
+07C0..07EA,R
+07EB..07F3,NSM
+07F4..07F5,R
+0800..0815,R
+0816..0819,NSM
+081A,R
+081B..0823,NSM
+0824,R
+0825..0827,NSM
+0828,R
+0829..082D,NSM
+0840..0858,R
+0859..085B,NSM
+08A0..08B2,AL
+08E4..0902,NSM
+093A,NSM
+093C,NSM
+0941..0948,NSM
+094D,NSM
+0951..0957,NSM
+0962..0963,NSM
+0981,NSM
+09BC,NSM
+09C1..09C4,NSM
+09CD,NSM
+09E2..09E3,NSM
+0A01..0A02,NSM
+0A3C,NSM
+0A41..0A42,NSM
+0A47..0A48,NSM
+0A4B..0A4D,NSM
+0A51,NSM
+0A70..0A71,NSM
+0A75,NSM
+0A81..0A82,NSM
+0ABC,NSM
+0AC1..0AC5,NSM
+0AC7..0AC8,NSM
+0ACD,NSM
+0AE2..0AE3,NSM
+0B01,NSM
+0B3C,NSM
+0B3F,NSM
+0B41..0B44,NSM
+0B4D,NSM
+0B56,NSM
+0B62..0B63,NSM
+0B82,NSM
+0BC0,NSM
+0BCD,NSM
+0C00,NSM
+0C3E..0C40,NSM
+0C46..0C48,NSM
+0C4A..0C4D,NSM
+0C55..0C56,NSM
+0C62..0C63,NSM
+0C81,NSM
+0CBC,NSM
+0CCC..0CCD,NSM
+0CE2..0CE3,NSM
+0D01,NSM
+0D41..0D44,NSM
+0D4D,NSM
+0D62..0D63,NSM
+0DCA,NSM
+0DD2..0DD4,NSM
+0DD6,NSM
+0E31,NSM
+0E34..0E3A,NSM
+0E47..0E4E,NSM
+0EB1,NSM
+0EB4..0EB9,NSM
+0EBB..0EBC,NSM
+0EC8..0ECD,NSM
+0F18..0F19,NSM
+0F35,NSM
+0F37,NSM
+0F39,NSM
+0F71..0F72,NSM
+0F74,NSM
+0F7A..0F7E,NSM
+0F80,NSM
+0F82..0F84,NSM
+0F86..0F87,NSM
+0F8D..0F92,NSM
+0F94..0F97,NSM
+0F99..0F9C,NSM
+0F9E..0FA1,NSM
+0FA3..0FA6,NSM
+0FA8..0FAB,NSM
+0FAD..0FB8,NSM
+0FBA..0FBC,NSM
+0FC6,NSM
+102D..1030,NSM
+1032..1037,NSM
+1039..103A,NSM
+103D..103E,NSM
+1058..1059,NSM
+105E..1060,NSM
+1071..1074,NSM
+1082,NSM
+1085..1086,NSM
+108D,NSM
+109D,NSM
+135D..135F,NSM
+1712..1714,NSM
+1732..1734,NSM
+1752..1753,NSM
+1772..1773,NSM
+17B7..17BD,NSM
+17C6,NSM
+17C9..17D0,NSM
+17D2,NSM
+18A9,NSM
+1920..1922,NSM
+1927..1928,NSM
+1932,NSM
+1939..193B,NSM
+1A17..1A18,NSM
+1A1B,NSM
+1A56,NSM
+1A58..1A5E,NSM
+1A60,NSM
+1A62,NSM
+1A65..1A6C,NSM
+1A73..1A7C,NSM
+1A7F,NSM
+1AB0..1ABD,NSM
+1B00..1B03,NSM
+1B34,NSM
+1B36..1B3A,NSM
+1B3C,NSM
+1B42,NSM
+1B6B..1B73,NSM
+1B80..1B81,NSM
+1BA2..1BA5,NSM
+1BA8..1BA9,NSM
+1BAB..1BAD,NSM
+1BE6,NSM
+1BE8..1BE9,NSM
+1BED,NSM
+1BEF..1BF1,NSM
+1C2C..1C33,NSM
+1C36..1C37,NSM
+1CD0..1CD2,NSM
+1CD4..1CE0,NSM
+1CE2..1CE8,NSM
+1CED,NSM
+1CF4,NSM
+1CF8..1CF9,NSM
+1DC0..1DF5,NSM
+1DFC..1DFF,NSM
+200C..200D,BN
+2CEF..2CF1,NSM
+2D7F,NSM
+2DE0..2DFF,NSM
+302A..302D,NSM
+3099..309A,NSM
+30FB,ON
+A66F,NSM
+A674..A67D,NSM
+A67F,ON
+A69F,NSM
+A6F0..A6F1,NSM
+A717..A71F,ON
+A788,ON
+A802,NSM
+A806,NSM
+A80B,NSM
+A825..A826,NSM
+A8C4,NSM
+A8E0..A8F1,NSM
+A926..A92D,NSM
+A947..A951,NSM
+A980..A982,NSM
+A9B3,NSM
+A9B6..A9B9,NSM
+A9BC,NSM
+A9E5,NSM
+AA29..AA2E,NSM
+AA31..AA32,NSM
+AA35..AA36,NSM
+AA43,NSM
+AA4C,NSM
+AA7C,NSM
+AAB0,NSM
+AAB2..AAB4,NSM
+AAB7..AAB8,NSM
+AABE..AABF,NSM
+AAC1,NSM
+AAEC..AAED,NSM
+AAF6,NSM
+ABE5,NSM
+ABE8,NSM
+ABED,NSM
+FB1E,NSM
+FE20..FE2D,NSM
+FE73,AL
+101FD,NSM
+102E0,NSM
+10376..1037A,NSM
+10800..10805,R
+10808,R
+1080A..10835,R
+10837..10838,R
+1083C,R
+1083F..10855,R
+10860..10876,R
+10880..1089E,R
+10900..10915,R
+10920..10939,R
+10980..109B7,R
+109BE..109BF,R
+10A00,R
+10A01..10A03,NSM
+10A05..10A06,NSM
+10A0C..10A0F,NSM
+10A10..10A13,R
+10A15..10A17,R
+10A19..10A33,R
+10A38..10A3A,NSM
+10A3F,NSM
+10A60..10A7C,R
+10A80..10A9C,R
+10AC0..10AC7,R
+10AC9..10AE4,R
+10AE5..10AE6,NSM
+10B00..10B35,R
+10B40..10B55,R
+10B60..10B72,R
+10B80..10B91,R
+10C00..10C48,R
+11001,NSM
+11038..11046,NSM
+1107F..11081,NSM
+110B3..110B6,NSM
+110B9..110BA,NSM
+11100..11102,NSM
+11127..1112B,NSM
+1112D..11134,NSM
+11173,NSM
+11180..11181,NSM
+111B6..111BE,NSM
+1122F..11231,NSM
+11234,NSM
+11236..11237,NSM
+112DF,NSM
+112E3..112EA,NSM
+11301,NSM
+1133C,NSM
+11340,NSM
+11366..1136C,NSM
+11370..11374,NSM
+114B3..114B8,NSM
+114BA,NSM
+114BF..114C0,NSM
+114C2..114C3,NSM
+115B2..115B5,NSM
+115BC..115BD,NSM
+115BF..115C0,NSM
+11633..1163A,NSM
+1163D,NSM
+1163F..11640,NSM
+116AB,NSM
+116AD,NSM
+116B0..116B5,NSM
+116B7,NSM
+16AF0..16AF4,NSM
+16B30..16B36,NSM
+16F8F..16F92,NSM
+1BC9D..1BC9E,NSM
+1E800..1E8C4,R
+1E8D0..1E8D6,NSM

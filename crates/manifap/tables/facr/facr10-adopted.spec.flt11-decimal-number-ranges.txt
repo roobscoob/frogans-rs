@@ -1,0 +1,211 @@
+#  ---------------------------------------------------------------------
+#  Frogans Address Composition Rules - FACR 1.0
+#  FACR Lookup Table
+#  ---------------------------------------------------------------------
+#
+#  Reference: FLT11_Decimal_Number_Ranges
+#
+#  Description: This FACR lookup table contains a list of eligible code
+#  points used in Frogans address strings.  These code points are
+#  decimal numbers, i.e. with the General_Category property equal to Nd.
+#  This lookup table is used in the
+#  |c2_verify_arrangement_rule_numericals| function defined in Appendix
+#  C.1 of the FACR specification document.
+#
+#  File name:     facr10-adopted.spec.flt11-decimal-number-ranges.txt
+#  File created:  2014-12-04T15:55:37Z
+#
+#  For additional information on the format of FACR lookup tables, see
+#  Appendix A in the FACR specification document.
+#
+#  For additional information on the use of FACR lookup tables, see
+#  Appendix C in the FACR specification document.
+#
+#  Properties mentioned in this document are those defined in the
+#  Unicode Standard.
+#
+#  This document is accessible at the following permanent URL:
+#  https://www.frogans.org/en/resources/facr/access.html.
+#
+#  This document must be used in compliance with the Frogans Technology
+#  User Policy, accessible at the following permanent URL:
+#  https://www.frogans.org/en/resources/ftup/access.html.
+#
+#  Copyright (C) 2014 OP3FT.  All rights reserved.
+#
+#
+#  ---------------------------------------------------------------------
+#  Third-party source materials used to create this lookup table
+#  ---------------------------------------------------------------------
+#
+#  File: UnicodeData.txt
+#
+#  - Location:
+#    http://www.unicode.org/Public/7.0.0/ucd/UnicodeData.txt
+#
+#  - Description:
+#    UnicodeData.txt is a file in the Unicode Character Database of
+#    version 7.0.0 of the Unicode Standard.  It lists all Unicode
+#    characters and their properties.  For details on the format and
+#    contents of this file, see revision 14 of the Unicode Standard
+#    Annex #44 at
+#    http://www.unicode.org/reports/tr44/tr44-14.html.
+#
+#  - Copyright and Permission Notice:
+#    Copyright (C) 1991-2014 Unicode, Inc.  All rights reserved.
+#    Distributed under the Terms of Use in
+#    http://www.unicode.org/copyright.html.
+#
+#    Permission is hereby granted, free of charge, to any person
+#    obtaining a copy of the Unicode data files and any associated
+#    documentation (the "Data Files") or Unicode software and any
+#    associated documentation (the "Software") to deal in the Data Files
+#    or Software without restriction, including without limitation the
+#    rights to use, copy, modify, merge, publish, distribute, and/or
+#    sell copies of the Data Files or Software, and to permit persons to
+#    whom the Data Files or Software are furnished to do so, provided
+#    that (a) the above copyright notice(s) and this permission notice
+#    appear with all copies of the Data Files or Software, (b) both the
+#    above copyright notice(s) and this permission notice appear in
+#    associated documentation, and (c) there is clear notice in each
+#    modified Data File or in the Software as well as in the
+#    documentation associated with the Data File(s) or Software that the
+#    data or software has been modified.
+#
+#
+#  ---------------------------------------------------------------------
+#  IFAP lookup tables used to create this lookup table
+#  ---------------------------------------------------------------------
+#
+#  ILT08_Eligible_Characters
+#
+#  This IFAP lookup table is part of version 1.1 of the International
+#  Frogans Address Pattern (IFAP) specification published by the OP3FT.
+#
+#  The IFAP specification, including its lookup tables, is accessible at
+#  the following permanent URL:
+#  https://www.frogans.org/en/resources/ifap/access.html
+#
+#
+#  ---------------------------------------------------------------------
+#  Other FACR lookup tables used to create this lookup table
+#  ---------------------------------------------------------------------
+#
+#  None
+#
+#
+#  ---------------------------------------------------------------------
+#  Description of the fields in this lookup table
+#  ---------------------------------------------------------------------
+#
+#  Field count: 2
+#
+#
+#  Field 1: CODE_POINT
+#
+#  - Description:
+#    A range of code points
+#
+#  Field 2: RANGE_REF
+#
+#  - Description:
+#    A numerical value, starting at 1, given to each range of code
+#    points
+#
+#
+#  ---------------------------------------------------------------------
+#  Method used to compute the field values in this lookup table
+#  ---------------------------------------------------------------------
+#
+#  During the execution of this process, a temporary table TT1 is
+#  created and used for storage of values.  This temporary table is
+#  discarded at the end of the process.
+#
+#  Each data line of ILT08_Eligible_Characters is read and the value of
+#  the first and second fields are analyzed.  These fields correspond to
+#  CODE_POINT and IS_ELIGIBLE respectively.  The value of the first field
+#  is a code point or a code point range.
+#
+#  If the value of the second field does not equal 1, then the data line
+#  is skipped.
+#
+#  If the value of the first field is a code point range, then the
+#  two steps below are performed for each code point in the range.
+#
+#  1) The code point is looked up in UnicodeData.txt and the third field
+#     in the semi-colon separated list in matching lines of
+#     UnicodeData.txt is analyzed.  This field corresponds to the
+#     General_Category property.
+#
+#  2) If the value of the third field equals Nd, a line is added to TT1
+#     containing the code point.
+#
+#  When all the data lines in ILT08_Eligible_Characters have been read,
+#  the lines in TT1 are sorted.  Then any lines in TT1 with consecutive
+#  values of code points are merged into a single line in TT1 containing
+#  the code point range.
+#
+#  When the above process is complete, for each line of TT1, a data line
+#  is added to FLT11_Decimal_Number_Ranges with the value of the two
+#  fields CODE_POINT and RANGE_REF:
+#
+#  - The value of the first field contains the code point range.
+#
+#  - The value of the second field contains a numerical value starting
+#    at 1 for the first data line in FLT11_Decimal_Number_Ranges, and
+#    incrementing by 1 for each subsequent data line.
+#
+#
+#  ---------------------------------------------------------------------
+#  Generated data lines
+#  ---------------------------------------------------------------------
+#
+CODE_POINT,RANGE_REF
+0030..0039,1
+0660..0669,2
+06F0..06F9,3
+07C0..07C9,4
+0966..096F,5
+09E6..09EF,6
+0A66..0A6F,7
+0AE6..0AEF,8
+0B66..0B6F,9
+0BE6..0BEF,10
+0C66..0C6F,11
+0CE6..0CEF,12
+0D66..0D6F,13
+0DE6..0DEF,14
+0E50..0E59,15
+0ED0..0ED9,16
+0F20..0F29,17
+1040..1049,18
+1090..1099,19
+17E0..17E9,20
+1810..1819,21
+1946..194F,22
+19D0..19D9,23
+1A80..1A89,24
+1A90..1A99,25
+1B50..1B59,26
+1BB0..1BB9,27
+1C40..1C49,28
+1C50..1C59,29
+A620..A629,30
+A8D0..A8D9,31
+A900..A909,32
+A9D0..A9D9,33
+A9F0..A9F9,34
+AA50..AA59,35
+ABF0..ABF9,36
+104A0..104A9,37
+11066..1106F,38
+110F0..110F9,39
+11136..1113F,40
+111D0..111D9,41
+112F0..112F9,42
+114D0..114D9,43
+11650..11659,44
+116C0..116C9,45
+118E0..118E9,46
+16A60..16A69,47
+16B50..16B59,48

@@ -1,0 +1,2038 @@
+#  ---------------------------------------------------------------------
+#  Frogans Address Composition Rules - FACR 1.0
+#  FACR Lookup Table
+#  ---------------------------------------------------------------------
+#
+#  Reference: FLT13_Intra_LC_Chinese_Confusable
+#
+#  Description: This FACR lookup table contains a list of code points
+#  from the set of employable characters of LC-Chinese with, for each
+#  code point, the value of its convergence mapping.  This mapping is
+#  used for generating the Intra-LC-Chinese-Confusable convergence form
+#  of a network name or a site name.  This lookup table is used in the
+#  |c3_generate_intra_lc_convergence_form| function defined in Appendix
+#  C.3 of the FACR specification document.
+#
+#  File name:  facr10-adopted.spec.flt13-intra-lc-chinese-confusable.txt
+#  File created:  2014-12-04T15:55:37Z
+#
+#  For additional information on the format of FACR lookup tables, see
+#  Appendix A in the FACR specification document.
+#
+#  For additional information on the use of FACR lookup tables, see
+#  Appendix C in the FACR specification document.
+#
+#  This document is accessible at the following permanent URL:
+#  https://www.frogans.org/en/resources/facr/access.html.
+#
+#  This document must be used in compliance with the Frogans Technology
+#  User Policy, accessible at the following permanent URL:
+#  https://www.frogans.org/en/resources/ftup/access.html.
+#
+#  Copyright (C) 2014 OP3FT.  All rights reserved.
+#
+#
+#  ---------------------------------------------------------------------
+#  Third-party source materials used to create this lookup table
+#  ---------------------------------------------------------------------
+#
+#  File: confusables.txt
+#
+#  - Location:
+#    http://www.unicode.org/Public/security/7.0.0/confusables.txt
+#
+#  - Description:
+#    confusables.txt is a file in the Unicode Technical Reports.  It
+#    lists all Unicode characters which are visually confusable.  For
+#    details on the format and contents of this file, see revision 9 of
+#    the Unicode Technical Standard #39 at
+#    http://www.unicode.org/reports/tr39/tr39-9.html.
+#
+#  - Copyright and Permission Notice:
+#    Copyright (C) 1991-2014 Unicode, Inc.  All rights reserved.
+#    Distributed under the Terms of Use in
+#    http://www.unicode.org/copyright.html.
+#
+#    Permission is hereby granted, free of charge, to any person
+#    obtaining a copy of the Unicode data files and any associated
+#    documentation (the "Data Files") or Unicode software and any
+#    associated documentation (the "Software") to deal in the Data Files
+#    or Software without restriction, including without limitation the
+#    rights to use, copy, modify, merge, publish, distribute, and/or
+#    sell copies of the Data Files or Software, and to permit persons to
+#    whom the Data Files or Software are furnished to do so, provided
+#    that (a) the above copyright notice(s) and this permission notice
+#    appear with all copies of the Data Files or Software, (b) both the
+#    above copyright notice(s) and this permission notice appear in
+#    associated documentation, and (c) there is clear notice in each
+#    modified Data File or in the Software as well as in the
+#    documentation associated with the Data File(s) or Software that the
+#    data or software has been modified.
+#
+#
+#  ---------------------------------------------------------------------
+#  IFAP lookup tables used to create this lookup table
+#  ---------------------------------------------------------------------
+#
+#  ILT02_Canonical_Mapping
+#
+#  ILT08_Eligible_Characters
+#
+#  ILT11_NFKC_Case_Folding
+#
+#  These IFAP lookup tables are part of version 1.1 of the International
+#  Frogans Address Pattern (IFAP) specification published by the OP3FT.
+#
+#  The IFAP specification, including its lookup tables, is accessible at
+#  the following permanent URL:
+#  https://www.frogans.org/en/resources/ifap/access.html
+#
+#
+#  ---------------------------------------------------------------------
+#  Other FACR lookup tables used to create this lookup table
+#  ---------------------------------------------------------------------
+#
+#  FLT02_LC_Chinese_Employable
+#
+#
+#  ---------------------------------------------------------------------
+#  Description of the fields in this lookup table
+#  ---------------------------------------------------------------------
+#
+#  Field count: 2
+#
+#
+#  Field 1: CODE_POINT
+#
+#  - Description:
+#    A code point
+#
+#  Field 2: CONVERGENCE_MAPPING
+#
+#  - Description:
+#    A list of one or more code points separated by the ASCII character
+#    ' ' (Space)
+#
+#
+#  ---------------------------------------------------------------------
+#  Method used to compute the field values in this lookup table
+#  ---------------------------------------------------------------------
+#
+#  The data lines following these comments are created by the nine-step
+#  process described below.
+#
+#  During the execution of this process, seven temporary tables are
+#  created and used for storage of values:
+#
+#  TT1: Custom mappings defined in Section 7.1 of the FACR specification
+#  - Field 1: SOURCE, a code point
+#  - Field 2: TARGET, a list of one or more code points
+#
+#  TT2: Customized table based on the Mixed-Script, Any-Case table in
+#  confusables.txt
+#  - Field 1: SOURCE, a code point
+#  - Field 2: TARGET, a list of one or more code points
+#
+#  TT3: NFKC casefold mappings for the employable characters of
+#  LC-Chinese
+#  - Field 1: SOURCE, a code point
+#  - Field 2: TARGET, a list of one or more code points
+#
+#  TT4: Eligible code points and code points from their canonical
+#  decomposition
+#  - Field 1: CODE_POINT, a code point
+#
+#  TT5: Derived eligible code points
+#  - Field 1: CODE_POINT, a code point
+#
+#  TT6: Classes of confusable code points
+#  - Field 1: CLASS, a list of two or more code points
+#
+#  TT7: Final mappings of confusable code points
+#  - Field 1: SOURCE, a code point
+#  - Field 2: TARGET, a list of one or more code points
+#
+#  These temporary tables are discarded at the end of the process.
+#
+#
+#  Step 1
+#
+#  The purpose of this step is to create a table including characters
+#  with the Mixed-Script, Any-Case Confusable Data Table type defined in
+#  UTS #39.  The code points resulting from this step are stored in TT2.
+#
+#  First, the custom mappings defined in Section 7.1 of the FACR
+#  specification are added to TT1.
+#
+#  Then, the remainder of this step is divided into two substeps (I) and
+#  (II):
+#
+#  (I)  The purpose of this substep is to create a table of confusable
+#  mappings that merges the mappings from Mixed-Script, Any-Case
+#  Confusable Data Table and the custom mappings in TT1.
+#
+#  For each line in confusables.txt, if the third field (confusable data
+#  table type) contains "MA" (Mixed-Script, Any-Case Confusables), then
+#  a line is added to TT2:
+#
+#  - The SOURCE field contains the value of the first field of the
+#    semi-colon separated list in the line of confusables.txt.
+#
+#  - The TARGET field contains the value of the second field of the
+#    semi-colon separated list in the line of confusables.txt.  The
+#    value of this field is one or more code points.
+#
+#  Each line in TT1 is read and the SOURCE field is
+#  analyzed.  The value of this field is a single code point.
+#
+#  The code point is looked up in the SOURCE field of TT2.
+#
+#  If the code point is found, then the value of the TARGET field of the
+#  matching line in TT2 is replaced by the value of the TARGET field of
+#  the line in TT1.  The value of this field is one or more code points.
+#
+#  Otherwise, if the code point is not found, then a line is added to
+#  TT2:
+#
+#  - The SOURCE field contains the value of the SOURCE field of TT1.
+#
+#  - The TARGET field contains the value of the TARGET field of TT1.
+#    The value of this field is one or more code points.
+#
+#  (II)  The purpose of this substep is to apply custom mappings to the
+#  TARGET field of TT2.
+#
+#  For each line in TT2, the TARGET field is analyzed.
+#
+#  For each code point contained in the value of the TARGET field, the
+#  following process is applied:
+#
+#  The code point is looked up in the SOURCE field of TT1.
+#
+#  If the code point is found, then in the TARGET field of TT2, it is
+#  replaced by the value of the TARGET field of TT1.  The value of this
+#  replacement field can be one or more code points.
+#
+#
+#  Step 2
+#
+#  The purpose of this step is to create a table of NFKC casefold
+#  mappings for the employable characters of LC-Chinese.  The code
+#  points resulting from this step are stored in TT3.
+#
+#  Each data line of FLT02_LC_Chinese_Employable is read and the value
+#  of the first field, CODE_POINT, is analyzed.  The value of this field
+#  is a single code point or a range of code points.  If the field
+#  contains a code point range, then the process below is performed for
+#  each code point in the range.
+#
+#  If a code point is skipped in the process below, then the process
+#  continues with the next code point in FLT02_LC_Chinese_Employable.
+#
+#  The code point is looked up in ILT11_NFKC_Case_Folding.
+#
+#  If the code point is not found in ILT11_NFKC_Case_Folding, then the
+#  code point in FLT02_LC_Chinese_Employable is skipped.
+#
+#  The value of the second field, NFKC_FOLDED_CODE_POINT, in matching
+#  lines of ILT11_NFKC_Case_Folding is analyzed.
+#
+#  A line is added to TT3:
+#
+#  - The SOURCE field contains the value of the CODE_POINT field of
+#    FLT02_LC_Chinese_Employable.
+#
+#  - The TARGET field contains the value of the NFKC_FOLDED_CODE_POINT
+#    field of ILT11_NFKC_Case_Folding.  The value of this field is zero
+#    or more code points.
+#
+#
+#  Step 3
+#
+#  The purpose of this step is to create a list of code points, referred
+#  to as "derived eligible" code points in the remainder of this
+#  document.  The code points resulting from this step are stored in
+#  TT5.  The derived eligible code points are subsequently used in step
+#  5.
+#
+#  This step is divided into two substeps (I) and (II):
+#
+#  (I)  The purpose of this substep is to add the following code points
+#  to the list of derived eligible code points:
+#
+#  - eligible characters according to version 1.1 of the IFAP
+#    specification
+#
+#  - code points resulting from the Canonical Decomposition of the
+#    eligible code points
+#
+#  Each data line in ILT08_Eligible_Characters is read.  If the data
+#  line contains a code point range, then the process below is performed
+#  for each code point in the range.  If a code point is skipped in the
+#  process below, then the process continues with the next code point.
+#
+#  If the second field, IS_ELIGIBLE, equals 0 in the data line of
+#  ILT08_Eligible_Characters, then the code point is skipped.
+#
+#  Otherwise, a line is added to TT4 containing the code point.
+#
+#  The code point is canonically decomposed by applying the rules set
+#  forth in the Unicode Standard [Unicode] section 3.7 Decomposition,
+#  D68 Canonical Decomposition.  In order to perform this Canonical
+#  Decomposition, the data lines in ILT02_Canonical_Mapping are used.
+#
+#  This Canonical Decomposition results in the generation of one or more
+#  code points.
+#
+#  For each of these code points, a line is added to TT4 containing the
+#  code point.
+#
+#  When all data lines in ILT08_Eligible_Characters have been read, any
+#  duplicates of a code point in TT4 are deleted.
+#
+#  (II)  The purpose of this substep is to add the following code points
+#  to the list of derived eligible code points:
+#
+#  - code points resulting from the mappings defined in TT2 and TT3 of
+#    the code points added in substep (I)
+#
+#  Each line of TT4 is read.
+#
+#  A line is added to TT5 containing the code point.
+#
+#  Then two similar processes, (a) and (b), involving TT2 and TT3
+#  respectively, are applied to this code point:
+#
+#  (a) The code point is looked up in the SOURCE field of TT2.
+#
+#      If the code point is found, then the value of the TARGET field in
+#      the matching line of TT2 is retrieved.
+#
+#      For each code point in the TARGET field of TT2, a line is added
+#      to TT5 containing the code point.
+#
+#  (b) The code point is looked up in the SOURCE field of TT3.
+#
+#      If the code point is found, then the value of the TARGET field of
+#      TT3 is retrieved.  The value of this field is one or more code
+#      points.
+#
+#      For each of these code points, a line is added to TT5 containing
+#      the code point.
+#
+#  When all lines in TT4 have been read, any duplicates of a code point
+#  in TT5 are deleted.
+#
+#
+#  Step 4
+#
+#  The purpose of this step is to create classes of code points in TT6
+#  by merging one-to-one code point mapping data from two tables, TT2
+#  and TT3.  Each line of TT6 represents one class.  The code points
+#  resulting from this step are stored in TT6.
+#
+#  Two similar processes, (a) and (b), involving TT2 and TT3
+#  respectively, are applied:
+#
+#  (a) Each line of TT2 is read.  If a line is skipped in the process
+#      below, then the process continues with the next line.
+#
+#      If the TARGET field of TT2 contains more than one code point,
+#      then the line is skipped.
+#
+#      Otherwise, a new empty line is added to TT6.
+#
+#      The code point in the SOURCE field in the line of TT2 is looked
+#      up in TT6.
+#
+#      If this code point is found in TT6, then all the code points in
+#      the matching line in TT6 are added to the new line in TT6, and
+#      then the matching line in TT6 is deleted.  Otherwise, the code
+#      point is added to the new line in TT6.
+#
+#      The code point in the TARGET field in the line of TT2 is looked
+#      up in TT6.  Note that in this line of TT2, this field contains a
+#      single code point.
+#
+#      If this code point is found in TT6, then all the code points in
+#      the matching line in TT6 are added to the new line in TT6, and
+#      then the matching line in TT6 is deleted.  Otherwise, the code
+#      point is added to the new line in TT6.
+#
+#  (b) Each line of TT3 is read.  If a line is skipped in the process
+#      below, then the process continues with the next line.
+#
+#      If the TARGET field in the line of TT3 contains more than one
+#      code point, then the line is skipped.
+#
+#      Otherwise, a new empty line is added to TT6.
+#
+#      The code point in the SOURCE field in the line of TT3 is looked
+#      up in TT6.
+#
+#      If this code point is found in TT6, then all the code points in
+#      the matching line in TT6 are added to the new line in TT6, and
+#      then the matching line in TT6 is deleted.  Otherwise, the code
+#      point is added to the new line in TT6.
+#
+#      The code point in the TARGET field in the line of TT3 is looked
+#      up in TT6.
+#
+#      If this code point is found in TT6, then all the code points in
+#      the matching line in TT6 are added to the new line in TT6, and
+#      then the matching line in TT6 is deleted.  Otherwise, the code
+#      point is added to the new line in TT6.
+#
+#
+#  Step 5
+#
+#  The purpose of this step is to filter the classes of code points in
+#  TT6.  The filter removes code points that are not derived eligible
+#  code points, and removes duplicates.  No code points are generated in
+#  this step.
+#
+#  Each line of TT6 is read.
+#
+#  Each code point in the line is looked up in TT5.  If the code point
+#  is not found in TT5, then the code point is deleted from the line of
+#  TT6.
+#
+#  When all code points in the line have been looked up in TT5, any
+#  duplicates of a code point in the line are deleted.
+#
+#  Then the remaining code points in the line are sorted by the value of
+#  the code point.
+#
+#  When all lines of TT6 have been read, any lines in TT6 containing a
+#  single code point are deleted.
+#
+#
+#  Step 6
+#
+#  The purpose of this step is to produce the confusable mappings of all
+#  the code points in each class in TT6.  This includes both the
+#  one-to-one and the one-to-many mappings of these code points.  The
+#  code points resulting from this step are stored in TT7.
+#
+#  For each line in TT6, the following process is performed:
+#
+#  Each code point in the line is read.
+#
+#  Then two similar processes, (a) and (b), involving TT2 and TT3
+#  respectively, and a third process (c) are applied.
+#
+#  (a) The code point is looked up in the SOURCE field in each line of
+#      TT2 where the TARGET field contains more than one code point.
+#
+#      If the code point is found, then for each code point in the line
+#      of TT6, a line is added to TT7:
+#
+#      - The SOURCE field contains the value of the code point from the
+#        line of TT6.
+#
+#      - The TARGET field contains the value of the TARGET field of the
+#        matching line of TT2.
+#
+#      This completes the process for this line of TT6; processes (b)
+#      and (c) are not performed.
+#
+#  (b) The code point is looked up in the SOURCE field of each line of
+#      TT3 where the TARGET field contains more than one code point.
+#
+#      If the code point is found, then for each code point in the line
+#      of TT6, a line is added to TT7:
+#
+#      - The SOURCE field contains the value of the code point from the
+#        line of TT6.
+#
+#      - The TARGET field contains the value of the TARGET field of the
+#        matching line of TT3.
+#
+#      This completes the process for this line of TT6; process (c) is
+#      not performed.
+#
+#  (c) If no one-to-many mappings are found in TT2 and TT3 for any code
+#      point in the line of TT6, then for each code point in the line of
+#      TT6:
+#
+#      A line is added to TT7:
+#
+#      - The SOURCE field contains the value of the code point from
+#        the line of TT6.
+#
+#      - The TARGET field contains the value of the first code point
+#        in the line of TT6.  This code point has the lowest value in
+#        the line.
+#
+#
+#  Step 7
+#
+#  The purpose of this step is to produce the confusable mappings of all
+#  the code points that are not in any of the classes in TT6.  This
+#  includes only the one-to-many mappings of these code points.  The
+#  code points resulting from this step are added to those already
+#  stored in TT7.
+#
+#  Two similar processes, (a) and (b), involving TT2 and TT3
+#  respectively, are applied:
+#
+#  (a) For each line in TT2, the code point is read in the SOURCE field
+#      if the TARGET field contains more than one code point.
+#
+#      If a code point is skipped in the process below, then the process
+#      continues with the next line of TT2.
+#
+#      The code point is looked up in TT5.
+#
+#      If the code point is not found, then the code point is skipped.
+#
+#      The code point is looked up in TT6.
+#
+#      If the code point is found, then the code point is skipped.
+#
+#      Otherwise, if the code point does not already exist in the SOURCE
+#      field of TT7, a line is added to TT7:
+#
+#      - The SOURCE field contains the value of the code point.
+#
+#      - The TARGET field contains the value of the TARGET field in the
+#        line of TT2.
+#
+#  (b) For each line in TT3, the code point is read in the SOURCE field
+#      if the TARGET field contains more than one code point.
+#
+#      If a code point is skipped in the process below, then the process
+#      continues with the next line of TT3.
+#
+#      The code point is looked up in TT5.
+#
+#      If the code point is not found, then the code point is skipped.
+#
+#      The code point is looked up in TT6.
+#
+#      If the code point is found, then the code point is skipped.
+#
+#      Otherwise, if the code point does not already exist in the SOURCE
+#      field of TT7, a line is added to TT7:
+#
+#      - The SOURCE field contains the value of the code point.
+#
+#      - The TARGET field contains the value of the TARGET field in the
+#        line of TT3.
+#
+#
+#  Step 8
+#
+#  The purpose of this step is to adapt TT7 to ensure that any
+#  transforms performed using the FLT13_Intra_LC_Chinese_Confusable
+#  table are idempotent.
+#
+#  For each line in TT7, the TARGET field, which contains a set of one
+#  more code points, is analyzed.
+#
+#  For each code point in the set, the following process is applied:
+#
+#  The code point is looked up in the SOURCE field of TT7.
+#
+#  If the code point is found, then the value of the corresponding
+#  TARGET field replaces the code point in the set.  The value of this
+#  TARGET field can be one or more code points.
+#
+#  The preceding process is applied recursively to all code points in
+#  the set until there is no further change to the set.
+#
+#
+#  Step 9
+#
+#  The purpose of this step is to generate the data lines in
+#  FLT13_Intra_LC_Chinese_Confusable.
+#
+#  The lines in TT7 are sorted by the value of the SOURCE field.
+#
+#  When the sorting process is complete, for each line of TT7, a data
+#  line is added to FLT13_Intra_LC_Chinese_Confusable with the value of
+#  the two fields CODE_POINT and CONVERGENCE_MAPPING:
+#
+#  - The first value contains the code point from the SOURCE field of
+#    TT7.
+#
+#  - The second value contains the list of code points from the TARGET
+#    field of TT7.  This list can contain one or more code points.
+#
+#
+#  ---------------------------------------------------------------------
+#  Generated data lines
+#  ---------------------------------------------------------------------
+#
+CODE_POINT,CONVERGENCE_MAPPING
+0049,0031
+004C,0031
+004D,0052 004E
+004F,0030
+0057,0056 0056
+0061,0041
+0062,0042
+0063,0043
+0064,0044
+0065,0045
+0066,0046
+0067,0047
+0068,0048
+0069,0031
+006A,004A
+006B,004B
+006C,0031
+006D,0052 004E
+006E,004E
+006F,0030
+0070,0050
+0071,0051
+0072,0052
+0073,0053
+0074,0054
+0075,0055
+0076,0056
+0077,0056 0056
+0078,0058
+0079,0059
+007A,005A
+00C6,0041 0045
+00C7,0043 0321
+00D0,0044 0335
+00D8,0030 0337
+00E6,0041 0045
+00E7,0043 0321
+00F0,0044 0335
+00F6,0030 0308
+00F8,0030 0337
+0110,0044 0335
+0111,0044 0335
+011A,0114
+011B,0115
+0126,0048 0335
+0127,0048 0335
+0131,0031
+0138,004B
+0141,0031 0337
+0142,0031 0337
+0150,00D6
+0152,0030 0045
+0153,0030 0045
+0166,0054 0335
+0167,0054 0335
+0180,0042 0335
+0181,0042 0027
+0182,0042 0304
+0183,0042 0304
+0184,0042
+0187,0043 0027
+0189,0044 0335
+018A,0044 0027
+018C,0044 0304
+0191,0046 0321
+0192,0046 0321
+0193,0047 0027
+0196,0031
+0197,0031 0335
+0198,004B 0027
+0199,004B 0027
+019A,0031 0335
+019D,004E 0321
+019E,004E 0329
+019F,0030 0335
+01A0,0030 0027
+01A1,0030 0027
+01A4,0050 0027
+01A5,0050 0027
+01A6,0052
+01A7,0032
+01AB,0163
+01AC,0054 0027
+01AD,0054 0027
+01AE,0054 0322
+01B3,0059 0027
+01B4,0059 0027
+01B5,005A 0335
+01B6,005A 0335
+01B7,0033
+01BC,0035
+01BD,0053
+01BF,00FE
+01C0,0031
+01C1,0031 0031
+01C3,0021
+01CD,0102
+01CE,0103
+01CF,012C
+01D0,012D
+01D1,014E
+01D2,014F
+01D3,016C
+01D4,016D
+01E4,0047 0335
+01E5,0047 0335
+01E6,011E
+01E7,011F
+01F5,0123
+01FE,0030 0337 0301
+021A,0162
+021B,0163
+021C,0033
+0222,0038
+0223,0038
+0224,005A 0321
+0225,005A 0321
+0226,00C5
+0227,00E5
+023C,0043 0337
+023E,0054 0337
+0241,003F
+0244,0055 0335
+0246,0045 0337
+0247,0045 0337
+0248,004A 0335
+0249,004A 0335
+024D,0052 0335
+024E,0059 0335
+024F,0059 0335
+0251,0041
+0253,0042 0027
+0256,0044 0335
+0257,0044 0027
+0259,01DD
+025A,01DD 02DE
+0260,0047 0027
+0261,0047
+0263,0059
+0266,0048 0027
+0268,0031 0335
+0269,0031
+026A,0031
+026B,0031 0334
+026D,0031 0322
+026E,0031 021D
+026F,0056 0056
+0271,0052 004E 0321
+0272,0146
+0273,004E 0322
+0275,0030 0335
+0276,0030 1D07
+027D,0052 0322
+0282,0053 0322
+028B,0055
+028D,0052 004E
+028F,0059
+0290,005A 0322
+0292,021D
+0294,003F
+02A0,0051 0027
+02A3,0044 005A
+02A4,0044 021D
+02A5,0044 0291
+02A6,0054 0053
+02A7,0054 0283
+02A8,0054 0255
+02A9,0046 014B
+02AA,0031 0053
+02AB,0031 005A
+02B9,0027
+02BA,0027 0027
+02BB,0027
+02BC,0027
+02BD,0027
+02BE,0027
+02C6,005E
+02C8,0027
+02CA,0027
+02CB,0027
+02D0,003A
+02EE,0027 0027
+0305,0304
+030C,0306
+0310,0306 0307
+0311,0302
+0314,0027
+0315,0313
+0326,0321
+0327,0321
+0328,0322
+0331,0320
+0336,0335
+0338,0337
+0339,0321
+0342,0303
+0345,0322
+0347,0333
+0358,0307
+0366,030A
+036E,0306
+0375,02CF
+037B,0254
+037F,004A
+0391,0041
+0392,0042
+0395,0045
+0396,005A
+0397,0048
+0398,0030 0335
+0399,0031
+039A,004B
+039B,0245
+039C,0052 004E
+039D,004E
+039F,0030
+03A1,0050
+03A3,01A9
+03A4,0054
+03A5,0059
+03A7,0058
+03B1,0041
+03B2,00DF
+03B3,0059
+03B5,025B
+03B7,004E 0329
+03B8,0030 0335
+03B9,0031
+03BA,004B
+03BD,0056
+03BF,0030
+03C0,004E
+03C1,0050
+03C3,0030
+03C4,0054
+03C5,0055
+03C6,0278
+03DB,03C2
+03DC,0046
+03E8,0032
+03E9,01A8
+03F3,004A
+03F7,00DE
+03F8,00FE
+03FA,0052 004E
+03FD,0186
+0405,0053
+0406,0031
+0408,004A
+0410,0041
+0411,0042 0304
+0412,0042
+0413,0393
+0415,0045
+0417,0033
+0418,0376
+0419,040D
+041A,004B
+041B,0245
+041C,0052 004E
+041D,0048
+041E,0030
+041F,03A0
+0420,0050
+0421,0043
+0422,0054
+0424,03A6
+0425,0058
+042B,0042 0031
+042C,0042
+042E,0031 0030
+0430,0041
+0431,0036
+0432,0299
+0433,0052
+0435,0045
+0437,025C
+0438,0377
+043A,004B
+043C,0052 004E
+043D,029C
+043E,0030
+043F,004E
+0440,0050
+0441,0043
+0442,0054
+0443,0059
+0444,0278
+0445,0058
+0446,0055
+044A,02C9 0042
+044B,0185 0031
+044C,0185
+0454,025B
+0455,0053
+0456,0031
+0458,004A
+045B,0048 0335
+045D,0439
+0461,0056 0056
+0462,0042 0335
+0463,0042 0335
+0470,03A8
+0471,03C8
+0472,0030 0335
+0473,0030 0335
+0474,0056
+0475,0056
+047C,0460 0483
+047D,0056 0056 0483
+048A,040D 0321
+048B,0439 0321
+048C,0042 0335
+048D,0042 0335
+0490,0393 0027
+0491,0052 0027
+0492,0393 0335
+0493,0052 0335
+0496,0416 0329
+0497,0436 0329
+0498,0033 0321
+0499,025C 0321
+049A,004B 0329
+049B,004B 0329
+049E,004B 0335
+049F,004B 0335
+04A2,0048 0329
+04A3,029C 0329
+04AA,0043 0321
+04AB,0043 0321
+04AC,0054 0329
+04AD,0054 0329
+04AE,0059
+04AF,0059
+04B0,0059 0335
+04B1,0059 0335
+04B2,0058 0329
+04BB,0048
+04BD,0045
+04BE,04BC 0322
+04BF,0045 0322
+04C0,0031
+04C5,0245 0321
+04C6,043B 0321
+04C7,0048 0321
+04C8,029C 0321
+04C9,0048 0321
+04CA,029C 0321
+04CB,04B6
+04CC,04B7
+04CD,0052 004E 0321
+04CE,0052 004E 0321
+04CF,0031
+04D4,0041 0045
+04D5,0041 0045
+04D8,018F
+04D9,01DD
+04E0,0033
+04E1,021D
+04E8,0030 0335
+04E9,0030 0335
+0501,0044
+050A,01F6
+050C,0047
+050D,0262
+0510,0190
+0511,025B
+051B,0051
+051C,0056 0056
+051D,0056 0056
+054D,0055
+054F,0053
+0553,03A6
+0555,0030
+0559,02BF
+0561,0056 0056
+0563,0051
+0566,0051
+056E,03B4
+0570,0048
+0575,0237
+0578,004E
+057A,0270
+057C,004E
+057D,0055
+0581,0047
+0584,0046
+0585,0030
+059C,0301
+059D,0301
+05A4,059A
+05A8,0599
+05AD,0596
+05AE,0598
+05AF,030A
+05B4,0323
+05B9,0307
+05BA,0307
+05C1,0307
+05C2,0307
+05C4,0307
+05C5,0323
+05D5,0031
+05D8,0056
+05D9,0027
+05DF,0031
+05E1,0030
+05F0,0031 0031
+05F1,0031 0027
+05F2,0027 0027
+05F3,0027
+05F4,0027 0027
+0619,0313
+0623,0031 0674
+0624,0648 0674
+0626,0649 0674
+0627,0031
+0629,0030 0308
+062E,062C
+0647,0030
+064A,0649
+064E,0618
+064F,0313
+0650,061A
+0660,002E
+0661,0031
+0665,0030
+0667,0056
+0668,0245
+06A9,0643
+06BB,0679
+06BE,0030
+06C1,0030
+06C2,06C0
+06C3,0030 0308
+06CC,0649
+06D0,067B
+06D5,0030
+06EC,06DF
+06F0,002E
+06F1,0031
+06F2,0662
+06F3,0663
+06F4,0664
+06F5,0030
+06F6,0666
+06F7,0056
+06F8,0245
+06F9,0669
+0740,0307
+0741,0307
+0742,073C
+0747,0301
+07C0,0030
+07CA,0031
+07EB,0304
+07ED,0307
+07EE,0302
+07F3,0308
+07F4,0027
+07F5,0027
+08A1,0628 0654
+08AE,062F 08EE 08ED
+08AF,0635 08EE 08ED
+08B0,06AF
+08B1,0648
+08B2,0632 065B
+08FF,08F8
+0900,0352
+0901,0306 0307
+0902,0307
+0903,003A
+0904,0905 0946
+0906,0905 093E
+0908,0930 094D 0907
+090D,090F 0945
+090E,090F 0946
+0910,090F 0947
+0911,0905 0949
+0912,0905 093E 0946
+0913,0905 093E 0947
+0914,0905 093E 0948
+093C,0323
+0952,0320
+0953,0300
+0954,0301
+0966,0030
+0967,0669
+097D,003F
+0981,0306 0307
+0986,0985 09BE
+09BC,0323
+09E0,098B 09C3
+09E1,098B 09C3
+09E6,0030
+09EA,0038
+09ED,0039
+0A02,0307
+0A03,0983
+0A06,0A05 0A3E
+0A07,0A72 0A3F
+0A08,0A72 0A40
+0A09,0A73 0A41
+0A0A,0A73 0A42
+0A0F,0A72 0A47
+0A10,0A05 0A48
+0A14,0A05 0A4C
+0A3C,0323
+0A4B,0946
+0A4D,094D
+0A66,0030
+0A67,0039
+0A6A,0038
+0A81,0306 0307
+0A82,0307
+0A83,003A
+0A86,0A85 0ABE
+0A8D,0A85 0AC5
+0A8F,0A85 0AC7
+0A90,0A85 0AC8
+0A91,0A85 0ABE 0AC5
+0A93,0A85 0ABE 0AC7
+0A94,0A85 0ABE 0AC8
+0ABC,0323
+0ABD,093D
+0AC1,0941
+0AC2,0942
+0ACD,094D
+0AE6,0030
+0AE8,0968
+0AE9,0969
+0AEA,096A
+0AEE,096E
+0B01,0306 0307
+0B03,0038
+0B06,0B05 0B3E
+0B20,0030
+0B3C,0323
+0B66,0030
+0B68,0039
+0B82,030A
+0B8A,0B89 0BB3
+0B9C,0B90
+0BB0,0B88
+0BBE,0B88
+0BC8,0BA9
+0BCA,0BC6 0B88
+0BCB,0BC7 0B88
+0BCC,0BC6 0BB3
+0BCD,0307
+0BD7,0BB3
+0BE6,0030
+0BE7,0B95
+0BE8,0B89
+0BEA,0B9A
+0BEB,0B88 0BC1
+0BEC,0B9A 0BC1
+0BED,0B8E
+0BEE,0B85
+0C00,0306 0307
+0C02,0030
+0C03,0983
+0C13,0C12 0C55
+0C14,0C12 0C4C
+0C20,0C30 05BC
+0C22,0C21 0323
+0C25,0C27 05BC
+0C2D,0C2C 0323
+0C2E,0C35 0C41
+0C37,0C35 0323
+0C39,0C35 0C3E
+0C42,0C41 0C3E
+0C44,0C43 0C3E
+0C60,0C0B 0C3E
+0C61,0C0C 0C3E
+0C66,0030
+0C81,0306 0307
+0C82,0030
+0C83,0983
+0C85,0C05
+0C86,0C06
+0C87,0C07
+0C92,0C12
+0C93,0C12 0C55
+0C94,0C12 0C4C
+0C9C,0C1C
+0C9E,0C1E
+0CA3,0C23
+0CAF,0C2F
+0CB1,0C31
+0CB2,0C32
+0CE1,0C8C 0CBE
+0CE6,0030
+0CE7,0C67
+0CE8,0C68
+0CEF,0C6F
+0D01,0306 0307
+0D02,0030
+0D03,0983
+0D08,0D07 0D57
+0D09,0B89
+0D0A,0B89 0D57
+0D0C,0D28 0D41
+0D10,0D0E 0D46
+0D13,0D12 0D3E
+0D14,0D12 0D57
+0D19,0D28 0D41
+0D1C,0B90
+0D20,0030
+0D23,0BA3
+0D31,0D30
+0D34,0BB4
+0D36,0BB6
+0D3A,0B9F 0BBF
+0D3F,0BBF
+0D40,0BBF
+0D42,0D41
+0D43,0D41
+0D48,0D46 0D46
+0D4E,0971
+0D61,0D1E
+0D66,0030
+0D6A,0D30 0D4D
+0D6B,0D26 0D4D 0D30
+0D6E,0D35 0D4D
+0D6F,0D28 0D4D
+0D82,0030
+0D83,0983
+0D8C,0D28 0D4D 0D28
+0DE9,0DE8 0DCF
+0DEA,0DA2
+0DEB,0DAF
+0DEF,0DE8 0DD3
+0E03,0E02
+0E0B,0E0A
+0E0F,0E0E
+0E14,0E04
+0E15,0E04
+0E17,0E11
+0E21,0E06
+0E26,0E20
+0E41,0E40 0E40
+0E45,0E32
+0E4D,030A
+0E50,0030
+0E88,0E08
+0E8D,0E22
+0E9A,0E1A
+0E9B,0E1B
+0E9D,0E1D
+0E9E,0E1E
+0E9F,0E1F
+0EB8,0E38
+0EB9,0E39
+0EC8,0E48
+0EC9,0E49
+0ECA,0E4A
+0ECB,0E4B
+0ECD,030A
+0ED0,0030
+0F00,0F68 0F7C 0F7E
+0F6A,0F62
+1000,1002 102C
+1010,0030 102C
+101D,0030
+101F,1015 102C
+102A,1029 1031 102C 103A
+1036,030A
+1038,0983
+1040,0030
+1065,1041
+1066,1015 103E
+106F,1015 102C 103E
+1070,1003 103E
+1081,1002 103E
+10E7,0059
+10F3,021D
+10FF,0030
+1101,1100 1100
+1104,1103 1103
+1108,1107 1107
+110A,1109 1109
+110D,110C 110C
+1162,1161 1175
+1164,1163 1175
+1166,1165 1175
+1168,1167 1175
+116A,1169 1161
+116B,1169 1161 1175
+116C,1169 1175
+116F,116E 1165
+1170,116E 1165 1175
+1171,116E 1175
+1174,1173 1175
+11A8,1100
+11A9,1100 1100
+11AA,1100 1109
+11AB,1102
+11AC,1102 110C
+11AD,1102 1112
+11AE,1103
+11AF,1105
+11B0,1105 1100
+11B1,1105 1106
+11B2,1105 1107
+11B3,1105 1109
+11B4,1105 1110
+11B5,1105 1111
+11B6,1105 1112
+11B7,1106
+11B8,1107
+11B9,1107 1109
+11BA,1109
+11BB,1109 1109
+11BC,110B
+11BD,110C
+11BE,110E
+11BF,110F
+11C0,1110
+11C1,1111
+11C2,1112
+13A0,0044
+13A1,0052
+13A2,0054
+13A4,0030 0027
+13A5,0031
+13A8,0370
+13A9,0059
+13AA,0041
+13AB,004A
+13AC,0045
+13AE,003F
+13B0,0370
+13B1,0393
+13B3,0056 0056
+13B7,0052 004E
+13BB,0048
+13BD,0059
+13BE,0030 0335
+13BF,0163
+13C0,0047
+13C2,0048
+13C3,005A
+13C7,0460
+13CB,0190
+13CC,0055 0335
+13CE,0034
+13CF,0042
+13D2,0052
+13D4,0056 0056
+13D5,0053
+13D9,0056
+13DA,0053
+13DE,0031
+13DF,0043
+13E2,0050
+13E6,004B
+13E7,0044
+13EB,0030 0335
+13EE,0036
+13F0,00DF
+13F2,0048 0027
+13F3,0047
+13F4,0042
+1403,0394
+140C,00B7 1401
+140D,1401 00B7
+140E,00B7 0394
+140F,0394 00B7
+1410,00B7 1404
+1411,1404 00B7
+1412,00B7 1405
+1413,1405 00B7
+1414,00B7 1406
+1415,1406 00B7
+1417,00B7 140A
+1418,140A 00B7
+1419,00B7 140B
+141A,140B 00B7
+1427,00B7
+142B,1401 1420
+142C,0394 1420
+142D,1405 1420
+142E,140A 1420
+142F,0056
+1431,0245
+1433,003E
+1437,00B7 003E
+1438,003C
+143A,00B7 0056
+143B,0056 00B7
+143C,00B7 0245
+143D,0245 00B7
+143E,00B7 1432
+143F,1432 00B7
+1440,00B7 003E
+1441,003E 00B7
+1442,00B7 1434
+1443,1434 00B7
+1444,00B7 003C
+1445,003C 00B7
+1446,00B7 1439
+1447,1439 00B7
+144A,0027
+144C,0055
+144E,0548
+1454,00B7 1450
+1457,00B7 0055
+1458,0055 00B7
+1459,00B7 0548
+145A,0548 00B7
+145B,00B7 144F
+145C,144F 00B7
+145D,00B7 1450
+145E,1450 00B7
+145F,00B7 1451
+1460,1451 00B7
+1461,00B7 1455
+1462,1455 00B7
+1463,00B7 1456
+1464,1456 00B7
+1467,0055 0027
+1468,0548 0027
+1469,1450 0027
+146A,1455 0027
+146D,0050
+146F,0044
+1474,00B7 146B
+1475,146B 00B7
+1476,00B7 0050
+1477,0050 00B7
+1478,00B7 146E
+1479,146E 00B7
+147A,00B7 0044
+147B,0044 00B7
+147C,00B7 1470
+147D,1470 00B7
+147E,00B7 1472
+147F,1472 00B7
+1480,00B7 1473
+1481,1473 00B7
+1485,146B 0027
+1486,0050 0027
+1487,0044 0027
+1488,1472 0027
+148D,004A
+1492,00B7 1489
+1493,1489 00B7
+1494,00B7 148B
+1495,148B 00B7
+1496,00B7 148C
+1497,148C 00B7
+1498,00B7 004A
+1499,004A 00B7
+149A,00B7 148E
+149B,148E 00B7
+149C,00B7 1490
+149D,1490 00B7
+149E,00B7 1491
+149F,1491 00B7
+14A5,0393
+14AA,0031
+14AC,00B7 14A3
+14AD,14A3 00B7
+14AE,00B7 0393
+14AF,0393 00B7
+14B0,00B7 14A6
+14B1,14A6 00B7
+14B2,00B7 14A7
+14B3,14A7 00B7
+14B4,00B7 14A8
+14B5,14A8 00B7
+14B6,00B7 0031
+14B7,0031 00B7
+14B8,00B7 14AB
+14B9,14AB 00B7
+14BF,0032
+14C9,00B7 14C0
+14CA,14C0 00B7
+14CB,00B7 14C7
+14CC,14C7 00B7
+14CD,00B7 14C8
+14CE,14C8 00B7
+14D1,1421
+14DC,00B7 14D3
+14DD,14D3 00B7
+14DE,00B7 14D5
+14DF,14D5 00B7
+14E0,00B7 14D6
+14E1,14D6 00B7
+14E2,00B7 14D7
+14E3,14D7 00B7
+14E4,00B7 14D8
+14E5,14D8 00B7
+14E6,00B7 14DA
+14E7,14DA 00B7
+14E8,00B7 14DB
+14E9,14DB 00B7
+14F6,00B7 14ED
+14F7,14ED 00B7
+14F8,00B7 14EF
+14F9,14EF 00B7
+14FA,00B7 14F0
+14FB,14F0 00B7
+14FC,00B7 14F1
+14FD,14F1 00B7
+14FE,00B7 14F2
+14FF,14F2 00B7
+1500,00B7 14F4
+1501,14F4 00B7
+1502,00B7 14F5
+1503,14F5 00B7
+150C,150B 003C
+150D,150B 1455
+150E,150B 1472
+150F,150B 1490
+1517,00B7 1510
+1518,1510 00B7
+1519,00B7 1511
+151A,1511 00B7
+151B,00B7 1512
+151C,1512 00B7
+151D,00B7 1513
+151E,1513 00B7
+151F,00B7 1514
+1520,1514 00B7
+1521,00B7 1515
+1522,1515 00B7
+1523,00B7 1516
+1524,1516 00B7
+152F,00B7 0034
+1530,0034 00B7
+1531,00B7 1528
+1532,1528 00B7
+1533,00B7 1529
+1534,1529 00B7
+1535,00B7 152A
+1536,152A 00B7
+1537,00B7 152B
+1538,152B 00B7
+1539,00B7 152D
+153A,152D 00B7
+153B,00B7 152E
+153C,152E 00B7
+1540,1429
+1541,0058
+154E,00B7 154C
+154F,154C 00B7
+155B,00B7 155A
+155C,155A 00B7
+1568,00B7 1567
+1569,1567 00B7
+1577,03B4
+157C,0048
+157D,0058
+157E,1550 146C
+157F,1550 0050
+1580,1550 146E
+1581,1550 0044
+1582,1550 1470
+1583,1550 1472
+1584,1550 1473
+1585,1550 1483
+1587,0052
+158E,1595 148A
+158F,1595 148B
+1590,1595 148C
+1591,1595 004A
+1592,1595 148E
+1593,1595 1490
+1594,1595 1491
+15AF,0042
+15B4,0046
+15C5,0041
+15DE,0044
+15EA,0044
+15EF,0460
+15F0,0052 004E
+15F7,0042
+1602,1490
+1603,1489
+1604,14D3
+1607,14DA
+1622,1543
+1623,1546
+1624,154A
+162E,01B1
+162F,03A9
+1634,01B1
+1635,03A9
+166F,1550 146B
+1670,1595 1489
+1671,1596 148B
+1672,1596 148C
+1673,1596 004A
+1674,1596 148E
+1675,1596 1490
+1676,1596 1491
+1677,15A7 00B7
+1678,15A8 00B7
+1679,15A9 00B7
+167A,15AA 00B7
+167B,15AB 00B7
+167C,15AC 00B7
+167D,15AD 00B7
+16B2,003C
+16B7,0058
+16C1,0031
+16C2,16BD
+16CC,0027
+16D5,004B
+16D6,0052 004E
+16D8,03A8
+16E1,16BC
+17B7,0E34
+17B8,0E35
+17B9,0E36
+17BA,0E37
+17C6,030A
+17CB,0E48
+1855,1835
+1896,185C
+18B3,00B7 18B1
+18B6,00B7 18B4
+18B9,00B7 18B8
+18C2,00B7 18C0
+18E0,1543 00B7
+18E3,155E 00B7
+18E4,1566 00B7
+18E5,156B 00B7
+18E8,1586 00B7
+18EA,1597 00B7
+18ED,0460 00B7
+18F0,15F4 00B7
+18F2,161B 00B7
+19D0,199E
+19D1,19B1
+1A80,1A45
+1A90,1A45
+1AB4,06DB
+1AB7,0322
+1B52,1B0D
+1B53,1B11
+1B58,1B28
+1CD0,0302
+1CD2,0304
+1CD5,032B
+1CD8,032E
+1CD9,032D
+1CDA,030E
+1CDC,0329
+1CDD,0323
+1CDE,0324
+1CED,0316
+1D00,0041
+1D04,0043
+1D08,025C
+1D0B,004B
+1D0D,0052 004E
+1D0E,0377
+1D0F,0030
+1D10,0254
+1D11,0030
+1D14,01DD 0030
+1D19,044F
+1D1B,0054
+1D1C,0055
+1D20,0056
+1D21,0056 0056
+1D22,005A
+1D24,01A8
+1D26,0052
+1D27,028C
+1D28,004E
+1D29,1D18
+1D2B,043B
+1D6B,0055 0045
+1D6E,0046 0334
+1D6F,0052 004E 0334
+1D70,004E 0334
+1D72,0052 0334
+1D73,027E 0334
+1D74,0053 0334
+1D75,0054 0334
+1D76,005A 0334
+1D7B,0031 0335
+1D7C,0031 0335
+1D7D,0050 0335
+1D7E,0055 0335
+1D7F,028A 0335
+1D83,0047
+1D8C,0059
+1D90,024B
+1E9D,0046
+1E9F,03B4
+1EFF,0059
+1FF6,13EF
+2132,15B5
+2183,0186
+2184,0254
+2365,00D6
+2C67,0048 0329
+2C69,004B 0329
+2C6F,15C4
+2C75,0370
+2C84,0393
+2C85,0052
+2C86,0394
+2C88,0404
+2C89,025B
+2C8E,0048
+2C92,0031
+2C94,004B
+2C95,004B
+2C96,03BB
+2C98,0052 004E
+2C9A,004E
+2C9E,0030
+2C9F,0030
+2CA0,03A0
+2CA2,0050
+2CA3,0050
+2CA4,0043
+2CA5,0043
+2CA6,0054
+2CA8,0059
+2CAA,03A6
+2CAB,0278
+2CAC,0058
+2CAD,03C7
+2CAE,03A8
+2CB1,03C9
+2CB4,003C 00B7
+2CBA,002D
+2CBC,0428
+2CBD,0448
+2CC6,002F
+2CCA,0039
+2CCC,0033
+2CCD,021D
+2CD0,0031
+2CD1,029F
+2CD2,0036
+2CDC,03EC
+2CE4,03D7
+2D31,0030 0335
+2D37,0245
+2D38,0056
+2D39,0045
+2D3A,018E
+2D41,0030 0337
+2D48,00B7 00B7 00B7
+2D49,01A9
+2D4F,0031
+2D51,0021
+2D54,0030
+2D55,0051
+2D59,0298
+2D5D,0058
+2D60,0394
+2D63,16EF
+2DE8,1DDF
+3007,0030
+302C,0309
+302D,0325
+309A,030A
+30D8,3078
+30FB,00B7
+30FC,1173
+39B3,363D
+439B,3588
+4420,3B3B
+4E00,1173
+4E28,1175
+4E36,005C
+4E3F,002F
+5002,4F75
+503C,5024
+555F,5553
+586B,5861
+58FF,58AB
+5B00,5AAF
+5E32,5E21
+5E50,3B3A
+6238,6236
+6409,3A41
+6663,403F
+6669,665A
+66F6,3ADA
+6726,4443
+67FF,676E
+69E9,3BA3
+6A27,699D
+6F59,6E88
+784F,7814
+7D76,7D55
+80A6,670C
+80CA,6710
+80D0,670F
+80F6,3B35
+8101,6713
+8127,6718
+8141,80FC
+81A7,6723
+853F,848D
+8641,8637
+8A1E,46B6
+8A7D,8A2E
+8B8F,8B86
+8C63,8C5C
+8D86,8D7F
+8DFA,8DE5
+8E9B,8E97
+8F27,8EFF
+90DE,90CE
+93AE,93AD
+96B8,96B7
+9E43,9E42
+9ED2,9ED1
+9FC3,4039
+A4D0,0042
+A4D1,0050
+A4D2,0044
+A4D3,0044
+A4D4,0054
+A4D6,0047
+A4D7,004B
+A4D9,004A
+A4DA,0043
+A4DB,0186
+A4DC,005A
+A4DD,0046
+A4DE,15B5
+A4DF,0052 004E
+A4E0,004E
+A4E1,0031
+A4E2,0053
+A4E3,0052
+A4E5,0245
+A4E6,0056
+A4E7,0048
+A4EA,0056 0056
+A4EB,0058
+A4EC,0059
+A4ED,1660
+A4EE,0041
+A4EF,15C4
+A4F0,0045
+A4F1,018E
+A4F2,0031
+A4F3,0030
+A4F4,0055
+A4F5,0548
+A4F7,15E1
+A4F8,002E
+A4F9,002C
+A4FA,002E 002E
+A4FB,002E 002C
+A4FD,003A
+A644,0032
+A645,01A8
+A647,0031
+A668,0298
+A67C,0306
+A695,0048 0027
+A698,0030 0030
+A699,0030 0030
+A728,0054 0033
+A729,0054 021D
+A731,0053
+A732,0041 0041
+A733,0041 0041
+A734,0041 0030
+A735,0041 0030
+A736,0041 0055
+A737,0041 0055
+A738,0041 0056
+A739,0041 0056
+A73A,0041 0056
+A73B,0041 0056
+A73C,0041 0059
+A73D,0041 0059
+A73E,03FF
+A73F,037D
+A740,004B 0335
+A74A,0030 0335
+A74B,0030 0335
+A74E,0030 0030
+A74F,0030 0030
+A75A,0032
+A761,0056 0059
+A76A,0033
+A76B,021D
+A76E,0039
+A777,0054 0046
+A778,0026
+A77A,A779
+A786,10A0
+A78C,0027
+A792,0404
+A793,025B
+A795,A727
+A798,0046
+A799,0046
+A79D,025E
+A79E,A4E4
+A79F,0055
+A7AB,0033
+A7B1,A4D5
+A7F7,1173
+A7FB,15B7
+A9CF,0662
+AA53,AA01
+AA56,AA23
+AB32,0045
+AB35,0046
+AB3D,0030
+AB3E,0030 0337
+AB47,0052
+AB48,0052
+AB4D,0283
+AB4E,0055
+AB51,0052 004E
+AB52,0055
+AB53,03C7
+AB55,03C7
+AB5A,0059
+10282,0042
+10285,0394
+10286,0045
+10287,0046
+1028A,0031
+1028D,0245
+10290,0058
+10292,0030
+10294,16DC
+10295,0050
+10296,0053
+10297,0054
+1029B,002B
+102A0,0041
+102A1,0042
+102A2,0043
+102A3,0394
+102A5,0046
+102AB,0030
+102AD,03D8
+102B0,0052 004E
+102B1,0054
+102B2,0059
+102B3,03A6
+102B4,0058
+102B5,03A8
+102B6,03A9
+102B8,2D40
+102CF,0048
+10301,0042
+10302,0043
+10309,0031
+10311,0052 004E
+10312,03D8
+10315,0054
+10317,0058
+1031A,0038
+1031F,002A
+10401,0190
+10404,0030
+10411,A4F6
+10412,A79A
+10415,0043
+1041B,0031
+1041F,2C70
+10420,0053
+10423,0186
+10425,0376
+10429,025B
+1042A,029A
+1042C,0030
+1043A,A79B
+1043D,0043
+1043F,0277
+10442,025E
+10443,029F
+10448,0053
+1044B,0254
+1044D,0377
+104A0,10486
+10513,004E
+10516,0030
+10518,004B
+1051C,0043
+1051D,0056
+10525,0046
+10526,0031
+10527,0058
+10A3A,0323
+11492,0998
+11494,099A
+11496,099C
+11498,099E
+11499,099F
+1149B,09A1
+1149D,09B2
+1149E,09A4
+1149F,09A5
+114A0,09A6
+114A1,09A7
+114A2,09A8
+114A3,09AA
+114A7,09AE
+114A8,09AF
+114A9,09AC
+114AA,09A3
+114AB,09B0
+114AD,09B7
+114AE,09B8
+114B0,09BE
+114B1,09BF
+114B9,09C7
+114BC,09CB
+114BD,09D7
+114BE,09CC
+114BF,0306 0307
+114C1,0983
+114C2,09CD
+114C3,0323
+114C4,09BD
+114C5,0056 0056 0307
+114D0,0030
+114D1,09E7
+114D2,09E8
+114D6,09EC
+118A0,0056
+118A2,0046
+118A3,0031
+118A4,0059
+118A6,0045
+118A8,2207
+118A9,005A
+118AC,0039
+118AE,0045
+118AF,0034
+118B2,0031
+118B5,0030
+118B7,16DC
+118B8,0055
+118BB,0035
+118BC,0054
+118C0,0056
+118C1,0053
+118C2,0046
+118C3,0031
+118C4,005A
+118C6,0037
+118C8,0030
+118CA,0033
+118CC,0039
+118CE,025B
+118D5,0036
+118D6,0039
+118D7,0030
+118D8,0055
+118DC,0059
+118E0,0030
+118E3,0052 004E
+118E4,0669
+118E5,005A
+118E6,0056 0056
+118E9,0043
+12038,1039A
+132F9,1099E

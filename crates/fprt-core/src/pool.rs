@@ -1,17 +1,20 @@
-//! The refcounted engine-memory primitive.
+//! The refcounted argument-memory primitive.
 //!
-//! Every call hands back a [`MempoolHandle`] for the argument buffer it wrote
-//! into; the host must free it exactly once. A [`Pool`] is the shared owner of
-//! one such handle: it frees on last drop. A [`Pooled<T>`] is a raw pointer
-//! *into* that pool's memory plus a retained [`Pool`] — a refcount-freed `Box<T>`
-//! whose backing allocation is the engine's, not Rust's.
+//! Every FPRT call hands back argument data — strings, image blobs, diagnostic
+//! messages — in a pool the *producing* side owns and the *consuming* side reads.
+//! A [`Pool`] is the shared owner of one such region: it frees on last drop. A
+//! [`Pooled<T>`] is a raw pointer *into* that region plus a retained [`Pool`] — a
+//! refcount-freed `Box<T>` whose backing allocation belongs to the pool.
 //!
-//! Safe, typed wrappers ([`PooledString`], and image/payload types later) are
-//! newtypes over `Pooled<[u8]>` / `Pooled<Raw…>`; end users never touch the one
-//! `unsafe` choke point, [`Pool::own`].
+//! What backs a pool is abstracted by [`Anchor`]: the caller (client) backs it
+//! with a foreign engine mempool handle freed over FFI; the implementor (server)
+//! backs it with an owned [`Arena`] via [`OwnedPool`]. `Pooled` is identical
+//! either way.
+//!
+//! Safe, typed wrappers ([`PooledString`], [`PooledImage`]) are newtypes over
+//! `Pooled<[u8]>`; end users never touch the one `unsafe` choke point,
+//! [`Pool::own`].
 
-// The `Pool` plumbing is minted by the call layer (conductor / UI), which lands
-// next; until a call site exists these are legitimately unused.
 #![allow(dead_code)]
 
 use core::ops::Deref;
@@ -19,58 +22,36 @@ use core::str::Utf8Error;
 use std::borrow::Cow;
 use std::sync::Arc;
 
-use fprt_sys::mem::MempoolHandle;
 use fprt_sys::ui::ImageRecord;
 use fprt_sys::ustring::Ustring;
 
 use crate::arena::Arena;
-use crate::engine::EngineInner;
 
 /// Keeps a region of argument bytes alive; the last [`Pool`] clone to drop frees
 /// it. Pure RAII — no methods. The concrete implementor's `Drop` does the
 /// freeing, and the `Send + Sync` bound is what lets a [`Pooled`] cross threads.
 ///
-/// The two implementors are the two sides of the ABI: [`ForeignPool`] (we borrow
-/// an engine-owned mempool and release it over FFI) and [`Arena`] (we own the
-/// bytes outright and free them on drop). A [`Pooled`] holds one type-erased
-/// behind `Arc<dyn Anchor>` and never needs to know which.
-pub(crate) trait Anchor: Send + Sync {}
-
-/// The host-side backing: an engine-owned mempool handle, released over FFI when
-/// the last reference drops.
-struct ForeignPool {
-    engine: Arc<EngineInner>,
-    handle: MempoolHandle,
-}
-
-impl Drop for ForeignPool {
-    fn drop(&mut self) {
-        if self.handle != MempoolHandle::EMPTY {
-            // SAFETY: the engine (and thus the module) is alive — we hold an
-            // `Arc` to it. `free` is documented as a harmless no-op on empty /
-            // stale / already-freed handles, so this can only ever do the right
-            // thing exactly once.
-            unsafe {
-                (self.engine.methods().library_free_allocated_arguments)(self.handle);
-            }
-        }
-    }
-}
-
-impl Anchor for ForeignPool {}
+/// The two implementors are the two sides of the ABI: a *foreign* pool (the
+/// client borrows an engine-owned mempool and releases it over FFI — it lives in
+/// the client crate, since only it knows how to free) and [`Arena`] (the server
+/// owns the bytes outright and frees them on drop). A [`Pooled`] holds one
+/// type-erased behind `Arc<dyn Anchor>` and never needs to know which.
+pub trait Anchor: Send + Sync {}
 
 /// A shared-ownership token over one argument region. Cheap to clone; the region
 /// is freed when the last clone (across all [`Pooled`] minted from it) drops.
 ///
-/// Backed by either a foreign engine mempool ([`Pool::new`]) or an owned
-/// [`Arena`] ([`OwnedPool`]) — the same [`Pooled`] views either way.
+/// Backed by either a foreign engine mempool (built in the client crate via
+/// [`Pool::from_anchor`]) or an owned [`Arena`] ([`OwnedPool`]) — the same
+/// [`Pooled`] views either way.
 #[derive(Clone)]
-pub(crate) struct Pool(Arc<dyn Anchor>);
+pub struct Pool(Arc<dyn Anchor>);
 
 impl Pool {
-    /// Take ownership of a freshly-returned `mempool_out` handle (host side).
-    pub(crate) fn new(engine: Arc<EngineInner>, handle: MempoolHandle) -> Self {
-        Pool(Arc::new(ForeignPool { engine, handle }))
+    /// Wrap any [`Anchor`] as a pool. The client uses this to install its
+    /// foreign-mempool backing; [`OwnedPool`] uses it for the arena backing.
+    pub fn from_anchor(anchor: Arc<dyn Anchor>) -> Self {
+        Pool(anchor)
     }
 
     /// Mint a [`Pooled<T>`] pointing at `ptr`, sharing this pool's refcount.
@@ -80,7 +61,7 @@ impl Pool {
     /// `ptr` must point into this pool's memory at a valid `T` that stays valid
     /// for as long as the pool is alive. Callers reach this only through safe
     /// wrappers ([`Pool::string`], typed payload accessors).
-    pub(crate) unsafe fn own<T: ?Sized>(&self, ptr: *const T) -> Pooled<T> {
+    pub unsafe fn own<T: ?Sized>(&self, ptr: *const T) -> Pooled<T> {
         Pooled {
             pool: self.clone(),
             ptr,
@@ -97,7 +78,7 @@ impl Pool {
     /// its bytes live for as long as the pool. The null/empty check is a
     /// convenience, not a provenance check — a non-null pointer from elsewhere
     /// would still be unsound.
-    pub(crate) unsafe fn string(&self, raw: Ustring) -> Option<PooledString> {
+    pub unsafe fn string(&self, raw: Ustring) -> Option<PooledString> {
         if raw.utf8.is_null() || raw.len <= 0 {
             return None;
         }
@@ -115,7 +96,7 @@ impl Pool {
     ///
     /// `raw` must be an `ImageRecord` the engine wrote into *this* pool (same
     /// provenance caveat as [`string`](Pool::string)).
-    pub(crate) unsafe fn image(&self, raw: ImageRecord) -> Option<PooledImage> {
+    pub unsafe fn image(&self, raw: ImageRecord) -> Option<PooledImage> {
         if raw.buffer.is_null() || raw.byte_len == 0 {
             return None;
         }
@@ -137,7 +118,7 @@ impl Pool {
     /// # Safety
     ///
     /// `items` must point at `count` `Ustring`s the engine wrote into *this* pool.
-    pub(crate) unsafe fn strings(&self, items: *const Ustring, count: u32) -> Vec<PooledString> {
+    pub unsafe fn strings(&self, items: *const Ustring, count: u32) -> Vec<PooledString> {
         if items.is_null() {
             return Vec::new();
         }
@@ -161,30 +142,89 @@ impl Pool {
 /// Cloning an `OwnedPool` shares the same arena, so values minted from any clone
 /// keep the whole region alive until the last [`Pooled`] drops.
 #[derive(Clone)]
-pub(crate) struct OwnedPool {
+pub struct OwnedPool {
     arena: Arc<Arena>,
 }
 
 impl OwnedPool {
     /// A fresh, empty arena.
-    pub(crate) fn new() -> Self {
+    pub fn new() -> Self {
         OwnedPool {
             arena: Arc::new(Arena::new()),
         }
     }
 
-    /// The shared [`Pool`] token backing every value minted here — for threading
-    /// the same arena through a payload's nested fields.
-    fn pool(&self) -> Pool {
+    // (`Default` is provided below so the pool reads as a normal allocator.)
+
+    /// The shared [`Pool`] read-token backing every value minted here — for
+    /// threading the same arena through a payload's nested fields, and for
+    /// decoding bytes the arena owns back into [`Pooled`] views.
+    pub fn as_pool(&self) -> Pool {
         Pool(self.arena.clone())
     }
 
+    /// Total bytes this pool has allocated — its contribution to
+    /// `library_report_allocated_arguments`' byte total.
+    pub fn bytes(&self) -> usize {
+        self.arena.allocated()
+    }
+
     /// Copy `s` into the arena and hand back an owned [`PooledString`].
-    pub(crate) fn alloc_str(&self, s: &str) -> PooledString {
+    pub fn alloc_str(&self, s: &str) -> PooledString {
         let ptr = self.arena.alloc_bytes(s.as_bytes());
         // SAFETY: `ptr` points at `s.len()` bytes just copied into this arena,
-        // which the retained `pool()` keeps alive; they're immutable thereafter.
-        PooledString(unsafe { self.pool().own(ptr) })
+        // which the retained `as_pool()` keeps alive; they're immutable thereafter.
+        PooledString(unsafe { self.as_pool().own(ptr) })
+    }
+
+    /// Copy a `T` slice into the arena, returning a stable pointer to it — for
+    /// the descriptor arrays (`[Ustring]` / `[ImageRecord]`) a payload points at.
+    pub fn alloc_slice<T: Copy>(&self, src: &[T]) -> *const [T] {
+        self.arena.alloc_slice(src)
+    }
+
+    /// Copy encoded image `bytes` (with their pixel dimensions) into the arena and
+    /// hand back an owned [`PooledImage`].
+    pub fn alloc_image(&self, bytes: &[u8], width: u32, height: u32) -> PooledImage {
+        let ptr = self.arena.alloc_bytes(bytes);
+        // SAFETY: `ptr` points at `bytes.len()` bytes just copied into this arena,
+        // kept alive by the retained `as_pool()`; immutable thereafter.
+        PooledImage {
+            bytes: unsafe { self.as_pool().own(ptr) },
+            width,
+            height,
+        }
+    }
+
+    /// Copy a [`PooledString`] from *any* pool into this one (byte-faithful — copies
+    /// the raw bytes, so it survives even non-UTF-8 content). For deep-copying a
+    /// payload out of a foreign pool into an owned one.
+    pub fn clone_str(&self, s: &PooledString) -> PooledString {
+        let ptr = self.arena.alloc_bytes(s.as_bytes());
+        // SAFETY: `ptr` points at the bytes just copied into this arena, kept alive
+        // by the retained `as_pool()`; immutable thereafter.
+        PooledString(unsafe { self.as_pool().own(ptr) })
+    }
+
+    /// Copy an optional [`PooledString`] into this pool (see [`clone_str`](Self::clone_str)).
+    pub fn clone_str_opt(&self, s: &Option<PooledString>) -> Option<PooledString> {
+        s.as_ref().map(|s| self.clone_str(s))
+    }
+
+    /// Copy a [`PooledImage`] from *any* pool into this one.
+    pub fn clone_image(&self, image: &PooledImage) -> PooledImage {
+        self.alloc_image(image.bytes(), image.width(), image.height())
+    }
+
+    /// Copy an optional [`PooledImage`] into this pool (see [`clone_image`](Self::clone_image)).
+    pub fn clone_image_opt(&self, image: &Option<PooledImage>) -> Option<PooledImage> {
+        image.as_ref().map(|i| self.clone_image(i))
+    }
+}
+
+impl Default for OwnedPool {
+    fn default() -> Self {
+        Self::new()
     }
 }
 
@@ -202,7 +242,7 @@ pub struct Pooled<T: ?Sized> {
 impl<T: ?Sized> Pooled<T> {
     /// The pool backing this value — for minting sibling views into the same
     /// allocation (e.g. the inner strings of a payload struct).
-    pub(crate) fn pool(&self) -> &Pool {
+    pub fn pool(&self) -> &Pool {
         &self.pool
     }
 }

@@ -6,6 +6,8 @@ use crate::error::EngineError;
 
 use super::Conductor;
 
+mod event;
+
 pub(crate) mod sealed {
     pub trait Sealed {}
 }

@@ -6,16 +6,9 @@ use fprt_sys::ui::{Pop, StatusName};
 use fprt_sys::Fprt;
 
 use crate::conductor::command::{Command, CommandPayload};
-use crate::conductor::component::visual::ScreenRect;
 use crate::pool::Pool;
 
-/// The pad window's on-screen rectangle (`None` ⇒ no rect supplied). On the
-/// macOS build the host discards this; modeled for completeness.
-#[derive(Clone, Copy, PartialEq, Eq, Debug)]
-pub struct UpdateLayout {
-    /// Where to place the pad window.
-    pub rect: Option<ScreenRect>,
-}
+pub use fprt_core::component::pad::UpdateLayout;
 
 impl CommandPayload for UpdateLayout {
     const ID: StatusName = CMD_UPDATE_LAYOUT;
@@ -25,13 +18,7 @@ impl CommandPayload for UpdateLayout {
         methods.pad_update_layout
     }
 
-    fn from_raw(raw: Raw, _pool: &Pool) -> Self {
-        UpdateLayout {
-            rect: ScreenRect::option(raw.layout.present_flag, raw.layout.rect),
-        }
-    }
-
-    fn into_command(self) -> Command {
-        Command::PadUpdateLayout(self)
+    fn decode(raw: Raw, _pool: &Pool) -> Command {
+        Command::PadUpdateLayout(UpdateLayout::from_raw(raw))
     }
 }

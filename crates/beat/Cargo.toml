@@ -1,0 +1,10 @@
+[package]
+name = "beat"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+
+# A sans-io, single-threaded cooperative executor: timers + channels driven entirely
+# by `beat()`, no wakers. std-only on purpose — the io side lives in a separate crate
+# and reaches in only through channel endpoints.
+[dependencies]

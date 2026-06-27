@@ -1,0 +1,230 @@
+#  ---------------------------------------------------------------------
+#  Frogans Address Composition Rules - FACR 1.0
+#  FACR Lookup Table
+#  ---------------------------------------------------------------------
+#
+#  Reference: FLT09_LC_Thai_Employable
+#
+#  Description: This FACR lookup table contains the list of code points
+#  that are employable characters of LC-Thai with, for each code point,
+#  the value of its Script property.  This lookup table is used in the
+#  |c1_verify_employable_characters| function defined in Appendix C.1 of
+#  the FACR specification document.
+#
+#  File name:     facr10-adopted.spec.flt09-lc-thai-employable.txt
+#  File created:  2014-12-04T15:55:37Z
+#
+#  For additional information on the format of FACR lookup tables, see
+#  Appendix A in the FACR specification document.
+#
+#  For additional information on the use of FACR lookup tables, see
+#  Appendix C in the FACR specification document.
+#
+#  Properties mentioned in this document are those defined in the
+#  Unicode Standard.
+#
+#  This document is accessible at the following permanent URL:
+#  https://www.frogans.org/en/resources/facr/access.html.
+#
+#  This document must be used in compliance with the Frogans Technology
+#  User Policy, accessible at the following permanent URL:
+#  https://www.frogans.org/en/resources/ftup/access.html.
+#
+#  Copyright (C) 2014 OP3FT.  All rights reserved.
+#
+#
+#  ---------------------------------------------------------------------
+#  Third-party source materials used to create this lookup table
+#  ---------------------------------------------------------------------
+#
+#  File: th_th-th_1.0.html
+#
+#  - Location:
+#    http://www.iana.org/domains/idn-tables/tables/th_th-th_1.0.html
+#
+#  - Description:
+#    th_th-th_1.0.html is version 1.0 of the IDN table file that lists
+#    the permitted code points that can be used for registration of Thai
+#    Domain Names.  The file is in HTML format.
+#
+#    The permitted code points are contained in a table which is
+#    embedded in a preformatted text (PRE) element in the file.  The
+#    format of the table is given in the comments at the start of the
+#    file.
+#
+#  - Acknowledgements:
+#    The file, dated June 21, 2004, is available in the Repository of
+#    Internationalized Domain Name (IDN) Practices maintained by the
+#    Internet Assigned Numbers Authority (IANA).  The file was
+#    contributed by THNIC.  The OP3FT would like to express its
+#    gratitude towards THNIC for publishing its table for the benefit of
+#    the community.
+#
+#
+#  File: Scripts.txt
+#
+#  - Location:
+#    http://www.unicode.org/Public/7.0.0/ucd/Scripts.txt
+#
+#  - Description:
+#    Scripts.txt is a file in the Unicode Character Database of version
+#    7.0.0 of the Unicode Standard.  It lists code points and their
+#    associated scripts.  For details on the format and contents of this
+#    file, see revision 14 of the Unicode Standard Annex #44 at
+#    http://www.unicode.org/reports/tr44/tr44-14.html.
+#
+#  - Copyright and Permission Notice:
+#    Copyright (C) 1991-2014 Unicode, Inc.  All rights reserved.
+#    Distributed under the Terms of Use in
+#    http://www.unicode.org/copyright.html.
+#
+#    Permission is hereby granted, free of charge, to any person
+#    obtaining a copy of the Unicode data files and any associated
+#    documentation (the "Data Files") or Unicode software and any
+#    associated documentation (the "Software") to deal in the Data Files
+#    or Software without restriction, including without limitation the
+#    rights to use, copy, modify, merge, publish, distribute, and/or
+#    sell copies of the Data Files or Software, and to permit persons to
+#    whom the Data Files or Software are furnished to do so, provided
+#    that (a) the above copyright notice(s) and this permission notice
+#    appear with all copies of the Data Files or Software, (b) both the
+#    above copyright notice(s) and this permission notice appear in
+#    associated documentation, and (c) there is clear notice in each
+#    modified Data File or in the Software as well as in the
+#    documentation associated with the Data File(s) or Software that the
+#    data or software has been modified.
+#
+#
+#  ---------------------------------------------------------------------
+#  IFAP lookup tables used to create this lookup table
+#  ---------------------------------------------------------------------
+#
+#  ILT08_Eligible_Characters
+#
+#  This IFAP lookup table is part of version 1.1 of the International
+#  Frogans Address Pattern (IFAP) specification published by the OP3FT.
+#
+#  The IFAP specification, including its lookup tables, is accessible at
+#  the following permanent URL:
+#  https://www.frogans.org/en/resources/ifap/access.html
+#
+#
+#  ---------------------------------------------------------------------
+#  Other FACR lookup tables used to create this lookup table
+#  ---------------------------------------------------------------------
+#
+#  None
+#
+#
+#  ---------------------------------------------------------------------
+#  Description of the fields in this lookup table
+#  ---------------------------------------------------------------------
+#
+#  Field count: 2
+#
+#
+#  Field 1: CODE_POINT
+#
+#  - Description:
+#    A code point or a range of code points
+#
+#  Field 2: SCRIPT
+#
+#  - Description:
+#    A text value representing the Script property of the code point or
+#    the range of code points
+#
+#
+#  ---------------------------------------------------------------------
+#  Method used to compute the field values in this lookup table
+#  ---------------------------------------------------------------------
+#
+#  The data lines following these comments are created by the three-step
+#  process described below.
+#
+#  During the execution of this process, two temporary tables TT1 and
+#  TT2 are created and used for storage of values.  These temporary
+#  tables are discarded at the end of the process.
+#
+#
+#  Step 1
+#
+#  The purpose of this step is to produce a list of code points for
+#  LC-Thai.
+#
+#  Each line of the table in th_th-th_1.0.html is analyzed and the value
+#  in the first column of the table is read.  This value corresponds to
+#  a code point.
+#
+#  A line is added to TT1 containing the code point.
+#
+#
+#  Step 2
+#
+#  The purpose of this step is to exclude code points that are not
+#  eligible characters according to version 1.1 of the IFAP
+#  specification.
+#
+#  Each line of TT1, corresponding to a code point, is read.  If a code
+#  point is skipped in the process below, then the process continues
+#  with the next line.
+#
+#  The code point is looked up in ILT08_Eligible_Characters.
+#
+#  If the code point is not found, then the code point is skipped.
+#
+#  Otherwise, in the data line of ILT08_Eligible_Characters that
+#  contains the code point, if the second field (IS_ELIGIBLE) equals 0,
+#  then the code point is skipped.
+#
+#  Otherwise, the code point is looked up in Scripts.txt to retrieve the
+#  value of the Script property, which is the second field in the
+#  semi-colon separated list in each line of Scripts.txt.
+#
+#  A line consisting of two fields is added to TT2:
+#
+#  - The value of the first field contains the code point.
+#
+#  - The value of the second field contains the value of the Script
+#    property for the code point.
+#
+#
+#  Step 3
+#
+#  The purpose of this step is to generate the data lines in
+#  FLT09_LC_Thai_Employable.
+#
+#  The lines in TT2 are sorted by the value of the first field.  Then
+#  any lines in TT2 with consecutive values in the first field and
+#  identical values in the second field are merged into a single line in
+#  TT2 having the following values:
+#
+#  - The first field contains the code point range.
+#
+#  - The second field contains the value of the Script property for the
+#    code point range.
+#
+#  When the above process is complete, for each line of TT2, a data line
+#  is added to FLT09_LC_Thai_Employable with the value of the two
+#  fields CODE_POINT and SCRIPT:
+#
+#  - The first value contains the code point or code point range.
+#
+#  - The second value contains the value of the Script property for the
+#    code point or code point range.  The value of this field can be
+#    'Common', 'Latin', and 'Thai'.
+#
+#
+#  ---------------------------------------------------------------------
+#  Generated data lines
+#  ---------------------------------------------------------------------
+#
+CODE_POINT,SCRIPT
+002D,Common
+0030..0039,Common
+0041..005A,Latin
+0061..007A,Latin
+0E01..0E32,Thai
+0E34..0E3A,Thai
+0E40..0E4D,Thai
+0E50..0E59,Thai

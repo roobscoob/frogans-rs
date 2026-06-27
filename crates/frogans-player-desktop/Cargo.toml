@@ -1,0 +1,16 @@
+[package]
+name = "frogans-player-desktop"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+# A desktop Frogans Player front-end over `frogans-surfaces`: it supplies the
+# winit window factory + host services (the `Embedder`) and runs the event loop.
+
+[[bin]]
+name = "frogans-player"
+path = "src/main.rs"
+
+[dependencies]
+frogans-surfaces = { workspace = true }
+winit = "0.30"
+clap = { version = "4", features = ["derive"] }

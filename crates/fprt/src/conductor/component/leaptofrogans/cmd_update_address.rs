@@ -6,17 +6,9 @@ use fprt_sys::ui::{Pop, StatusName};
 use fprt_sys::Fprt;
 
 use crate::conductor::command::{Command, CommandPayload};
-use crate::pool::{Pool, PooledString};
+use crate::pool::Pool;
 
-/// The Frogans address being evaluated, plus whether it's compliant (drives
-/// which buttons the host shows).
-#[derive(Debug)]
-pub struct UpdateAddress {
-    /// The candidate Frogans address.
-    pub address: Option<PooledString>,
-    /// Whether the address is compliant.
-    pub compliant: bool,
-}
+pub use fprt_core::component::leaptofrogans::UpdateAddress;
 
 impl CommandPayload for UpdateAddress {
     const ID: StatusName = CMD_UPDATE_ADDRESS;
@@ -26,16 +18,7 @@ impl CommandPayload for UpdateAddress {
         methods.leaptofrogans_update_address
     }
 
-    fn from_raw(raw: Raw, pool: &Pool) -> Self {
-        // SAFETY: `raw.address` was written into `pool` by the pop that produced both.
-        let address = unsafe { pool.string(raw.address) };
-        UpdateAddress {
-            address,
-            compliant: raw.compliant_address == 1,
-        }
-    }
-
-    fn into_command(self) -> Command {
-        Command::LeaptofrogansUpdateAddress(self)
+    fn decode(raw: Raw, pool: &Pool) -> Command {
+        Command::LeaptofrogansUpdateAddress(UpdateAddress::from_raw(raw, pool))
     }
 }

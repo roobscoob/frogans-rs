@@ -1,19 +1,14 @@
-//! `update_zoom` command (engine → host).
+//! `update_zoom` command (engine → host) — client transport for the core codec.
 
-use fprt_sys::ui::application::update_zoom::UpdateZoom as Raw;
-use fprt_sys::ui::application::CMD_UPDATE_ZOOM;
-use fprt_sys::ui::{Pop, StatusName};
 use fprt_sys::Fprt;
+use fprt_sys::ui::application::CMD_UPDATE_ZOOM;
+use fprt_sys::ui::application::update_zoom::UpdateZoom as Raw;
+use fprt_sys::ui::{Pop, StatusName};
 
 use crate::conductor::command::{Command, CommandPayload};
 use crate::pool::Pool;
 
-/// Scalar-only payload — carries no pool.
-#[derive(Debug)]
-pub struct UpdateZoom {
-    /// Zoom level in percent (`100` = 100%).
-    pub percent: i32,
-}
+pub use fprt_core::component::application::UpdateZoom;
 
 impl CommandPayload for UpdateZoom {
     const ID: StatusName = CMD_UPDATE_ZOOM;
@@ -23,13 +18,7 @@ impl CommandPayload for UpdateZoom {
         methods.application_update_zoom
     }
 
-    fn from_raw(raw: Raw, _pool: &Pool) -> Self {
-        UpdateZoom {
-            percent: raw.zoom_level_percent,
-        }
-    }
-
-    fn into_command(self) -> Command {
-        Command::ApplicationUpdateZoom(self)
+    fn decode(raw: Raw, _pool: &Pool) -> Command {
+        Command::ApplicationUpdateZoom(UpdateZoom::from_raw(raw))
     }
 }

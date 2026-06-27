@@ -1,19 +1,14 @@
-//! `add_clipboard_image` command (engine → host) — image to put on the clipboard.
+//! `add_clipboard_image` command (engine → host) — client transport for the core codec.
 
-use fprt_sys::ui::application::add_clipboard_image::AddClipboardImage as Raw;
-use fprt_sys::ui::application::CMD_ADD_CLIPBOARD_IMAGE;
-use fprt_sys::ui::{Pop, StatusName};
 use fprt_sys::Fprt;
+use fprt_sys::ui::application::CMD_ADD_CLIPBOARD_IMAGE;
+use fprt_sys::ui::application::add_clipboard_image::AddClipboardImage as Raw;
+use fprt_sys::ui::{Pop, StatusName};
 
 use crate::conductor::command::{Command, CommandPayload};
-use crate::pool::{Pool, PooledImage};
+use crate::pool::Pool;
 
-/// An image the host must place on the system clipboard.
-#[derive(Debug)]
-pub struct AddClipboardImage {
-    /// The clipboard image.
-    pub image: Option<PooledImage>,
-}
+pub use fprt_core::component::application::AddClipboardImage;
 
 impl CommandPayload for AddClipboardImage {
     const ID: StatusName = CMD_ADD_CLIPBOARD_IMAGE;
@@ -23,13 +18,7 @@ impl CommandPayload for AddClipboardImage {
         methods.application_add_clipboard_image
     }
 
-    fn from_raw(raw: Raw, pool: &Pool) -> Self {
-        // SAFETY: `image` was written into `pool` by the pop that produced both.
-        let image = unsafe { pool.image(raw.image) };
-        AddClipboardImage { image }
-    }
-
-    fn into_command(self) -> Command {
-        Command::ApplicationAddClipboardImage(self)
+    fn decode(raw: Raw, pool: &Pool) -> Command {
+        Command::ApplicationAddClipboardImage(AddClipboardImage::from_raw(raw, pool))
     }
 }

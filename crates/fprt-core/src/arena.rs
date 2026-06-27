@@ -41,8 +41,15 @@ use crate::pool::Anchor;
 /// aligned and any `T` with `align_of::<T>() <= MAX_ALIGN` can be placed.
 const MAX_ALIGN: usize = 16;
 
-/// Default chunk capacity. A request larger than this gets its own exact chunk.
-const MIN_CHUNK: usize = 4096;
+/// First-chunk capacity — deliberately small, since each registered pool often
+/// backs just one short payload (a command's strings, an error message), so a
+/// flat 4 KB floor would be mostly slack. Chunks grow geometrically from here up
+/// to [`MAX_CHUNK`]; a single request larger than the next chunk size gets its
+/// own exact chunk.
+const FIRST_CHUNK: usize = 256;
+
+/// The capacity chunk growth doubles toward.
+const MAX_CHUNK: usize = 64 * 1024;
 
 /// One heap-allocated, never-moved span of bytes with its own bump cursor.
 struct Chunk {
@@ -52,12 +59,13 @@ struct Chunk {
 }
 
 impl Chunk {
-    /// Allocate a chunk able to hold at least `want` bytes (rounded up, floored
-    /// at [`MIN_CHUNK`]), with a [`MAX_ALIGN`]-aligned base.
-    fn boxed(want: usize) -> Box<Chunk> {
-        let cap = want.max(MIN_CHUNK).next_multiple_of(MAX_ALIGN);
+    /// Allocate a chunk of `cap` bytes (rounded up to [`MAX_ALIGN`], and at least
+    /// `MAX_ALIGN`), with a [`MAX_ALIGN`]-aligned base. The caller chooses the size
+    /// (first / geometric / dedicated); `boxed` does not floor it.
+    fn boxed(cap: usize) -> Box<Chunk> {
+        let cap = cap.max(MAX_ALIGN).next_multiple_of(MAX_ALIGN);
         let layout = Layout::from_size_align(cap, MAX_ALIGN).expect("arena chunk layout");
-        // SAFETY: `cap` is non-zero (>= MIN_CHUNK), so the layout has non-zero size.
+        // SAFETY: `cap` is non-zero (>= MAX_ALIGN), so the layout has non-zero size.
         let raw = unsafe { alloc(layout) };
         let base = NonNull::new(raw).unwrap_or_else(|| handle_alloc_error(layout));
         Box::new(Chunk {
@@ -84,7 +92,14 @@ pub(crate) struct Arena {
     /// so it stays valid as that `Vec` grows (the box's pointee never moves).
     current: AtomicPtr<Chunk>,
     /// Owns every chunk; locked only to grow the list or on drop.
+    // The `Box` is load-bearing, not redundant: `current` is an `AtomicPtr<Chunk>`
+    // into the chunk *behind* the box, so the box keeps that pointee fixed as this
+    // `Vec` reallocates on growth. Without it the chunks would move and dangle.
+    #[allow(clippy::vec_box)]
     chunks: Mutex<Vec<Box<Chunk>>>,
+    /// Total bytes handed out (rounded reservations), for argument accounting —
+    /// `library_report_allocated_arguments`' per-pool byte total.
+    allocated: AtomicUsize,
 }
 
 // SAFETY: every field mutation is atomic (`current`, each chunk `cursor`) or under
@@ -99,14 +114,21 @@ impl Anchor for Arena {}
 impl Arena {
     /// A new arena with one chunk ready.
     pub(crate) fn new() -> Arena {
-        let first = Chunk::boxed(MIN_CHUNK);
+        let first = Chunk::boxed(FIRST_CHUNK);
         // Grab the stable pointer to the chunk *behind* the box before moving the
         // box into the vec (the vec relocates the box pointer, never its pointee).
         let current = AtomicPtr::new(&*first as *const Chunk as *mut Chunk);
         Arena {
             current,
             chunks: Mutex::new(vec![first]),
+            allocated: AtomicUsize::new(0),
         }
+    }
+
+    /// Total bytes reserved over this arena's life — what a registered pool
+    /// contributes to `library_report_allocated_arguments`' byte total.
+    pub(crate) fn allocated(&self) -> usize {
+        self.allocated.load(Ordering::Relaxed)
     }
 
     /// Reserve `size` aligned bytes and return a pointer to their start.
@@ -120,6 +142,7 @@ impl Arena {
             let chunk = unsafe { &*self.current.load(Ordering::Acquire) };
             let offset = chunk.cursor.fetch_add(size, Ordering::Relaxed);
             if offset + size <= chunk.cap {
+                self.allocated.fetch_add(size, Ordering::Relaxed);
                 // SAFETY: `offset + size <= cap`, so the span is within the chunk.
                 return unsafe { NonNull::new_unchecked(chunk.base.as_ptr().add(offset)) };
             }
@@ -139,7 +162,10 @@ impl Arena {
         if chunk.cursor.load(Ordering::Relaxed) + size <= chunk.cap {
             return;
         }
-        let fresh = Chunk::boxed(size);
+        // Grow geometrically (double, capped at MAX_CHUNK), but always at least
+        // `size` so an oversized single request gets its own exact chunk.
+        let next = (chunk.cap * 2).min(MAX_CHUNK).max(size);
+        let fresh = Chunk::boxed(next);
         let ptr = &*fresh as *const Chunk as *mut Chunk;
         chunks.push(fresh);
         self.current.store(ptr, Ordering::Release);
@@ -222,7 +248,7 @@ mod tests {
     #[test]
     fn allocation_larger_than_a_chunk() {
         let arena = Arena::new();
-        let big = vec![0xABu8; MIN_CHUNK * 4 + 7];
+        let big = vec![0xABu8; MAX_CHUNK * 2 + 7];
         let p = arena.alloc_bytes(&big);
         assert_eq!(unsafe { as_bytes(p) }, big.as_slice());
     }

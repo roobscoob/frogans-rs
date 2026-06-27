@@ -5,6 +5,8 @@ Cargo.lock.orig
 examples/rose-*.rs
 *.dll
 data/*
+player/*
+justfile
 
 # Do NOT commit the original binaries — they live in ../re/bin and are the
 # oracle, not part of this reimplementation.

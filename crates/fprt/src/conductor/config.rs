@@ -31,6 +31,23 @@ impl Nature {
     }
 }
 
+impl TryFrom<RawNature> for Nature {
+    /// The unrecognized raw value, so the caller can log it.
+    type Error = RawNature;
+
+    /// Inverse of [`Nature::raw`]: decode a host-supplied raw nature. Lets a proxy
+    /// forward a real engine's [`StartInfo`](fprt_core::StartInfo) faithfully.
+    fn try_from(raw: RawNature) -> Result<Self, Self::Error> {
+        if raw == RawNature::PUBLIC {
+            Ok(Nature::Public)
+        } else if raw == RawNature::EXPERIMENTAL {
+            Ok(Nature::Experimental)
+        } else {
+            Err(raw)
+        }
+    }
+}
+
 /// Pixel format for images the engine encodes and hands the host.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum ImageFormat {
@@ -83,6 +100,36 @@ impl ImageFormat {
     }
 }
 
+impl TryFrom<RawImageFormat> for ImageFormat {
+    /// The unrecognized raw value, so the caller can log it.
+    type Error = RawImageFormat;
+
+    /// Inverse of [`ImageFormat::raw`]: decode a host-supplied raw pixel format.
+    fn try_from(raw: RawImageFormat) -> Result<Self, Self::Error> {
+        if raw == RawImageFormat::PNG {
+            Ok(ImageFormat::Png)
+        } else if raw == RawImageFormat::RGBA {
+            Ok(ImageFormat::Rgba)
+        } else if raw == RawImageFormat::ABGR {
+            Ok(ImageFormat::Abgr)
+        } else if raw == RawImageFormat::ARGB {
+            Ok(ImageFormat::Argb)
+        } else if raw == RawImageFormat::BGRA {
+            Ok(ImageFormat::Bgra)
+        } else if raw == RawImageFormat::RGBA_PREMULTIPLIED {
+            Ok(ImageFormat::RgbaPremultiplied)
+        } else if raw == RawImageFormat::ABGR_PREMULTIPLIED {
+            Ok(ImageFormat::AbgrPremultiplied)
+        } else if raw == RawImageFormat::ARGB_PREMULTIPLIED {
+            Ok(ImageFormat::ArgbPremultiplied)
+        } else if raw == RawImageFormat::BGRA_PREMULTIPLIED {
+            Ok(ImageFormat::BgraPremultiplied)
+        } else {
+            Err(raw)
+        }
+    }
+}
+
 /// Deployment mode. The distinction between the two is **not proven** — there is
 /// no consumer in the engine binary to confirm a production-vs-test meaning.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -102,11 +149,27 @@ impl DeploymentMode {
     }
 }
 
+impl TryFrom<RawDeploymentMode> for DeploymentMode {
+    /// The unrecognized raw value, so the caller can log it.
+    type Error = RawDeploymentMode;
+
+    /// Inverse of [`DeploymentMode::raw`]: decode a host-supplied raw mode.
+    fn try_from(raw: RawDeploymentMode) -> Result<Self, Self::Error> {
+        if raw == RawDeploymentMode::FIRST {
+            Ok(DeploymentMode::First)
+        } else if raw == RawDeploymentMode::SECOND {
+            Ok(DeploymentMode::Second)
+        } else {
+            Err(raw)
+        }
+    }
+}
+
 /// The four writable server-root directories the engine needs.
 ///
 /// Paths must be UTF-8. [`new`](Self::new) borrows them for the spawn call only;
 /// [`under`](Self::under) derives and owns them.
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 pub struct Directories<'a> {
     user_data: Cow<'a, str>,
     resources: Cow<'a, str>,
@@ -149,7 +212,7 @@ impl<'a> Directories<'a> {
 }
 
 /// The Frogans application's manifest identity.
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Debug)]
 pub struct Manifest<'a> {
     target_id: &'a str,
     channel_id: &'a str,
@@ -199,6 +262,7 @@ impl<'a> Manifest<'a> {
 ///     ConductorConfig::new(directories, manifest).devtools(true),
 /// )?;
 /// ```
+#[derive(Debug)]
 pub struct ConductorConfig<'a> {
     directories: Directories<'a>,
     manifest: Manifest<'a>,
@@ -295,5 +359,47 @@ impl<'a> ConductorConfig<'a> {
             manifest_ver_patch: m.version.2,
             manifest_comment: ustring(m.comment),
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    /// `raw()` and `TryFrom<raw>` must be exact inverses for every variant — a
+    /// transposed arm in the hand-written decoders would be a silent fidelity bug
+    /// (e.g. a proxy forwarding `Bgra` as `Argb`).
+    #[test]
+    fn enum_decode_inverts_encode() {
+        for n in [Nature::Public, Nature::Experimental] {
+            assert_eq!(Nature::try_from(n.raw()), Ok(n));
+        }
+        for m in [DeploymentMode::First, DeploymentMode::Second] {
+            assert_eq!(DeploymentMode::try_from(m.raw()), Ok(m));
+        }
+        for f in [
+            ImageFormat::Png,
+            ImageFormat::Rgba,
+            ImageFormat::Abgr,
+            ImageFormat::Argb,
+            ImageFormat::Bgra,
+            ImageFormat::RgbaPremultiplied,
+            ImageFormat::AbgrPremultiplied,
+            ImageFormat::ArgbPremultiplied,
+            ImageFormat::BgraPremultiplied,
+        ] {
+            assert_eq!(ImageFormat::try_from(f.raw()), Ok(f));
+        }
+    }
+
+    /// An out-of-range raw value decodes to `Err(raw)` rather than a wrong variant.
+    #[test]
+    fn unknown_raw_is_rejected() {
+        assert_eq!(Nature::try_from(RawNature(0)), Err(RawNature(0)));
+        assert_eq!(ImageFormat::try_from(RawImageFormat(0)), Err(RawImageFormat(0)));
+        assert_eq!(
+            DeploymentMode::try_from(RawDeploymentMode(0)),
+            Err(RawDeploymentMode(0))
+        );
     }
 }

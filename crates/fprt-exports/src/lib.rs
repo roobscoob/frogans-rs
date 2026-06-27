@@ -24,6 +24,11 @@
 //! `ui_exports.rs`). The 12 library/conductor calls have bespoke signatures and
 //! are hand-written below.
 
+// Every export here is a `pub unsafe extern "C"` C-ABI symbol whose safety contract
+// *is* the documented Frogans Player C ABI (the host upholds it) — there's no
+// Rust-level `# Safety` to write per trampoline, and they're macro-generated besides.
+#![allow(clippy::missing_safety_doc)]
+
 use core::ffi::c_void;
 use std::sync::OnceLock;
 
@@ -41,6 +46,10 @@ static FPRT: OnceLock<Fprt> = OnceLock::new();
 
 /// Install the implementation table. Call once at startup, before the EXE invokes
 /// any export. Returns the table back as `Err` if one was already installed.
+// The `Err` payload *is* the table handed back so the caller can recover it on a
+// collision — a cold, once-per-process path, so the large variant is fine (boxing
+// it would just add an allocation there).
+#[allow(clippy::result_large_err)]
 pub fn install(table: Fprt) -> Result<(), Fprt> {
     FPRT.set(table)
 }

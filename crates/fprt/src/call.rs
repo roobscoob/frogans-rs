@@ -54,7 +54,7 @@ pub(crate) fn check(
     errbuf: Ustring,
     mempool: MempoolHandle,
 ) -> Result<Pool, EngineError> {
-    let pool = Pool::new(Arc::clone(engine), mempool);
+    let pool = crate::foreign_pool::foreign(Arc::clone(engine), mempool);
     if status3 == SUCCESS {
         Ok(pool)
     } else {

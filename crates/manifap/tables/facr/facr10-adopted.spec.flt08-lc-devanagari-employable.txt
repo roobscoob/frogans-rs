@@ -1,0 +1,411 @@
+#  ---------------------------------------------------------------------
+#  Frogans Address Composition Rules - FACR 1.0
+#  FACR Lookup Table
+#  ---------------------------------------------------------------------
+#
+#  Reference: FLT08_LC_Devanagari_Employable
+#
+#  Description: This FACR lookup table contains the list of code points
+#  that are employable characters of LC-Devanagari with, for each code
+#  point, the value of its Script property.  This lookup table is used
+#  in the |c1_verify_employable_characters| function defined in Appendix
+#  C.1 of the FACR specification document.
+#
+#  File name:     facr10-adopted.spec.flt08-lc-devanagari-employable.txt
+#  File created:  2014-12-04T15:55:37Z
+#
+#  For additional information on the format of FACR lookup tables, see
+#  Appendix A in the FACR specification document.
+#
+#  For additional information on the use of FACR lookup tables, see
+#  Appendix C in the FACR specification document.
+#
+#  Properties mentioned in this document are those defined in the
+#  Unicode Standard.
+#
+#  This document is accessible at the following permanent URL:
+#  https://www.frogans.org/en/resources/facr/access.html.
+#
+#  This document must be used in compliance with the Frogans Technology
+#  User Policy, accessible at the following permanent URL:
+#  https://www.frogans.org/en/resources/ftup/access.html.
+#
+#  Copyright (C) 2014 OP3FT.  All rights reserved.
+#
+#
+#  ---------------------------------------------------------------------
+#  Third-party source materials used to create this lookup table
+#  ---------------------------------------------------------------------
+#
+#  File: core.zip
+#
+#  - Location:
+#    http://unicode.org/Public/cldr/26/core.zip
+#
+#  - Description:
+#    core.zip is a file in release 26 of the Unicode Common Locale Data
+#    Repository (CLDR).  It contains Unicode CLDR directories and files.
+#    For details on the format and contents of this file, see
+#    http://cldr.unicode.org/.
+#
+#  - Copyright and Permission Notice:
+#    Copyright (C) 1991-2014 Unicode, Inc.  All rights reserved.
+#    Distributed under the Terms of Use in
+#    http://www.unicode.org/copyright.html.
+#
+#    Permission is hereby granted, free of charge, to any person
+#    obtaining a copy of the Unicode data files and any associated
+#    documentation (the "Data Files") or Unicode software and any
+#    associated documentation (the "Software") to deal in the Data Files
+#    or Software without restriction, including without limitation the
+#    rights to use, copy, modify, merge, publish, distribute, and/or
+#    sell copies of the Data Files or Software, and to permit persons to
+#    whom the Data Files or Software are furnished to do so, provided
+#    that (a) the above copyright notice(s) and this permission notice
+#    appear with all copies of the Data Files or Software, (b) both the
+#    above copyright notice(s) and this permission notice appear in
+#    associated documentation, and (c) there is clear notice in each
+#    modified Data File or in the Software as well as in the
+#    documentation associated with the Data File(s) or Software that the
+#    data or software has been modified.
+#
+#
+#  File: UnicodeData.txt
+#
+#  - Location:
+#    http://www.unicode.org/Public/7.0.0/ucd/UnicodeData.txt
+#
+#  - Description:
+#    UnicodeData.txt is a file in the Unicode Character Database of
+#    version 7.0.0 of the Unicode Standard.  It lists all Unicode
+#    characters and their properties.  For details on the format and
+#    contents of this file, see revision 14 of the Unicode Standard
+#    Annex #44 at
+#    http://www.unicode.org/reports/tr44/tr44-14.html.
+#
+#  - Copyright and Permission Notice:
+#    Copyright (C) 1991-2014 Unicode, Inc.  All rights reserved.
+#    Distributed under the Terms of Use in
+#    http://www.unicode.org/copyright.html.
+#
+#    See the Copyright and Permission Notice for the core.zip file
+#    above.
+#
+#
+#  File: SpecialCasing.txt
+#
+#  - Location:
+#    http://www.unicode.org/Public/7.0.0/ucd/SpecialCasing.txt
+#
+#  - Description:
+#    SpecialCasing.txt is a file in the Unicode Character Database of
+#    version 7.0.0 of the Unicode Standard.  It is a supplement to the
+#    UnicodeData.txt file and provides additional information about the
+#    casing of Unicode characters.  For details on the format and
+#    contents of this file, see revision 14 of the Unicode Standard
+#    Annex #44 at http://www.unicode.org/reports/tr44/tr44-14.html.
+#
+#  - Copyright and Permission Notice:
+#    Copyright (C) 1991-2014 Unicode, Inc.  All rights reserved.
+#    Distributed under the Terms of Use in
+#    http://www.unicode.org/copyright.html.
+#
+#    See the Copyright and Permission Notice for the core.zip file
+#    above.
+#
+#
+#  File: Scripts.txt
+#
+#  - Location:
+#    http://www.unicode.org/Public/7.0.0/ucd/Scripts.txt
+#
+#  - Description:
+#    Scripts.txt is a file in the Unicode Character Database of version
+#    7.0.0 of the Unicode Standard.  It lists code points and their
+#    associated scripts.  For details on the format and contents of this
+#    file, see revision 14 of the Unicode Standard Annex #44 at
+#    http://www.unicode.org/reports/tr44/tr44-14.html.
+#
+#  - Copyright and Permission Notice:
+#    Copyright (C) 1991-2014 Unicode, Inc.  All rights reserved.
+#    Distributed under the Terms of Use in
+#    http://www.unicode.org/copyright.html.
+#
+#    See the Copyright and Permission Notice for the core.zip file
+#    above.
+#
+#
+#  ---------------------------------------------------------------------
+#  IFAP lookup tables used to create this lookup table
+#  ---------------------------------------------------------------------
+#
+#  ILT08_Eligible_Characters
+#
+#  This IFAP lookup table is part of version 1.1 of the International
+#  Frogans Address Pattern (IFAP) specification published by the OP3FT.
+#
+#  The IFAP specification, including its lookup tables, is accessible at
+#  the following permanent URL:
+#  https://www.frogans.org/en/resources/ifap/access.html
+#
+#
+#  ---------------------------------------------------------------------
+#  Other FACR lookup tables used to create this lookup table
+#  ---------------------------------------------------------------------
+#
+#  None
+#
+#
+#  ---------------------------------------------------------------------
+#  Description of the fields in this lookup table
+#  ---------------------------------------------------------------------
+#
+#  Field count: 2
+#
+#
+#  Field 1: CODE_POINT
+#
+#  - Description:
+#    A code point or a range of code points
+#
+#  Field 2: SCRIPT
+#
+#  - Description:
+#    A text value representing the Script property of the code point or
+#    the range of code points
+#
+#
+#  ---------------------------------------------------------------------
+#  Method used to compute the field values in this lookup table
+#  ---------------------------------------------------------------------
+#
+#  The data lines following these comments are created by the six-step
+#  process described below.
+#
+#  During the execution of this process, four temporary tables TT1, TT2,
+#  TT3, and TT4 are created and used for storage of values.  These
+#  temporary tables are discarded at the end of the process.
+#
+#
+#  Step 1
+#
+#  The purpose of this step is to produce a list of Unicode language
+#  identifiers.  The text values resulting from this step are stored in
+#  TT1.
+#
+#  The process which follows uses the XML data file supplementalData.xml
+#  located in the common/supplemental/ directory of core.zip.
+#
+#  After parsing this XML data file, each <language> element contained
+#  in the <languageData> element is analyzed.  If a <language> element
+#  is skipped in the process below, then the process continues with the
+#  next <language> element.
+#
+#  If the value of the "scripts" attribute does not contain 'Deva', then
+#  the <language> element is skipped.  The value of the "scripts"
+#  attribute contains one or more script subtags, separated by spaces.
+#
+#  Otherwise, if the value of the "alt" attribute is equal to
+#  'secondary', then the <language> element is skipped.  According to
+#  the specification of this XML data file, the "alt" attribute is not
+#  required and it is only included, with a value equal to 'secondary',
+#  if the language identifier does not correspond with a modern
+#  language, or the script is not a modern script, or the language is
+#  not a major language of the territory.
+#
+#  Otherwise, if the value of the "scripts" attribute contains 'Deva'
+#  only:
+#
+#  - If the "territories" attribute is included, then for each region
+#    subtag within the value of the "territories" attribute, a line is
+#    added to TT1 containing a concatenation of the value of the "type"
+#    attribute and '_' and the region subtag.
+#
+#  - Otherwise, if the "territories" attribute is not included, then a
+#    line is added to TT1 containing the value of the "type" attribute.
+#
+#  Otherwise, if the value of the "scripts" attribute contains 'Deva'
+#  amongst other script subtags:
+#
+#  - If the "territories" attribute is included, then for each region
+#    subtag within the value of the "territories" attribute, a line is
+#    added to TT1 containing a concatenation of the value of the "type"
+#    attribute and '_Deva_' and the region subtag.
+#
+#  - Otherwise, if the "territories" attribute is not included, then a
+#    line is added to TT1 containing a concatenation of the value of the
+#    "type" attribute and '_Deva'.
+#
+#
+#  Step 2
+#
+#  The purpose of this step is to produce a list of exemplar characters.
+#  The code points resulting from this step are stored in TT2.
+#
+#  For each language identifier in TT1, the fully-resolved XML data file
+#  associated with that language identifier is produced from the XML
+#  data files within the common/main/ directory of core.zip and the
+#  process described in revision 35 of the Unicode Technical Standard
+#  #35, Unicode Locale Data Markup Language (LDML), Part 1, Core, 4.2.2
+#  Resolved Data File.
+#  See http://www.unicode.org/reports/tr35/tr35-35/tr35.html.
+#
+#  The exemplar characters are retrieved from the <exemplarCharacters>
+#  elements contained in the <characters> element of the fully-resolved
+#  XML data file if either of the following conditions is met: the
+#  "type" attribute of the <exemplarCharacters> element is not included,
+#  or the value of the "type" attribute is equal to 'punctuation'.  Note
+#  that exemplar characters are not retrieved from <exemplarCharacters>
+#  elements which have "type" attribute values equal to either
+#  'auxiliary' or 'index'.
+#
+#  The text content of the <exemplarCharacters> element is converted to
+#  a list of code points using a process based upon the syntax of
+#  exemplar characters described in revision 35 of the Unicode Technical
+#  Standard #35, Unicode Locale Data Markup Language (LDML), Part 2,
+#  General, 3.1 Exemplar Syntax.
+#
+#  For each code point in this list that has not already been added to
+#  TT2, a line is added to TT2 containing the code point.
+#
+#  The text content of the <defaultNumberingSystem> element contained in
+#  the <numbers> element of the fully-resolved XML data file is looked
+#  up in the XML data file numberingSystems.xml located in the
+#  common/supplemental/ directory of core.zip.  This lookup is performed
+#  on the value of the "id" attribute of the <numberingSystem> element
+#  contained in the <numberingSystems> element.  If the value of the
+#  "type" attribute of the matching <numberingSystem> element is equal
+#  to 'numeric', then the value of the "digits" attribute of that
+#  element is retrieved and converted to ten individual code points.
+#
+#  For each of these ten code points that has not already been added to
+#  TT2, a line is added to TT2 containing the code point.
+#
+#  Then the process continues with the next language identifier in TT1.
+#
+#
+#  Step 3
+#
+#  The purpose of this step is to include code points corresponding to
+#  uppercase and titlecase characters.  The code points resulting from
+#  this step are stored in TT3.
+#
+#  Each line of TT2, corresponding to a code point, is read.
+#
+#  First, a line is added to TT3 containing the code point.
+#
+#  Second, the code point is looked up in UnicodeData.txt and the
+#  thirteenth and the fifteenth fields in the semi-colon separated list
+#  in matching lines of UnicodeData.txt are analyzed.  These fields
+#  correspond to the Simple_Uppercase_Mapping and the
+#  Simple_Titlecase_Mapping properties respectively.  If these fields
+#  are not empty, then the value of each field is a code point.
+#
+#  If the thirteenth field is not empty, and its value has not already
+#  been added to TT3, a line is added to TT3 containing its value.
+#
+#  If the fifteenth field is not empty, and its value has not already
+#  been added to TT3, a line is added to TT3 containing its value.
+#
+#  Finally, the code point is looked up in the lines of
+#  SpecialCasing.txt and the third and the fourth fields in the
+#  semi-colon separated list in matching lines of SpecialCasing.txt are
+#  analyzed.  These fields correspond to the Titlecase_Mapping and the
+#  Uppercase_Mapping properties respectively.  If these fields are not
+#  empty, then the value of each field is one or more code points.
+#
+#  If the third field is not empty, then it is analyzed.  For each
+#  code point in the field, a line is added to TT3 containing the code
+#  point, if the code point has not already been added to TT3.
+#
+#  If the fourth field is not empty, then its value is analyzed.  For
+#  each code point contained in the value of the field, a line is added
+#  to TT3 containing the code point, if the code point has not already
+#  been added to TT3.
+#
+#
+#  Step 4
+#
+#  The purpose of this step is to exclude a code point in accordance
+#  with section 10.8.2 of version 1.0 of the FACR specification.  No
+#  code points are generated in this step.
+#
+#  The U+002A ASTERISK character is removed from TT3.
+#
+#
+#  Step 5
+#
+#  The purpose of this step is to exclude code points that are not
+#  eligible characters according to version 1.1 of the IFAP
+#  specification.  The code points resulting from this step are stored
+#  in TT4.
+#
+#  Each line of TT3, corresponding to one or more code points, is read.
+#  If a code point is skipped in the process below, then the process
+#  continues with the next code point in the line or in the next line.
+#
+#  The code point is looked up in ILT08_Eligible_Characters.
+#
+#  If the code point is not found, then the code point is skipped.
+#
+#  Otherwise, in the data line of ILT08_Eligible_Characters that
+#  contains the code point, if the second field (IS_ELIGIBLE) equals 0,
+#  then the code point is skipped.
+#
+#  Otherwise, the code point is looked up in Scripts.txt to retrieve the
+#  value of the Script property, which is the second field in the
+#  semi-colon separated list in each line of Scripts.txt.
+#
+#  A line consisting of two fields is added to TT4:
+#
+#  - The value of the first field contains the code point.
+#
+#  - The value of the second field contains the value of the Script
+#    property for the code point.
+#
+#
+#  Step 6
+#
+#  The purpose of this step is to generate the data lines in
+#  FLT08_LC_Devanagari_Employable.
+#
+#  The lines in TT4 are sorted by the value of the first field.  Then
+#  any lines in TT4 with consecutive values in the first field and
+#  identical values in the second field are merged into a single line in
+#  TT4 having the following values:
+#
+#  - The first field contains the code point range.
+#
+#  - The second field contains the value of the Script property for the
+#    code point range.
+#
+#  When the above process is complete, for each line of TT4, a data line
+#  is added to FLT08_LC_Devanagari_Employable with the value of the two
+#  fields CODE_POINT and SCRIPT:
+#
+#  - The first value contains the code point or code point range.
+#
+#  - The second value contains the value of the Script property for the
+#    code point or code point range.  The value of this field can be
+#    'Common' and 'Devanagari'.
+#
+#
+#  ---------------------------------------------------------------------
+#  Generated data lines
+#  ---------------------------------------------------------------------
+#
+CODE_POINT,SCRIPT
+002D,Common
+0030..0039,Common
+0901..0903,Devanagari
+0905..090D,Devanagari
+090F..0911,Devanagari
+0913..0928,Devanagari
+092A..0930,Devanagari
+0932..0933,Devanagari
+0935..0939,Devanagari
+093C..0945,Devanagari
+0947..0949,Devanagari
+094B..094D,Devanagari
+0950,Devanagari
+0966..096F,Devanagari

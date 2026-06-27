@@ -1,0 +1,732 @@
+#  ---------------------------------------------------------------------
+#  International Frogans Address Pattern - IFAP 1.1
+#  IFAP Lookup Table
+#  ---------------------------------------------------------------------
+#
+#  Reference: ILT08_Eligible_Characters
+#
+#  Description: This IFAP lookup table contains the list of code points
+#  that are eligible characters in Frogans address strings.  This lookup
+#  table is used in the |c3_verify_eligible_characters| function defined
+#  in Appendix C.3 of the IFAP specification document.
+#
+#  File name:     ifap11-adopted.spec.ilt08-eligible-characters.txt
+#  File created:  2014-11-07T14:35:17Z
+#
+#  For additional information on the format of IFAP lookup tables, see
+#  Appendix A in the IFAP specification document.
+#
+#  For additional information on the use of IFAP lookup tables, see
+#  Appendix C in the IFAP specification document.
+#
+#  Properties mentioned in this document are those defined in the
+#  Unicode Standard.
+#
+#  This document is accessible at the following permanent URL:
+#  https://www.frogans.org/en/resources/ifap/access.html.
+#
+#  This document must be used in compliance with the Frogans Technology
+#  User Policy, accessible at the following permanent URL:
+#  https://www.frogans.org/en/resources/ftup/access.html.
+#
+#  Copyright (C) 2014 OP3FT.  All rights reserved.
+#
+#
+#  ---------------------------------------------------------------------
+#  Third-party source materials used to create this lookup table
+#  ---------------------------------------------------------------------
+#
+#  File: xidmodifications.txt
+#
+#  - Location:
+#    http://www.unicode.org/Public/security/7.0.0/xidmodifications.txt
+#
+#  - Description:
+#    xidmodifications.txt is a file in the Unicode Character
+#    Database of version 7.0.0 of the Unicode Standard.  It contains the
+#    list of additions and restrictions recommended for building a
+#    profile of identifiers for environments where security is at issue.
+#    For details on the format and contents of this file, see revision
+#    9 of the Unicode Technical Standard #39 at
+#    http://www.unicode.org/reports/tr39/tr39-9.html.
+#
+#  - Copyright and Permission Notice:
+#    See the Copyright and Permission Notice for the Scripts.txt file
+#    above.
+#
+#
+#  ---------------------------------------------------------------------
+#  Other IFAP lookup tables used to create this lookup table
+#  ---------------------------------------------------------------------
+#
+#  ILT05_NFKC_Stable
+#
+#
+#  ---------------------------------------------------------------------
+#  Description of the fields in this lookup table
+#  ---------------------------------------------------------------------
+#
+#  Field count: 2
+#
+#
+#  Field 1: CODE_POINT
+#
+#  - Description:
+#    A code point or a range of code points
+#
+#
+#  Field 2: IS_ELIGIBLE
+#
+#  - Description:
+#    A numerical value, either 1 (meaning that the character is
+#    eligible), or 0 (meaning that it is not eligible)
+#
+#
+#  ---------------------------------------------------------------------
+#  Method used to compute the field values in this lookup table
+#  ---------------------------------------------------------------------
+#
+#  The data lines following these comments are created by the three-step
+#  process described below.  The process applies for each code point in
+#  ILT05_NFKC_Stable.  If a code point is skipped in any of the steps
+#  below, then the process continues with the next code point.
+#
+#
+#  Step 1
+#
+#  Each data line in ILT05_NFKC_Stable is read.  If the data line
+#  contains a code point range, then the process below is performed for
+#  each code point in the range.
+#
+#  For each code point, the adapted procedure for calculating the
+#  Derived Property Value described in the IFAP specification document
+#  is applied (section 3.3 Eligible characters).  If the calculated
+#  Derived Property Value equals DISALLOWED or UNASSIGNED, then the
+#  code point is skipped.
+#
+#
+#  Step 2
+#
+#  If the code point corresponds to the U+002A ASTERISK, U+01B9 LATIN
+#  SMALL LETTER EZH REVERSED, or U+029E LATIN SMALL LETTER TURNED K
+#  character, the code point is eligible and a line is added to
+#  ILT08_Eligible_Characters with the value of the two fields CODE_POINT
+#  and IS_ELIGIBLE:
+#
+#  - The first value contains the code point.
+#  - The second value contains 1.
+#
+#
+#  Step 3
+#
+#  Otherwise, a look-up is performed for the code point in the
+#  xidmodifications.txt file to see if a line exists that meets all the
+#  following conditions:
+#
+#  - the first field contains either this code point or a range
+#    including this code point
+#  - the second field equals 'restricted'
+#  - the third field is equal to any of the following: 'not-NFKC',
+#    'not-xid', 'obsolete'
+#
+#  If such a line does not exist in xidmodifications.txt, the code point
+#  is eligible and a data line is added to ILT08 with the value of the
+#  two fields CODE_POINT and IS_ELIGIBLE:
+#
+#  - The first value contains the code point or the code point range.
+#  - The second value contains 1.
+#
+#  Otherwise, the code point is not eligible and a line is added to
+#  ILT08_Eligible_Characters with the value of the two fields CODE_POINT
+#  and IS_ELIGIBLE:
+#
+#  - The first value contains the code point or the code point range.
+#  - The second value contains 0.
+#
+#
+#  ---------------------------------------------------------------------
+#  Generated data lines
+#  ---------------------------------------------------------------------
+#
+CODE_POINT,IS_ELIGIBLE
+002A,1
+002D,1
+0030..0039,1
+0041..005A,1
+0061..007A,1
+00B7,1
+00C0..00D6,1
+00D8..00F6,1
+00F8..0131,1
+0134..013E,1
+0141..0148,1
+014A..017E,1
+0180..018C,1
+018D,0
+018E..01A9,1
+01AA..01AB,0
+01AC..01B9,1
+01BA..01BB,0
+01BC..01BD,1
+01BE,0
+01BF..01C3,1
+01CD..01F0,1
+01F4..025E,1
+025F,0
+0260..0276,1
+0277,0
+0278..027B,1
+027C,0
+027D..02AF,1
+02B9..02C1,1
+02C6..02D1,1
+02EC,1
+02EE,1
+0300..033F,1
+0342,1
+0345..034E,1
+0350..0373,1
+0375..0377,1
+037B..037D,1
+037F,1
+0386,1
+0388..038A,1
+038C,1
+038E..03A1,1
+03A3..03CF,1
+03D7..03EF,1
+03F3,1
+03F7..03F8,1
+03FA..0481,1
+0483..0487,1
+048A..052F,1
+0531..0556,1
+0559,1
+0561..0586,1
+0591..05BD,1
+05BF,1
+05C1..05C2,1
+05C4..05C5,1
+05C7,1
+05D0..05EA,1
+05F0..05F4,1
+0610..061A,1
+0620..063F,1
+0641..0669,1
+066E..0672,1
+0673,0
+0674,1
+0679..06D3,1
+06D5..06DC,1
+06DF..06E8,1
+06EA..06FF,1
+0710..074A,1
+074D..07B1,1
+07C0..07F5,1
+0800..082D,1
+0840..085B,1
+08A0..08B2,1
+08E4..0957,1
+0960..0963,1
+0966..096F,1
+0971..0983,1
+0985..098C,1
+098F..0990,1
+0993..09A8,1
+09AA..09B0,1
+09B2,1
+09B6..09B9,1
+09BC..09C4,1
+09C7..09C8,1
+09CB..09CE,1
+09D7,1
+09E0..09E3,1
+09E6..09F1,1
+0A01..0A03,1
+0A05..0A0A,1
+0A0F..0A10,1
+0A13..0A28,1
+0A2A..0A30,1
+0A32,1
+0A35,1
+0A38..0A39,1
+0A3C,1
+0A3E..0A42,1
+0A47..0A48,1
+0A4B..0A4D,1
+0A51,1
+0A5C,1
+0A66..0A75,1
+0A81..0A83,1
+0A85..0A8D,1
+0A8F..0A91,1
+0A93..0AA8,1
+0AAA..0AB0,1
+0AB2..0AB3,1
+0AB5..0AB9,1
+0ABC..0AC5,1
+0AC7..0AC9,1
+0ACB..0ACD,1
+0AD0,1
+0AE0..0AE3,1
+0AE6..0AEF,1
+0B01..0B03,1
+0B05..0B0C,1
+0B0F..0B10,1
+0B13..0B28,1
+0B2A..0B30,1
+0B32..0B33,1
+0B35..0B39,1
+0B3C..0B44,1
+0B47..0B48,1
+0B4B..0B4D,1
+0B56..0B57,1
+0B5F..0B63,1
+0B66..0B6F,1
+0B71,1
+0B82..0B83,1
+0B85..0B8A,1
+0B8E..0B90,1
+0B92..0B95,1
+0B99..0B9A,1
+0B9C,1
+0B9E..0B9F,1
+0BA3..0BA4,1
+0BA8..0BAA,1
+0BAE..0BB9,1
+0BBE..0BC2,1
+0BC6..0BC8,1
+0BCA..0BCD,1
+0BD0,1
+0BD7,1
+0BE6..0BEF,1
+0C00..0C03,1
+0C05..0C0C,1
+0C0E..0C10,1
+0C12..0C28,1
+0C2A..0C39,1
+0C3D..0C44,1
+0C46..0C48,1
+0C4A..0C4D,1
+0C55..0C56,1
+0C58..0C59,1
+0C60..0C63,1
+0C66..0C6F,1
+0C81..0C83,1
+0C85..0C8C,1
+0C8E..0C90,1
+0C92..0CA8,1
+0CAA..0CB3,1
+0CB5..0CB9,1
+0CBC..0CC4,1
+0CC6..0CC8,1
+0CCA..0CCD,1
+0CD5..0CD6,1
+0CDE,1
+0CE0..0CE3,1
+0CE6..0CEF,1
+0CF1..0CF2,1
+0D01..0D03,1
+0D05..0D0C,1
+0D0E..0D10,1
+0D12..0D3A,1
+0D3D..0D44,1
+0D46..0D48,1
+0D4A..0D4E,1
+0D57,1
+0D60..0D63,1
+0D66..0D6F,1
+0D7A..0D7F,1
+0D82..0D83,1
+0D85..0D96,1
+0D9A..0DB1,1
+0DB3..0DBB,1
+0DBD,1
+0DC0..0DC6,1
+0DCA,1
+0DCF..0DD4,1
+0DD6,1
+0DD8..0DDF,1
+0DE6..0DEF,1
+0DF2..0DF3,1
+0E01..0E32,1
+0E34..0E3A,1
+0E40..0E4E,1
+0E50..0E59,1
+0E81..0E82,1
+0E84,1
+0E87..0E88,1
+0E8A,1
+0E8D,1
+0E94..0E97,1
+0E99..0E9F,1
+0EA1..0EA3,1
+0EA5,1
+0EA7,1
+0EAA..0EAB,1
+0EAD..0EB2,1
+0EB4..0EB9,1
+0EBB..0EBD,1
+0EC0..0EC4,1
+0EC6,1
+0EC8..0ECD,1
+0ED0..0ED9,1
+0EDE..0EDF,1
+0F00,1
+0F0B,1
+0F18..0F19,1
+0F20..0F29,1
+0F35,1
+0F37,1
+0F39,1
+0F3E..0F42,1
+0F44..0F47,1
+0F49..0F4C,1
+0F4E..0F51,1
+0F53..0F56,1
+0F58..0F5B,1
+0F5D..0F68,1
+0F6A..0F6C,1
+0F71..0F72,1
+0F74,1
+0F7A..0F80,1
+0F82..0F84,1
+0F86..0F92,1
+0F94..0F97,1
+0F99..0F9C,1
+0F9E..0FA1,1
+0FA3..0FA6,1
+0FA8..0FAB,1
+0FAD..0FB8,1
+0FBA..0FBC,1
+0FC6,1
+1000..1049,1
+1050..109D,1
+10A0..10C5,1
+10C7,1
+10CD,1
+10D0..10FA,1
+10FD..10FF,1
+1200..1248,1
+124A..124D,1
+1250..1256,1
+1258,1
+125A..125D,1
+1260..1288,1
+128A..128D,1
+1290..12B0,1
+12B2..12B5,1
+12B8..12BE,1
+12C0,1
+12C2..12C5,1
+12C8..12D6,1
+12D8..1310,1
+1312..1315,1
+1318..135A,1
+135D..135F,1
+1380..138F,1
+13A0..13F4,1
+1401..166C,1
+166F..167F,1
+1681..169A,1
+16A0..16EA,1
+16F1..16F8,1
+1700..170C,1
+170E..1714,1
+1720..1734,1
+1740..1753,1
+1760..176C,1
+176E..1770,1
+1772..1773,1
+1780..17A2,1
+17A3..17A4,0
+17A5..17B3,1
+17B6..17D0,1
+17D1,0
+17D2,1
+17D3,0
+17D7,1
+17DC,1
+17DD,0
+17E0..17E9,1
+1810..1819,1
+1820..1877,1
+1880..18AA,1
+18B0..18F5,1
+1900..191E,1
+1920..192B,1
+1930..193B,1
+1946..196D,1
+1970..1974,1
+1980..19AB,1
+19B0..19C9,1
+19D0..19D9,1
+1A00..1A1B,1
+1A20..1A5E,1
+1A60..1A7C,1
+1A7F..1A89,1
+1A90..1A99,1
+1AA7,1
+1AB0..1ABD,1
+1B00..1B4B,1
+1B50..1B59,1
+1B6B..1B73,1
+1B80..1BF3,1
+1C00..1C37,1
+1C40..1C49,1
+1C4D..1C7D,1
+1CD0..1CD2,1
+1CD4..1CF6,1
+1CF8..1CF9,1
+1D00..1D2B,1
+1D2F,1
+1D3B,1
+1D4E,1
+1D6B..1D77,1
+1D79..1D9A,1
+1DC0..1DF5,1
+1DFC..1E99,1
+1E9C..1F15,1
+1F18..1F1D,1
+1F20..1F45,1
+1F48..1F4D,1
+1F50..1F57,1
+1F59,1
+1F5B,1
+1F5D,1
+1F5F..1F70,1
+1F72,1
+1F74,1
+1F76,1
+1F78,1
+1F7A,1
+1F7C,1
+1F80..1FB4,1
+1FB6..1FBA,1
+1FBC,1
+1FC2..1FC4,1
+1FC6..1FC8,1
+1FCA,1
+1FCC,1
+1FD0..1FD2,1
+1FD6..1FDA,1
+1FE0..1FE2,1
+1FE4..1FEA,1
+1FEC,1
+1FF2..1FF4,1
+1FF6..1FF8,1
+1FFA,1
+1FFC,1
+200C..200D,1
+2132,1
+214E,1
+2183..2184,1
+2C00..2C2E,1
+2C30..2C5E,1
+2C60..2C7B,1
+2C7E..2CE4,1
+2CEB..2CF3,1
+2D00..2D25,1
+2D27,1
+2D2D,1
+2D30..2D67,1
+2D7F..2D96,1
+2DA0..2DA6,1
+2DA8..2DAE,1
+2DB0..2DB6,1
+2DB8..2DBE,1
+2DC0..2DC6,1
+2DC8..2DCE,1
+2DD0..2DD6,1
+2DD8..2DDE,1
+2DE0..2DFF,1
+2E2F,0
+3005..3007,1
+302A..302D,1
+303C,1
+3041..3096,1
+3099..309A,1
+309D..309E,1
+30A1..30FE,1
+3105..312D,1
+31A0..31BA,1
+31F0..31FF,1
+3400..4DB5,1
+4E00..9FCC,1
+A000..A48C,1
+A4D0..A4FD,1
+A500..A60C,1
+A610..A62B,1
+A640..A66F,1
+A674..A67D,1
+A67F..A69B,1
+A69F..A6E5,1
+A6F0..A6F1,1
+A717..A71F,1
+A722..A76F,1
+A771..A788,1
+A78B..A78E,1
+A790..A7AD,1
+A7B0..A7B1,1
+A7F7,1
+A7FA..A827,1
+A840..A873,1
+A880..A8C4,1
+A8D0..A8D9,1
+A8E0..A8F7,1
+A8FB,1
+A900..A92D,1
+A930..A953,1
+A980..A9C0,1
+A9CF..A9D9,1
+A9E0..A9FE,1
+AA00..AA36,1
+AA40..AA4D,1
+AA50..AA59,1
+AA60..AA76,1
+AA7A..AAC2,1
+AADB..AADD,1
+AAE0..AAEF,1
+AAF2..AAF6,1
+AB01..AB06,1
+AB09..AB0E,1
+AB11..AB16,1
+AB20..AB26,1
+AB28..AB2E,1
+AB30..AB5A,1
+AB64..AB65,1
+ABC0..ABEA,1
+ABEC..ABED,1
+ABF0..ABF9,1
+AC00..D7A3,1
+FA0E..FA0F,1
+FA11,1
+FA13..FA14,1
+FA1F,1
+FA21,1
+FA23..FA24,1
+FA27..FA29,1
+FB1E,1
+FE20..FE2D,1
+FE73,1
+10000..1000B,1
+1000D..10026,1
+10028..1003A,1
+1003C..1003D,1
+1003F..1004D,1
+10050..1005D,1
+10080..100FA,1
+101FD,1
+10280..1029C,1
+102A0..102D0,1
+102E0,1
+10300..1031F,1
+10330..10340,1
+10342..10349,1
+10350..1037A,1
+10380..1039D,1
+103A0..103C3,1
+103C8..103CF,1
+10400..1049D,1
+104A0..104A9,1
+10500..10527,1
+10530..10563,1
+10600..10736,1
+10740..10755,1
+10760..10767,1
+10800..10805,1
+10808,1
+1080A..10835,1
+10837..10838,1
+1083C,1
+1083F..10855,1
+10860..10876,1
+10880..1089E,1
+10900..10915,1
+10920..10939,1
+10980..109B7,1
+109BE..109BF,1
+10A00..10A03,1
+10A05..10A06,1
+10A0C..10A13,1
+10A15..10A17,1
+10A19..10A33,1
+10A38..10A3A,1
+10A3F,1
+10A60..10A7C,1
+10A80..10A9C,1
+10AC0..10AC7,1
+10AC9..10AE6,1
+10B00..10B35,1
+10B40..10B55,1
+10B60..10B72,1
+10B80..10B91,1
+10C00..10C48,1
+11000..11046,1
+11066..1106F,1
+1107F..110BA,1
+110D0..110E8,1
+110F0..110F9,1
+11100..11134,1
+11136..1113F,1
+11150..11173,1
+11176,1
+11180..111C4,1
+111D0..111DA,1
+11200..11211,1
+11213..11237,1
+112B0..112EA,1
+112F0..112F9,1
+11301..11303,1
+11305..1130C,1
+1130F..11310,1
+11313..11328,1
+1132A..11330,1
+11332..11333,1
+11335..11339,1
+1133C..11344,1
+11347..11348,1
+1134B..1134D,1
+11357,1
+1135D..11363,1
+11366..1136C,1
+11370..11374,1
+11480..114C5,1
+114C7,1
+114D0..114D9,1
+11580..115B5,1
+115B8..115C0,1
+11600..11640,1
+11644,1
+11650..11659,1
+11680..116B7,1
+116C0..116C9,1
+118A0..118E9,1
+118FF,1
+11AC0..11AF8,1
+12000..12398,1
+13000..1342E,1
+16800..16A38,1
+16A40..16A5E,1
+16A60..16A69,1
+16AD0..16AED,1
+16AF0..16AF4,1
+16B00..16B36,1
+16B40..16B43,1
+16B50..16B59,1
+16B63..16B77,1
+16B7D..16B8F,1
+16F00..16F44,1
+16F50..16F7E,1
+16F8F..16F9F,1
+1B000..1B001,1
+1BC00..1BC6A,1
+1BC70..1BC7C,1
+1BC80..1BC88,1
+1BC90..1BC99,1
+1BC9D..1BC9E,1
+1E800..1E8C4,1
+1E8D0..1E8D6,1
+20000..2A6D6,1
+2A700..2B734,1
+2B740..2B81D,1

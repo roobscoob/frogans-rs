@@ -1,18 +1,13 @@
-//! `update_addresses` command (engine → host) — the recently-visited list.
+//! `update_addresses` command (engine → host) — client transport for the core codec.
 
+use fprt_sys::Fprt;
 use fprt_sys::ui::recentlyvisited::CMD_UPDATE_ADDRESSES;
 use fprt_sys::ui::{AddressList as Raw, Pop, StatusName};
-use fprt_sys::Fprt;
 
 use crate::conductor::command::{Command, CommandPayload};
-use crate::pool::{Pool, PooledString};
+use crate::pool::Pool;
 
-/// The list of recently-visited Frogans addresses.
-#[derive(Debug)]
-pub struct UpdateAddresses {
-    /// The addresses (null/empty entries dropped).
-    pub addresses: Vec<PooledString>,
-}
+pub use fprt_core::component::recentlyvisited::UpdateAddresses;
 
 impl CommandPayload for UpdateAddresses {
     const ID: StatusName = CMD_UPDATE_ADDRESSES;
@@ -22,13 +17,7 @@ impl CommandPayload for UpdateAddresses {
         methods.recentlyvisited_update_addresses
     }
 
-    fn from_raw(raw: Raw, pool: &Pool) -> Self {
-        // SAFETY: `raw.items` is `raw.count` `Ustring`s the pop wrote into `pool`.
-        let addresses = unsafe { pool.strings(raw.items, raw.count) };
-        UpdateAddresses { addresses }
-    }
-
-    fn into_command(self) -> Command {
-        Command::RecentlyvisitedUpdateAddresses(self)
+    fn decode(raw: Raw, pool: &Pool) -> Command {
+        Command::RecentlyvisitedUpdateAddresses(UpdateAddresses::from_raw(raw, pool))
     }
 }

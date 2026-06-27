@@ -1,0 +1,12 @@
+[package]
+name = "manifap"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+description = "Frogans address evaluation and canonicalization (IFAP 1.1 + FACR 1.0), pinned to Unicode 7.0.0."
+
+# `build.rs` parses the vendored IFAP/FACR lookup tables (CSV, hash-verified
+# against the specs) into sorted static slices under `OUT_DIR`. No runtime parse.
+build = "build.rs"
+
+[dependencies]

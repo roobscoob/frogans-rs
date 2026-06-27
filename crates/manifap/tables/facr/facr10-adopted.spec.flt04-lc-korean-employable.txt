@@ -1,0 +1,1141 @@
+#  ---------------------------------------------------------------------
+#  Frogans Address Composition Rules - FACR 1.0
+#  FACR Lookup Table
+#  ---------------------------------------------------------------------
+#
+#  Reference: FLT04_LC_Korean_Employable
+#
+#  Description: This FACR lookup table contains the list of code points
+#  that are employable characters of LC-Korean with, for each code
+#  point, the value of its Script property.  This lookup table is used
+#  in the |c1_verify_employable_characters| function defined in Appendix
+#  C.1 of the FACR specification document.
+#
+#  File name:     facr10-adopted.spec.flt04-lc-korean-employable.txt
+#  File created:  2014-12-04T15:55:37Z
+#
+#  For additional information on the format of FACR lookup tables, see
+#  Appendix A in the FACR specification document.
+#
+#  For additional information on the use of FACR lookup tables, see
+#  Appendix C in the FACR specification document.
+#
+#  Properties mentioned in this document are those defined in the
+#  Unicode Standard.
+#
+#  This document is accessible at the following permanent URL:
+#  https://www.frogans.org/en/resources/facr/access.html.
+#
+#  This document must be used in compliance with the Frogans Technology
+#  User Policy, accessible at the following permanent URL:
+#  https://www.frogans.org/en/resources/ftup/access.html.
+#
+#  Copyright (C) 2014 OP3FT.  All rights reserved.
+#
+#
+#  ---------------------------------------------------------------------
+#  Third-party source materials used to create this lookup table
+#  ---------------------------------------------------------------------
+#
+#  File: core.zip
+#
+#  - Location:
+#    http://unicode.org/Public/cldr/26/core.zip
+#
+#  - Description:
+#    core.zip is a file in release 26 of the Unicode Common Locale Data
+#    Repository (CLDR).  It contains Unicode CLDR directories and files.
+#    For details on the format and contents of this file, see
+#    http://cldr.unicode.org/.
+#
+#  - Copyright and Permission Notice:
+#    Copyright (C) 1991-2014 Unicode, Inc.  All rights reserved.
+#    Distributed under the Terms of Use in
+#    http://www.unicode.org/copyright.html.
+#
+#    Permission is hereby granted, free of charge, to any person
+#    obtaining a copy of the Unicode data files and any associated
+#    documentation (the "Data Files") or Unicode software and any
+#    associated documentation (the "Software") to deal in the Data Files
+#    or Software without restriction, including without limitation the
+#    rights to use, copy, modify, merge, publish, distribute, and/or
+#    sell copies of the Data Files or Software, and to permit persons to
+#    whom the Data Files or Software are furnished to do so, provided
+#    that (a) the above copyright notice(s) and this permission notice
+#    appear with all copies of the Data Files or Software, (b) both the
+#    above copyright notice(s) and this permission notice appear in
+#    associated documentation, and (c) there is clear notice in each
+#    modified Data File or in the Software as well as in the
+#    documentation associated with the Data File(s) or Software that the
+#    data or software has been modified.
+#
+#
+#  File: UnicodeData.txt
+#
+#  - Location:
+#    http://www.unicode.org/Public/7.0.0/ucd/UnicodeData.txt
+#
+#  - Description:
+#    UnicodeData.txt is a file in the Unicode Character Database of
+#    version 7.0.0 of the Unicode Standard.  It lists all Unicode
+#    characters and their properties.  For details on the format and
+#    contents of this file, see revision 14 of the Unicode Standard
+#    Annex #44 at
+#    http://www.unicode.org/reports/tr44/tr44-14.html.
+#
+#  - Copyright and Permission Notice:
+#    Copyright (C) 1991-2014 Unicode, Inc.  All rights reserved.
+#    Distributed under the Terms of Use in
+#    http://www.unicode.org/copyright.html.
+#
+#    See the Copyright and Permission Notice for the core.zip file
+#    above.
+#
+#
+#  File: SpecialCasing.txt
+#
+#  - Location:
+#    http://www.unicode.org/Public/7.0.0/ucd/SpecialCasing.txt
+#
+#  - Description:
+#    SpecialCasing.txt is a file in the Unicode Character Database of
+#    version 7.0.0 of the Unicode Standard.  It is a supplement to the
+#    UnicodeData.txt file and provides additional information about the
+#    casing of Unicode characters.  For details on the format and
+#    contents of this file, see revision 14 of the Unicode Standard
+#    Annex #44 at http://www.unicode.org/reports/tr44/tr44-14.html.
+#
+#  - Copyright and Permission Notice:
+#    Copyright (C) 1991-2014 Unicode, Inc.  All rights reserved.
+#    Distributed under the Terms of Use in
+#    http://www.unicode.org/copyright.html.
+#
+#    See the Copyright and Permission Notice for the core.zip file
+#    above.
+#
+#
+#  File: Scripts.txt
+#
+#  - Location:
+#    http://www.unicode.org/Public/7.0.0/ucd/Scripts.txt
+#
+#  - Description:
+#    Scripts.txt is a file in the Unicode Character Database of version
+#    7.0.0 of the Unicode Standard.  It lists code points and their
+#    associated scripts.  For details on the format and contents of this
+#    file, see revision 14 of the Unicode Standard Annex #44 at
+#    http://www.unicode.org/reports/tr44/tr44-14.html.
+#
+#  - Copyright and Permission Notice:
+#    Copyright (C) 1991-2014 Unicode, Inc.  All rights reserved.
+#    Distributed under the Terms of Use in
+#    http://www.unicode.org/copyright.html.
+#
+#    See the Copyright and Permission Notice for the core.zip file
+#    above.
+#
+#
+#  ---------------------------------------------------------------------
+#  IFAP lookup tables used to create this lookup table
+#  ---------------------------------------------------------------------
+#
+#  ILT08_Eligible_Characters
+#
+#  This IFAP lookup table is part of version 1.1 of the International
+#  Frogans Address Pattern (IFAP) specification published by the OP3FT.
+#
+#  The IFAP specification, including its lookup tables, is accessible at
+#  the following permanent URL:
+#  https://www.frogans.org/en/resources/ifap/access.html
+#
+#
+#  ---------------------------------------------------------------------
+#  Other FACR lookup tables used to create this lookup table
+#  ---------------------------------------------------------------------
+#
+#  None
+#
+#
+#  ---------------------------------------------------------------------
+#  Description of the fields in this lookup table
+#  ---------------------------------------------------------------------
+#
+#  Field count: 2
+#
+#
+#  Field 1: CODE_POINT
+#
+#  - Description:
+#    A code point or a range of code points
+#
+#  Field 2: SCRIPT
+#
+#  - Description:
+#    A text value representing the Script property of the code point or
+#    the range of code points
+#
+#
+#  ---------------------------------------------------------------------
+#  Method used to compute the field values in this lookup table
+#  ---------------------------------------------------------------------
+#
+#  The data lines following these comments are created by the six-step
+#  process described below.
+#
+#  During the execution of this process, four temporary tables TT1, TT2,
+#  TT3, and TT4 are created and used for storage of values.  These
+#  temporary tables are discarded at the end of the process.
+#
+#
+#  Step 1
+#
+#  The purpose of this step is to produce a list of Unicode language
+#  identifiers.  The text values resulting from this step are stored in
+#  TT1.
+#
+#  The process which follows uses the XML data file supplementalData.xml
+#  located in the common/supplemental/ directory of core.zip.
+#
+#  After parsing this XML data file, each <language> element contained
+#  in the <languageData> element is analyzed.  If a <language> element
+#  is skipped in the process below, then the process continues with the
+#  next <language> element.
+#
+#  If the value of the "scripts" attribute does not contain 'Kore', then
+#  the <language> element is skipped.  The value of the "scripts"
+#  attribute contains one or more script subtags, separated by spaces.
+#
+#  Otherwise, if the value of the "alt" attribute is equal to
+#  'secondary', then the <language> element is skipped.  According to
+#  the specification of this XML data file, the "alt" attribute is not
+#  required and it is only included, with a value equal to 'secondary',
+#  if the language identifier does not correspond with a modern
+#  language, or the script is not a modern script, or the language is
+#  not a major language of the territory.
+#
+#  Otherwise, if the value of the "scripts" attribute contains 'Kore'
+#  only:
+#
+#  - If the "territories" attribute is included, then for each region
+#    subtag within the value of the "territories" attribute, a line is
+#    added to TT1 containing a concatenation of the value of the "type"
+#    attribute and '_' and the region subtag.
+#
+#  - Otherwise, if the "territories" attribute is not included, then a
+#    line is added to TT1 containing the value of the "type" attribute.
+#
+#  Otherwise, if the value of the "scripts" attribute contains 'Kore'
+#  amongst other script subtags:
+#
+#  - If the "territories" attribute is included, then for each region
+#    subtag within the value of the "territories" attribute, a line is
+#    added to TT1 containing a concatenation of the value of the "type"
+#    attribute and '_Kore_' and the region subtag.
+#
+#  - Otherwise, if the "territories" attribute is not included, then a
+#    line is added to TT1 containing a concatenation of the value of the
+#    "type" attribute and '_Kore'.
+#
+#
+#  Step 2
+#
+#  The purpose of this step is to produce a list of exemplar characters.
+#  The code points resulting from this step are stored in TT2.
+#
+#  For each language identifier in TT1, the fully-resolved XML data file
+#  associated with that language identifier is produced from the XML
+#  data files within the common/main/ directory of core.zip and the
+#  process described in revision 35 of the Unicode Technical Standard
+#  #35, Unicode Locale Data Markup Language (LDML), Part 1, Core, 4.2.2
+#  Resolved Data File.
+#  See http://www.unicode.org/reports/tr35/tr35-35/tr35.html.
+#
+#  The exemplar characters are retrieved from the <exemplarCharacters>
+#  elements contained in the <characters> element of the fully-resolved
+#  XML data file if either of the following conditions is met: the
+#  "type" attribute of the <exemplarCharacters> element is not included,
+#  or the value of the "type" attribute is equal to 'punctuation', or
+#  the value of the "type" attribute is equal to 'auxiliary'.  Note that
+#  exemplar characters are not retrieved from <exemplarCharacters>
+#  elements for which the value of the "type" attribute is equal to
+#  'index'.
+#
+#  The text content of the <exemplarCharacters> element is converted to
+#  a list of code points using a process based upon the syntax of
+#  exemplar characters described in revision 35 of the Unicode Technical
+#  Standard #35, Unicode Locale Data Markup Language (LDML), Part 2,
+#  General, 3.1 Exemplar Syntax.
+#
+#  For each code point in this list that has not already been added to
+#  TT2, a line is added to TT2 containing the code point.
+#
+#  The text content of the <defaultNumberingSystem> element contained in
+#  the <numbers> element of the fully-resolved XML data file is looked
+#  up in the XML data file numberingSystems.xml located in the
+#  common/supplemental/ directory of core.zip.  This lookup is performed
+#  on the value of the "id" attribute of the <numberingSystem> element
+#  contained in the <numberingSystems> element.  If the value of the
+#  "type" attribute of the matching <numberingSystem> element is equal
+#  to 'numeric', then the value of the "digits" attribute of that
+#  element is retrieved and converted to ten individual code points.
+#
+#  For each of these ten code points that has not already been added to
+#  TT2, a line is added to TT2 containing the code point.
+#
+#  Then the process continues with the next language identifier in TT1.
+#
+#
+#  Step 3
+#
+#  The purpose of this step is to include code points corresponding to
+#  uppercase and titlecase characters.  The code points resulting from
+#  this step are stored in TT3.
+#
+#  Each line of TT2, corresponding to a code point, is read.
+#
+#  First, a line is added to TT3 containing the code point.
+#
+#  Second, the code point is looked up in UnicodeData.txt and the
+#  thirteenth and the fifteenth fields in the semi-colon separated list
+#  in matching lines of UnicodeData.txt are analyzed.  These fields
+#  correspond to the Simple_Uppercase_Mapping and the
+#  Simple_Titlecase_Mapping properties respectively.  If these fields
+#  are not empty, then the value of each field is a code point.
+#
+#  If the thirteenth field is not empty, and its value has not already
+#  been added to TT3, a line is added to TT3 containing its value.
+#
+#  If the fifteenth field is not empty, and its value has not already
+#  been added to TT3, a line is added to TT3 containing its value.
+#
+#  Finally, the code point is looked up in the lines of
+#  SpecialCasing.txt and the third and the fourth fields in the
+#  semi-colon separated list in matching lines of SpecialCasing.txt are
+#  analyzed.  These fields correspond to the Titlecase_Mapping and the
+#  Uppercase_Mapping properties respectively.  If these fields are not
+#  empty, then the value of each field is one or more code points.
+#
+#  If the third field is not empty, then it is analyzed.  For each
+#  code point in the field, a line is added to TT3 containing the code
+#  point, if the code point has not already been added to TT3.
+#
+#  If the fourth field is not empty, then its value is analyzed.  For
+#  each code point contained in the value of the field, a line is added
+#  to TT3 containing the code point, if the code point has not already
+#  been added to TT3.
+#
+#
+#  Step 4
+#
+#  The purpose of this step is to exclude code points in accordance with
+#  section 10.4.2 of version 1.0 of the FACR specification and to
+#  include 52 code points corresponding to the lowercase characters 'a'
+#  to 'z' and the uppercase characters 'A' to 'Z'.  The code points
+#  resulting from this step are stored in TT3.
+#
+#  The U+002A ASTERISK character is removed from TT3.
+#
+#  The U+00B7 MIDDLE DOT character and the U+30FB KATAKANA MIDDLE DOT
+#  are removed from TT3.
+#
+#  For each code point in the range U+0041 to U+005A, and each code
+#  point in the range U+0061 to U+007A, a line is added to TT3
+#  containing its value.
+#
+#
+#  Step 5
+#
+#  The purpose of this step is to exclude code points that are not
+#  eligible characters according to version 1.1 of the IFAP
+#  specification.  The code points resulting from this step are stored
+#  in TT4.
+#
+#  Each line of TT3, corresponding to one or more code points, is read.
+#  If a code point is skipped in the process below, then the process
+#  continues with the next code point in the line or in the next line.
+#
+#  The code point is looked up in ILT08_Eligible_Characters.
+#
+#  If the code point is not found, then the code point is skipped.
+#
+#  Otherwise, in the data line of ILT08_Eligible_Characters that
+#  contains the code point, if the second field (IS_ELIGIBLE) equals 0,
+#  then the code point is skipped.
+#
+#  Otherwise, the code point is looked up in Scripts.txt to retrieve the
+#  value of the Script property, which is the second field in the
+#  semi-colon separated list in each line of Scripts.txt.
+#
+#  A line consisting of two fields is added to TT4:
+#
+#  - The value of the first field contains the code point.
+#
+#  - The value of the second field contains the value of the Script
+#    property for the code point.
+#
+#
+#  Step 6
+#
+#  The purpose of this step is to generate the data lines in
+#  FLT04_LC_Korean_Employable.
+#
+#  The lines in TT4 are sorted by the value of the first field.  Then
+#  any lines in TT4 with consecutive values in the first field and
+#  identical values in the second field are merged into a single line in
+#  TT4 having the following values:
+#
+#  - The first field contains the code point range.
+#
+#  - The second field contains the value of the Script property for the
+#    code point range.
+#
+#  When the above process is complete, for each line of TT4, a data line
+#  is added to FLT04_LC_Korean_Employable with the value of the two
+#  fields CODE_POINT and SCRIPT:
+#
+#  - The first value contains the code point or code point range.
+#
+#  - The second value contains the value of the Script property for the
+#    code point or code point range.  The value of this field can be
+#    'Common' and 'Latin'.
+#
+#
+#  ---------------------------------------------------------------------
+#  Generated data lines
+#  ---------------------------------------------------------------------
+#
+CODE_POINT,SCRIPT
+002D,Common
+0030..0039,Common
+0041..005A,Latin
+0061..007A,Latin
+4E18,Han
+4E32,Han
+4E43,Han
+4E45,Han
+4E56,Han
+4E5D..4E5E,Han
+4E6B,Han
+4E7E,Han
+4E82,Han
+4E98,Han
+4EA4,Han
+4EAC,Han
+4EC7,Han
+4ECA..4ECB,Han
+4EF6..4EF7,Han
+4F01,Han
+4F0B,Han
+4F0E,Han
+4F3D,Han
+4F73,Han
+4F76,Han
+4F83,Han
+4F86,Han
+4F8A,Han
+4F9B,Han
+4FC2,Han
+4FD3,Han
+4FF1,Han
+500B,Han
+501E,Han
+5026,Han
+5028,Han
+5047..5048,Han
+5065,Han
+5080,Han
+5091,Han
+50BE,Han
+50C5,Han
+50D1,Han
+50F9,Han
+5106,Han
+5109,Han
+513A,Han
+5149,Han
+514B,Han
+5162,Han
+5167,Han
+516C,Han
+5171,Han
+5176..5177,Han
+517C,Han
+5180,Han
+51A0,Han
+51F1,Han
+520A,Han
+522E,Han
+5238,Han
+523B,Han
+524B,Han
+525B,Han
+5287,Han
+528D,Han
+5292,Han
+529F..52A0,Han
+52A4,Han
+52AB,Han
+52C1,Han
+52CD,Han
+52D8,Han
+52E4,Han
+52F8,Han
+52FB,Han
+52FE,Han
+5321,Han
+5323,Han
+5340,Han
+5357,Han
+5366,Han
+5374..5375,Han
+5377,Han
+537F,Han
+53A5,Han
+53BB,Han
+53CA,Han
+53E3,Han
+53E5,Han
+53E9,Han
+53EB,Han
+53EF,Han
+5404,Han
+5409,Han
+541B,Han
+544A,Han
+5471,Han
+5475,Han
+548E,Han
+54AC,Han
+54E5,Han
+54ED,Han
+5553,Han
+5580,Han
+5587,Han
+559D,Han
+55AB..55AC,Han
+55DC,Han
+5609,Han
+5614,Han
+5668,Han
+56CA,Han
+56F0,Han
+56FA,Han
+5708,Han
+570B,Han
+572D,Han
+573B,Han
+5747,Han
+574E,Han
+5751,Han
+5764,Han
+5770,Han
+5775,Han
+57A2,Han
+57FA,Han
+57FC,Han
+5800,Han
+5805,Han
+5808,Han
+582A,Han
+583A,Han
+584A,Han
+584F,Han
+5883,Han
+58BE,Han
+58D9,Han
+58DE,Han
+5914,Han
+5947..5948,Han
+594E,Han
+5951,Han
+5978,Han
+5993,Han
+5997,Han
+59D1,Han
+59DC,Han
+59E6,Han
+5A18,Han
+5A1C,Han
+5AC1,Han
+5B0C,Han
+5B54,Han
+5B63..5B64,Han
+5B8F,Han
+5B98,Han
+5BA2,Han
+5BAE,Han
+5BB6,Han
+5BC4,Han
+5BC7,Han
+5BE1,Han
+5BEC,Han
+5C3B,Han
+5C40,Han
+5C45..5C46,Han
+5C48,Han
+5C90,Han
+5CA1,Han
+5CAC,Han
+5D0E,Han
+5D11,Han
+5D17,Han
+5D4C,Han
+5D50,Han
+5D87,Han
+5DA0,Han
+5DE5,Han
+5DE7..5DE8,Han
+5DF1,Han
+5DFE,Han
+5E72,Han
+5E79,Han
+5E7E,Han
+5E9A,Han
+5EAB,Han
+5EB7,Han
+5ECA,Han
+5ED0,Han
+5ED3,Han
+5EE3,Han
+5EFA,Han
+5F13,Han
+5F3A,Han
+5F4A,Han
+5F91,Han
+5FCC,Han
+6025,Han
+602A,Han
+602F,Han
+6050,Han
+605D,Han
+606A,Han
+606D,Han
+60B8,Han
+6106,Han
+611F,Han
+6127,Han
+6137,Han
+613E,Han
+614A,Han
+6163..6164,Han
+6168,Han
+6176..6177,Han
+61A9,Han
+61AC,Han
+61BE,Han
+61C3,Han
+61C7,Han
+61E6,Han
+61F6,Han
+61FC,Han
+6208,Han
+6212,Han
+621F,Han
+6221,Han
+6271,Han
+6280,Han
+6289,Han
+62C9,Han
+62CF..62D0,Han
+62D2,Han
+62D8,Han
+62EC,Han
+62EE,Han
+62F1,Han
+62F3,Han
+62F7,Han
+62FF,Han
+634F,Han
+636E,Han
+6372,Han
+637A,Han
+6398,Han
+639B,Han
+63A7,Han
+63C0,Han
+63C6,Han
+63ED,Han
+64CA,Han
+64CE,Han
+64D2,Han
+64DA,Han
+64E7,Han
+652A,Han
+6537,Han
+6539,Han
+653B,Han
+6545,Han
+654E,Han
+6551,Han
+6562,Han
+656C,Han
+6572,Han
+659B,Han
+65A4,Han
+65D7,Han
+65E3,Han
+6606,Han
+6611,Han
+666F,Han
+6677,Han
+6687,Han
+6696,Han
+66A0,Han
+66BB,Han
+66E0,Han
+66F2,Han
+66F4,Han
+66F7,Han
+6717,Han
+671E..671F,Han
+673A,Han
+6746,Han
+675E,Han
+6770,Han
+678F,Han
+679C,Han
+67AF,Han
+67B6,Han
+67B8,Han
+67D1,Han
+67E9,Han
+67EC,Han
+67EF,Han
+6821,Han
+6839,Han
+683C,Han
+6840,Han
+6842,Han
+6854,Han
+687F,Han
+688F,Han
+6897,Han
+68B0..68B1,Han
+68C4,Han
+68CB,Han
+68CD,Han
+68D8,Han
+68E8,Han
+68FA,Han
+6957,Han
+6960,Han
+6975,Han
+69C1,Han
+69CB,Han
+69D0,Han
+69E8,Han
+69EA,Han
+69FB,Han
+69FF,Han
+6A02,Han
+6A44,Han
+6A4B,Han
+6A58,Han
+6A5F,Han
+6A84,Han
+6A8E,Han
+6AA2,Han
+6AC3,Han
+6B04,Han
+6B0A,Han
+6B3A,Han
+6B3E,Han
+6B4C,Han
+6B50,Han
+6B78,Han
+6BBC,Han
+6BC6,Han
+6BEC,Han
+6C23,Han
+6C42,Han
+6C5F,Han
+6C68,Han
+6C72,Han
+6C7A,Han
+6C7D,Han
+6C82,Han
+6CBD,Han
+6D1B,Han
+6D38,Han
+6D6A,Han
+6D87,Han
+6DC3,Han
+6DC7,Han
+6E1B,Han
+6E20,Han
+6E34,Han
+6E73,Han
+6E9D,Han
+6EAA,Han
+6ED1,Han
+6EFE,Han
+6F11,Han
+6F54,Han
+6F70,Han
+6F97,Han
+6FC0,Han
+6FEB,Han
+704C,Han
+7078,Han
+7085,Han
+709A,Han
+70AC,Han
+70D9,Han
+70F1,Han
+7156,Han
+721B,Han
+727D,Han
+72AC,Han
+72C2,Han
+72D7,Han
+72E1,Han
+72FC,Han
+7357,Han
+7396,Han
+7398,Han
+73C2,Han
+73CF,Han
+73D6,Han
+73D9,Han
+73DE,Han
+73EA,Han
+7403,Han
+7426,Han
+7428,Han
+742A,Han
+742F,Han
+7434,Han
+747E,Han
+7482,Han
+749F,Han
+74A3,Han
+74A5,Han
+74CA,Han
+74D8,Han
+74DC,Han
+7504,Han
+7518,Han
+7532,Han
+7537,Han
+7547,Han
+754C,Han
+7578,Han
+757A,Han
+757F,Han
+7586,Han
+75A5,Han
+75B3,Han
+75C2,Han
+75D9,Han
+75FC,Han
+764E,Han
+7669,Han
+7678,Han
+7686,Han
+768E,Han
+7690,Han
+76D6,Han
+76E3,Han
+770B,Han
+7737,Han
+777E,Han
+77B0,Han
+77BC,Han
+77BF,Han
+77DC,Han
+77E9,Han
+77EF,Han
+7845,Han
+786C,Han
+7881,Han
+78A3,Han
+78CE,Han
+78EC,Han
+78EF,Han
+78F5,Han
+7941,Han
+7947..7948,Han
+795B,Han
+797A,Han
+7981,Han
+79BD,Han
+79D1,Han
+7A08,Han
+7A3C..7A3D,Han
+7A3F..7A40,Han
+7A76,Han
+7A79..7A7A,Han
+7A98,Han
+7A9F,Han
+7AAE,Han
+7ABA,Han
+7AC5,Han
+7ADF,Han
+7AED,Han
+7AF6,Han
+7AFF,Han
+7B4B,Han
+7B50,Han
+7B60,Han
+7B87,Han
+7B95,Han
+7B9D,Han
+7BA1,Han
+7C21,Han
+7CB3,Han
+7CE0,Han
+7CFB,Han
+7CFE,Han
+7D00,Han
+7D0D,Han
+7D18,Han
+7D1A,Han
+7D3A,Han
+7D45,Han
+7D50,Han
+7D5E,Han
+7D66,Han
+7D73,Han
+7D79,Han
+7D7F,Han
+7D93,Han
+7DB1,Han
+7DBA,Han
+7DCA,Han
+7E6B,Han
+7E6D,Han
+7E7C,Han
+7F3A,Han
+7F50,Han
+7F6B,Han
+7F85,Han
+7F88,Han
+7F8C,Han
+7F94,Han
+7FA4,Han
+7FB9,Han
+7FF9,Han
+8003,Han
+8006,Han
+8009,Han
+8015,Han
+802D,Han
+803F,Han
+808C,Han
+809D,Han
+80A1,Han
+80A9,Han
+80AF,Han
+80B1,Han
+80DB,Han
+80F1,Han
+811A..811B,Han
+8154,Han
+8171,Han
+8188,Han
+818F,Han
+81A0,Han
+81D8,Han
+81FC,Han
+8205,Han
+820A,Han
+8221,Han
+826E,Han
+8271,Han
+828E,Han
+82A5,Han
+82A9,Han
+82B9,Han
+82DB,Han
+82DF,Han
+82E6,Han
+82FD,Han
+8304,Han
+8396,Han
+83C5,Han
+83CA,Han
+83CC,Han
+83D3,Han
+83EB,Han
+83F0,Han
+843D,Han
+845B,Han
+8475,Han
+84CB,Han
+854E,Han
+8568,Han
+8591,Han
+85C1,Han
+85CD,Han
+85FF,Han
+862D,Han
+863F,Han
+8654,Han
+86A3,Han
+86DF,Han
+874E,Han
+87BA,Han
+881F,Han
+8831,Han
+8857,Han
+8862,Han
+8872,Han
+887E..887F,Han
+8888,Han
+889E,Han
+88B4,Han
+88D9,Han
+88F8,Han
+8910,Han
+8941,Han
+895F,Han
+8964,Han
+898B,Han
+898F,Han
+89A1,Han
+89B2,Han
+89BA,Han
+89C0,Han
+89D2,Han
+8A08,Han
+8A18,Han
+8A23,Han
+8A36,Han
+8A6D,Han
+8A87,Han
+8AA1,Han
+8AA5,Han
+8AB2,Han
+8AEB,Han
+8AFE,Han
+8B19,Han
+8B1B,Han
+8B33,Han
+8B39,Han
+8B4F,Han
+8B66,Han
+8B74,Han
+8C37,Han
+8C3F,Han
+8C48,Han
+8CA2,Han
+8CAB,Han
+8CB4,Han
+8CC8,Han
+8CFC,Han
+8D73,Han
+8D77,Han
+8DCF,Han
+8DDD,Han
+8DE8,Han
+8E1E,Han
+8E47,Han
+8E76,Han
+8EAC,Han
+8EC0,Han
+8ECA,Han
+8ECC..8ECD,Han
+8EFB,Han
+8F03,Han
+8F15,Han
+8F4E,Han
+8F5F,Han
+8F9C,Han
+8FD1,Han
+8FE6,Han
+8FF2,Han
+9002,Han
+9011,Han
+9015,Han
+9035,Han
+904E,Han
+9063,Han
+907D,Han
+908F,Han
+90A3,Han
+90AF,Han
+90B1,Han
+90CA,Han
+90CE,Han
+90E1,Han
+90ED,Han
+916A,Han
+91B5,Han
+91D1,Han
+9210,Han
+921E,Han
+9240,Han
+9245,Han
+9257,Han
+9264,Han
+92B6,Han
+92F8,Han
+92FC,Han
+9321,Han
+9324,Han
+9326,Han
+932E,Han
+934B,Han
+9375,Han
+938C,Han
+93A7,Han
+93E1,Han
+9451..9452,Han
+945B,Han
+958B,Han
+9593,Han
+9598,Han
+95A3,Han
+95A8,Han
+95D5,Han
+95DC,Han
+964D,Han
+968E,Han
+9694,Han
+9699,Han
+96C7,Han
+96E3,Han
+978F,Han
+97A0,Han
+97A8,Han
+97AB,Han
+9803,Han
+9838,Han
+9846,Han
+9867,Han
+98E2,Han
+9903,Han
+9928,Han
+9949,Han
+994B,Han
+9951,Han
+99D2,Han
+99D5,Han
+99F1,Han
+9A0E..9A0F,Han
+9A2B,Han
+9A45,Han
+9A55,Han
+9A5A,Han
+9A65,Han
+9AA8,Han
+9AD8,Han
+9B3C,Han
+9B41,Han
+9BAB,Han
+9BE4,Han
+9BE8,Han
+9C47,Han
+9CE9,Han
+9D51,Han
+9D60,Han
+9DC4,Han
+9DD7,Han
+9E1E,Han
+9E92,Han
+9EB4,Han
+9ED4,Han
+9F13,Han
+9F95,Han
+9F9C,Han
+AC00..D7A3,Hangul

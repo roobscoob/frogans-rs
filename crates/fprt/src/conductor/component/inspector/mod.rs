@@ -42,11 +42,7 @@ pub use evt_change_autosync::ReportChangeAutosync;
 pub use evt_content_selected::ReportContentSelected;
 pub use evt_step_selected::ReportStepSelected;
 
-/// Which inspector window a command targets / an event came from. The engine runs
-/// one inspector per running site; this is the engine `data_subset` id (the host's
-/// `_viewList` key). `Copy + Eq + Hash` so consumers can key a window map by it.
-#[derive(Clone, Copy, PartialEq, Eq, Hash, Debug)]
-pub struct InspectorId(pub i32);
+pub use fprt_core::component::inspector::InspectorId;
 
 /// A lifecycle command (open/show/hide/push/close) — the engine drives it at one
 /// window; the whole payload is the [`Head`], so we surface just the id.
@@ -63,12 +59,8 @@ macro_rules! inspector_marker {
                 methods.$export
             }
 
-            fn from_raw(raw: Head, _pool: &Pool) -> Self {
-                $name(InspectorId(raw.reference))
-            }
-
-            fn into_command(self) -> Command {
-                Command::$variant(self.0)
+            fn decode(raw: Head, _pool: &Pool) -> Command {
+                Command::$variant(InspectorId(raw.reference))
             }
         }
     };

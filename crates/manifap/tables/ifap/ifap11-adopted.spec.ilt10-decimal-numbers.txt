@@ -1,0 +1,169 @@
+#  ---------------------------------------------------------------------
+#  International Frogans Address Pattern - IFAP 1.1
+#  IFAP Lookup Table
+#  ---------------------------------------------------------------------
+#
+#  Reference: ILT10_Decimal_Numbers
+#
+#  Description: This IFAP lookup table contains a list of eligible code
+#  points used in Frogans address strings.  These code points are
+#  decimal numbers, i.e. with the General_Category property equal to Nd.
+#  This lookup table is used in the
+#  |c5_verify_first_character_network_name| function defined in Appendix
+#  C.5 of the IFAP specification document.
+#
+#  File name:     ifap11-adopted.spec.ilt10-decimal-numbers.txt
+#  File created:  2014-11-07T14:35:17Z
+#
+#  For additional information on the format of IFAP lookup tables, see
+#  Appendix A in the IFAP specification document.
+#
+#  For additional information on the use of IFAP lookup tables, see
+#  Appendix C in the IFAP specification document.
+#
+#  Properties mentioned in this document are those defined in the
+#  Unicode Standard.
+#
+#  This document is accessible at the following permanent URL:
+#  https://www.frogans.org/en/resources/ifap/access.html.
+#
+#  This document must be used in compliance with the Frogans Technology
+#  User Policy, accessible at the following permanent URL:
+#  https://www.frogans.org/en/resources/ftup/access.html.
+#
+#  Copyright (C) 2014 OP3FT.  All rights reserved.
+#
+#
+#  ---------------------------------------------------------------------
+#  Third-party source materials used to create this lookup table
+#  ---------------------------------------------------------------------
+#
+#  File: UnicodeData.txt
+#
+#  - Location:
+#    http://www.unicode.org/Public/7.0.0/ucd/UnicodeData.txt
+#
+#  - Description:
+#    UnicodeData.txt is a file in the Unicode Character Database of
+#    version 7.0.0 of the Unicode Standard.  It lists all Unicode
+#    characters and their properties.  For details on the format and
+#    contents of this file, see revision 14 of the Unicode Standard
+#    Annex #44 at
+#    http://www.unicode.org/reports/tr44/tr44-14.html.
+#
+#  - Copyright and Permission Notice:
+#    Copyright (C) 1991-2014 Unicode, Inc.  All rights reserved.
+#    Distributed under the Terms of Use in
+#    http://www.unicode.org/copyright.html.
+#
+#    Permission is hereby granted, free of charge, to any person
+#    obtaining a copy of the Unicode data files and any associated
+#    documentation (the "Data Files") or Unicode software and any
+#    associated documentation (the "Software") to deal in the Data Files
+#    or Software without restriction, including without limitation the
+#    rights to use, copy, modify, merge, publish, distribute, and/or
+#    sell copies of the Data Files or Software, and to permit persons to
+#    whom the Data Files or Software are furnished to do so, provided
+#    that (a) the above copyright notice(s) and this permission notice
+#    appear with all copies of the Data Files or Software, (b) both the
+#    above copyright notice(s) and this permission notice appear in
+#    associated documentation, and (c) there is clear notice in each
+#    modified Data File or in the Software as well as in the
+#    documentation associated with the Data File(s) or Software that the
+#    data or software has been modified.
+#
+#
+#  ---------------------------------------------------------------------
+#  Other IFAP lookup tables used to create this lookup table
+#  ---------------------------------------------------------------------
+#
+#  ILT08_Eligible_Characters
+#
+#
+#  ---------------------------------------------------------------------
+#  Description of the fields in this lookup table
+#  ---------------------------------------------------------------------
+#
+#  Field count: 1
+#
+#
+#  Field 1: CODE_POINT
+#
+#  - Description:
+#    A code point or a range of code points
+#
+#
+#  ---------------------------------------------------------------------
+#  Method used to compute the field values in this lookup table
+#  ---------------------------------------------------------------------
+#
+#  The data lines following these comments are created by reading each
+#  data line in ILT08_Eligible_Characters where the value of the second
+#  field (IS_ELIGIBLE) equals 1.  If the data line contains a code point
+#  range, then the process below is performed for each code point in the
+#  range.
+#
+#  Each code point is looked up in UnicodeData.txt in order to analyze
+#  the value of the General_Category property, which is the third
+#  field in the semi-colon separated list in each line of
+#  UnicodeData.txt.
+#
+#  For each code point or code point range where the value of the
+#  General_Category property equals Nd, a data line is added to
+#  ILT10_Decimal_Numbers with the value of the CODE_POINT field set to
+#  the code point or the code point range.
+#
+#
+#  ---------------------------------------------------------------------
+#  Generated data lines
+#  ---------------------------------------------------------------------
+#
+CODE_POINT
+0030..0039
+0660..0669
+06F0..06F9
+07C0..07C9
+0966..096F
+09E6..09EF
+0A66..0A6F
+0AE6..0AEF
+0B66..0B6F
+0BE6..0BEF
+0C66..0C6F
+0CE6..0CEF
+0D66..0D6F
+0DE6..0DEF
+0E50..0E59
+0ED0..0ED9
+0F20..0F29
+1040..1049
+1090..1099
+17E0..17E9
+1810..1819
+1946..194F
+19D0..19D9
+1A80..1A89
+1A90..1A99
+1B50..1B59
+1BB0..1BB9
+1C40..1C49
+1C50..1C59
+A620..A629
+A8D0..A8D9
+A900..A909
+A9D0..A9D9
+A9F0..A9F9
+AA50..AA59
+ABF0..ABF9
+104A0..104A9
+11066..1106F
+110F0..110F9
+11136..1113F
+111D0..111D9
+112F0..112F9
+114D0..114D9
+11650..11659
+116C0..116C9
+118E0..118E9
+16A60..16A69
+16B50..16B59

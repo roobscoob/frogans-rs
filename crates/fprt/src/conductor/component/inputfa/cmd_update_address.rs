@@ -6,15 +6,9 @@ use fprt_sys::ui::{Pop, StatusName};
 use fprt_sys::Fprt;
 
 use crate::conductor::command::{Command, CommandPayload};
-use crate::pool::{Pool, PooledString};
+use crate::pool::Pool;
 
-/// The canonical Frogans Address text the engine wants shown in the input field
-/// (e.g. after normalization).
-#[derive(Debug)]
-pub struct UpdateAddress {
-    /// Frogans address text.
-    pub address: Option<PooledString>,
-}
+pub use fprt_core::component::inputfa::UpdateAddress;
 
 impl CommandPayload for UpdateAddress {
     const ID: StatusName = CMD_UPDATE_ADDRESS;
@@ -24,13 +18,7 @@ impl CommandPayload for UpdateAddress {
         methods.inputfa_update_address
     }
 
-    fn from_raw(raw: Raw, pool: &Pool) -> Self {
-        // SAFETY: `address` was written into `pool` by the pop that produced both.
-        let address = unsafe { pool.string(raw.address) };
-        UpdateAddress { address }
-    }
-
-    fn into_command(self) -> Command {
-        Command::InputfaUpdateAddress(self)
+    fn decode(raw: Raw, pool: &Pool) -> Command {
+        Command::InputfaUpdateAddress(UpdateAddress::from_raw(raw, pool))
     }
 }

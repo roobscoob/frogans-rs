@@ -1,47 +1,14 @@
-//! `launch_way_out` command (engine → host) — a URL to open externally.
+//! `launch_way_out` command (engine → host) — client transport for the core codec.
 
-use fprt_sys::ui::application::launch_way_out::LaunchWayOut as Raw;
-use fprt_sys::ui::application::uri_scheme::UriScheme as RawUriScheme;
-use fprt_sys::ui::application::CMD_LAUNCH_WAY_OUT;
-use fprt_sys::ui::{Pop, StatusName};
 use fprt_sys::Fprt;
+use fprt_sys::ui::application::CMD_LAUNCH_WAY_OUT;
+use fprt_sys::ui::application::launch_way_out::LaunchWayOut as Raw;
+use fprt_sys::ui::{Pop, StatusName};
 
 use crate::conductor::command::{Command, CommandPayload};
-use crate::pool::{Pool, PooledString};
+use crate::pool::Pool;
 
-/// The URL scheme of a way-out URL. The host opens `http`/`https`/`mailto`
-/// externally and errors on [`Other`](UriScheme::Other).
-#[derive(Clone, Copy, PartialEq, Eq, Debug)]
-pub enum UriScheme {
-    /// `http`.
-    Http,
-    /// `https`.
-    Https,
-    /// `mailto`.
-    Mailto,
-    /// Other / unknown scheme (`0x1388` or any other value).
-    Other,
-}
-
-impl UriScheme {
-    fn from_raw(raw: RawUriScheme) -> Self {
-        match raw {
-            RawUriScheme::HTTP => UriScheme::Http,
-            RawUriScheme::HTTPS => UriScheme::Https,
-            RawUriScheme::MAILTO => UriScheme::Mailto,
-            _ => UriScheme::Other,
-        }
-    }
-}
-
-/// A URL the host must open externally (browser / mail client).
-#[derive(Debug)]
-pub struct LaunchWayOut {
-    /// The URL's scheme.
-    pub scheme: UriScheme,
-    /// The URL.
-    pub uri: Option<PooledString>,
-}
+pub use fprt_core::component::application::{LaunchWayOut, UriScheme};
 
 impl CommandPayload for LaunchWayOut {
     const ID: StatusName = CMD_LAUNCH_WAY_OUT;
@@ -51,16 +18,7 @@ impl CommandPayload for LaunchWayOut {
         methods.application_launch_way_out
     }
 
-    fn from_raw(raw: Raw, pool: &Pool) -> Self {
-        // SAFETY: `uri` was written into `pool` by the pop that produced both.
-        let uri = unsafe { pool.string(raw.uri) };
-        LaunchWayOut {
-            scheme: UriScheme::from_raw(raw.uri_scheme),
-            uri,
-        }
-    }
-
-    fn into_command(self) -> Command {
-        Command::ApplicationLaunchWayOut(self)
+    fn decode(raw: Raw, pool: &Pool) -> Command {
+        Command::ApplicationLaunchWayOut(LaunchWayOut::from_raw(raw, pool))
     }
 }

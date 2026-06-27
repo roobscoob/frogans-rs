@@ -6,36 +6,17 @@ use fprt_sys::ui::{Pop, StatusName};
 use fprt_sys::Fprt;
 
 use crate::conductor::command::{Command, CommandPayload};
-use crate::pool::{Pool, PooledString};
+use crate::pool::Pool;
 
-/// The two URIs the software-update dialog carries.
-#[derive(Debug)]
-pub struct UpdateData {
-    /// The update URI.
-    pub update_uri: Option<PooledString>,
-    /// The changed-branch URI.
-    pub changed_branch_uri: Option<PooledString>,
-}
+pub use fprt_core::component::update::UpdateData;
 
 impl CommandPayload for UpdateData {
     const ID: StatusName = CMD_UPDATE_DATA;
     type Raw = Raw;
-
     fn pop_fn(methods: &Fprt) -> Pop<Self::Raw> {
         methods.update_update_data
     }
-
-    fn from_raw(raw: Raw, pool: &Pool) -> Self {
-        // SAFETY: every field was written into `pool` by the pop that produced both.
-        unsafe {
-            UpdateData {
-                update_uri: pool.string(raw.update_uri),
-                changed_branch_uri: pool.string(raw.changed_branch_uri),
-            }
-        }
-    }
-
-    fn into_command(self) -> Command {
-        Command::UpdateUpdateData(self)
+    fn decode(raw: Raw, pool: &Pool) -> Command {
+        Command::UpdateUpdateData(UpdateData::from_raw(raw, pool))
     }
 }

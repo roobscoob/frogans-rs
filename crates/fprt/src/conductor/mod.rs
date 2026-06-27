@@ -26,25 +26,9 @@ use crate::call::invoke;
 use crate::engine::EngineInner;
 use crate::error::EngineError;
 
-/// When the engine next wants a turn, reported by `sync_leave`.
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub enum NextWake {
-    /// Nothing pending — wake on the next external event.
-    Idle,
-    /// Wake again after this delay.
-    In(Duration),
-}
-
-impl NextWake {
-    fn from_raw(ms: u32) -> Self {
-        // sync_leave writes -1 (as u32::MAX) to mean idle.
-        if ms == u32::MAX {
-            NextWake::Idle
-        } else {
-            NextWake::In(Duration::from_millis(ms as u64))
-        }
-    }
-}
+// `NextWake` lives in `fprt-core` (the server produces it, this client consumes
+// it). Re-exported so `conductor::NextWake` and the public API keep resolving.
+pub use fprt_core::NextWake;
 
 /// A live conductor — one running Frogans session, from
 /// [`Library::spawn_conductor`](crate::Library::spawn_conductor).

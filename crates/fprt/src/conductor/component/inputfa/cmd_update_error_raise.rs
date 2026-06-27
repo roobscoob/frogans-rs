@@ -6,15 +6,9 @@ use fprt_sys::ui::{Pop, StatusName};
 use fprt_sys::Fprt;
 
 use crate::conductor::command::{Command, CommandPayload};
-use crate::pool::{Pool, PooledString};
+use crate::pool::Pool;
 
-/// The localized error string the engine wants shown in the dialog's inline
-/// error label (the user typed an invalid Frogans address).
-#[derive(Debug)]
-pub struct UpdateErrorRaise {
-    /// Inline error text.
-    pub error_msg: Option<PooledString>,
-}
+pub use fprt_core::component::inputfa::UpdateErrorRaise;
 
 impl CommandPayload for UpdateErrorRaise {
     const ID: StatusName = CMD_UPDATE_ERROR_RAISE;
@@ -24,13 +18,7 @@ impl CommandPayload for UpdateErrorRaise {
         methods.inputfa_update_error_raise
     }
 
-    fn from_raw(raw: Raw, pool: &Pool) -> Self {
-        // SAFETY: `error_msg` was written into `pool` by the pop that produced both.
-        let error_msg = unsafe { pool.string(raw.error_msg) };
-        UpdateErrorRaise { error_msg }
-    }
-
-    fn into_command(self) -> Command {
-        Command::InputfaUpdateErrorRaise(self)
+    fn decode(raw: Raw, pool: &Pool) -> Command {
+        Command::InputfaUpdateErrorRaise(UpdateErrorRaise::from_raw(raw, pool))
     }
 }

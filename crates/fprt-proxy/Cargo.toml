@@ -1,0 +1,26 @@
+[package]
+name = "fprt-proxy"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+
+# A debugging proxy engine: a `fprt.dll`-shaped library that loads the *real*
+# engine as a sibling `source-fprt.dll` and forwards to it through the safe typed
+# layer (fprt-server inbound, fprt client outbound), logging the traffic.
+#
+# Its lib name is `fprt_proxy` (not `fprt`), so it builds as `fprt_proxy.dll`
+# alongside the root's real `fprt.dll` without an output collision. Deploy it by
+# copying `fprt_proxy.dll` → `fprt.dll` and the real engine → `source-fprt.dll`.
+[lib]
+name = "fprt_proxy"
+crate-type = ["cdylib"]
+
+[dependencies]
+# Inbound: the EXE drives us as an engine.
+fprt-server = { workspace = true }
+# Outbound: we drive the real engine as a client (dynamically loaded).
+fprt = { workspace = true, features = ["libloading"] }
+# The 179 C export symbols the EXE imports.
+fprt-exports = { workspace = true }
+# Load-time install (same per-platform hook as the root cdylib).
+ctor = "0.2"
